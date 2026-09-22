@@ -1,0 +1,2 @@
+tableauserverclient>=0.41
+pandas>=2.2
