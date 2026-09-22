@@ -1,0 +1,51 @@
+name: Actualizar tablero CUBICA+ Plataforma
+
+on:
+  schedule:
+    # GitHub usa UTC. Colombia = UTC-5 -> cada hora de 6:00 a 18:00, lunes a sabado.
+    - cron: "0 11-23 * * 1-6"
+  workflow_dispatch: # boton "Run workflow" para correrlo a mano
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  actualizar:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Extraer de Tableau y regenerar HTML
+        env:
+          TABLEAU_TOKEN_NAME: ${{ secrets.TABLEAU_TOKEN_NAME }}
+          TABLEAU_TOKEN_SECRET: ${{ secrets.TABLEAU_TOKEN_SECRET }}
+        run: python actualizar_cubica_plataforma.py
+
+      # Solo se publica el HTML agregado; data/Detalle.csv (datos personales) nunca sale del runner.
+      - name: Armar sitio
+        run: |
+          mkdir site
+          cp cubica_plataforma.html site/index.html
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+      - id: deploy
+        uses: actions/deploy-pages@v4
