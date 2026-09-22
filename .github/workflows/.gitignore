@@ -1,0 +1,13 @@
+# Credenciales: nunca al repositorio
+config/
+
+# Datos crudos de Tableau: traen cedula, nombre, direccion y telefono de clientes
+data/
+
+# Salidas generadas y respaldos
+cubica_plataforma.html
+*.bak.html
+site/
+__pycache__/
+*.XLSX
+*.xlsx
