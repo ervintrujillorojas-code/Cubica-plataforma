@@ -2,8 +2,8 @@ name: Actualizar tablero CUBICA+ Plataforma
 
 on:
   schedule:
-    # GitHub usa UTC. Colombia = UTC-5 -> cada hora de 6:00 a 18:00, lunes a sabado.
-    - cron: "0 11-23 * * 1-6"
+    # GitHub usa UTC. Colombia = UTC-5 -> cada hora de 6:17 a 18:17, lunes a sabado.
+    - cron: "17 11-23 * * 1-6"
   workflow_dispatch: # boton "Run workflow" para correrlo a mano
 
 permissions:
