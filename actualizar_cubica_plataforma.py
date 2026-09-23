@@ -111,12 +111,42 @@ def construir_raw():
             "ocupado": 0,
         })
 
-    raw = {"resumen": resumen, "detalle": detalle, "destinos": destinos}
+    raw = {"resumen": resumen, "detalle": detalle, "destinos": destinos, "pedidos": construir_pedidos(scope)}
 
     with open(DATA_JSON, "w", encoding="utf-8") as f:
         json.dump(raw, f, ensure_ascii=False, indent=2)
 
     return raw, len(scope)
+
+
+def construir_pedidos(scope):
+    """Detalle pedido a pedido para la descarga a Excel del tablero.
+
+    Solo columnas operativas: NO incluir cedula, nombre, direccion, barrio, senas,
+    telefonos ni VALOR_OFERTA (la pagina es publica)."""
+    def num(v):
+        v = clean(v)
+        try:
+            return float(v.replace(",", ".")) if v is not None else None
+        except ValueError:
+            return None
+
+    def fecha(v):
+        f = pd.to_datetime(clean(v), dayfirst=True, errors="coerce")
+        return None if pd.isna(f) else f.strftime("%Y-%m-%d")
+
+    filas = []
+    for _, r in scope.sort_values(["fecha_iso", "destino", "municipio", "NUM_PEDIDO_SAP"]).iterrows():
+        filas.append([
+            r["fecha_iso"], fecha(r["FECHA_CITA"]), r["destino"], r["municipio"],
+            r["CLASE_PEDIDO"], DESC_CLASE.get(r["CLASE_PEDIDO"], r["CLASE_PEDIDO"]),
+            clean(r["NUM_PEDIDO_SAP"]), clean(r["NUMERO_PEDIDO_SEUS"]), clean(r["ESTADO_SEUS"]),
+            num(r["CUBICAJE"]), num(r["PESO_BRUTO"]),
+            clean(r["DEPARTAMENTO_RUTA"]), clean(r["PUESTO_EXPEDICION"]),
+            clean(r["NUM_VIAJE_TRAMO_1"]), clean(r["NUM_ENTREGA_TRAMO_1"]),
+            clean(r["NUM_VIAJE_TRAMO_2"]), clean(r["NUM_ENTREGA_TRAMO_2"]),
+        ])
+    return filas
 
 
 def regenerar_html(raw):
