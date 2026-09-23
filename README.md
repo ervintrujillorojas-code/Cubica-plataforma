@@ -6,7 +6,7 @@ Tablero de cierre de agenda de picking (taller, devoluciones y piezas) por desti
 
 **Repositorio:** https://github.com/ervintrujillorojas-code/Cubica-plataforma
 
-HTML autocontenido con datos embebidos: no se conecta en vivo a Tableau, es una foto del extracto de la última corrida. Se regenera solo cada hora de 6:00 a 18:00, lunes a sábado (ver *Actualización automática*). La hora de la última actualización se ve en la pestaña *Actions* del repositorio.
+HTML autocontenido con datos embebidos: no se conecta en vivo a Tableau, es una foto del extracto de la última corrida. Se regenera sola cada hora (minuto 17) de 6:17 a 18:17, lunes a sábado (ver *Actualización automática*). La hora de la última actualización se ve en la pestaña *Actions* del repositorio.
 
 ## Versiones
 
@@ -90,7 +90,7 @@ Uso local: `python actualizar_cubica_plataforma.py` (lee el PAT de `config/table
 
 El workflow `.github/workflows/actualizar-tablero.yml` corre el script en los servidores de GitHub — no depende de que el PC esté encendido — y publica el HTML en GitHub Pages.
 
-- **Horario:** cada hora de 6:00 a 18:00 (hora Colombia), lunes a sábado (`cron: "0 11-23 * * 1-6"`, en UTC). GitHub puede retrasar unos minutos las corridas programadas.
+- **Horario:** cada hora al minuto 17, de 6:17 a 18:17 (hora Colombia), lunes a sábado (`cron: "17 11-23 * * 1-6"`, en UTC). Se evita la hora en punto porque GitHub retrasa o descarta más corridas programadas a esa hora; aun así no están garantizadas. Si se siguen saltando horas, la alternativa es un disparador externo (p. ej. cron-job.org llamando a *workflow_dispatch*). Si el repo pasa 60 días sin cambios, GitHub desactiva las corridas programadas.
 - **Manual:** pestaña *Actions* → *Actualizar tablero CUBICA+ Plataforma* → *Run workflow*.
 - **Credenciales:** el PAT de Tableau va en *Settings → Secrets and variables → Actions* como `TABLEAU_TOKEN_NAME` y `TABLEAU_TOKEN_SECRET`. `extract_tableau.py` los usa si existen; si no, lee `config/tableau_config.json`.
 - **Datos personales:** `data/Detalle.csv` trae cédula, nombre, dirección y teléfono de clientes. Está en `.gitignore` y el workflow solo publica `index.html`, que contiene conteos agregados (fecha, destino, municipio, clase, cubicaje). **Nunca subir la carpeta `data/` ni `config/`.**
