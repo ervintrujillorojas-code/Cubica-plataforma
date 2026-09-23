@@ -343,13 +343,19 @@
   }
   .legend-item{display:flex; align-items:center; gap:6px;}
   .legend-dot{width:10px; height:10px; border-radius:50%;}
+  .version-bar{
+    margin-top:14px; padding-top:12px; border-top:1px solid var(--border);
+    display:flex; flex-wrap:wrap; justify-content:space-between; gap:8px 16px;
+    font-size:12px; color:var(--text-muted); font-variant-numeric:tabular-nums;
+  }
+  .version-bar b{color:var(--text); font-weight:700;}
 </style>
 
 <div class="page-head">
   <div>
     <p class="eyebrow">Jamar Admin &middot; Logística</p>
     <h1>Seguimiento CUBICA+ &mdash; Plataforma</h1>
-    <p>Cierre de agenda de picking de taller, devoluciones y piezas por departamento, frente a la capacidad por día y destino: 18 servicios y 18 m³ por vehículo (Antioquia opera con 2 vehículos: 36 / 36). Excluye venta, traslados y cambio total/parcial.</p>
+    <p>Cierre de agenda de picking de taller, devoluciones y piezas por departamento y plataforma (Galapa, Bogotá, Medellín), frente a la capacidad por día y destino: 18 servicios y 18 m³ por vehículo (Antioquia opera con 2 vehículos: 36 / 36). Excluye venta, traslados y cambio total/parcial.</p>
   </div>
 </div>
 
@@ -380,6 +386,10 @@
         </span>
         <span id="f-vista-label">Foto del día</span>
       </label>
+    </div>
+    <div class="field">
+      <label for="f-plataforma">Plataforma</label>
+      <select id="f-plataforma"></select>
     </div>
     <div class="field grow">
       <label for="f-depto-btn">Departamentos</label>
@@ -422,6 +432,12 @@
   <div class="legend-item">Caucasia se trata como destino aparte, no se mezcla con el resto de Antioquia.</div>
   <div class="legend-item">Mapa de calor: cada celda es un día (número = % de ocupación), la línea punteada marca el cambio de mes. Celda gris = sin agenda ese día. Clic en una celda con datos para ver el detalle de ese día.</div>
 </footer>
+
+<!-- Versión del tablero: subirla con cada cambio (ver historial en README.md) -->
+<div class="version-bar">
+  <span>Versión del tablero <b>1.4</b></span>
+  <span>Datos actualizados: <b>__GENERADO__</b> (hora Colombia)</span>
+</div>
 
 <script>
 const RAW = __RAW_JSON__;
@@ -489,20 +505,34 @@ const titleCaseWords = (s) => s.toLowerCase().split(' ').map(w => w.charAt(0).to
 const departamentosTodos = (RAW.destinos && RAW.destinos.length)
   ? [...RAW.destinos].sort()
   : [...new Set(RAW.resumen.map(r => r.departamento))].sort();
+
+// Agrupación de destinos por plataforma (confirmada con el usuario 23/09/2026)
+const PLATAFORMAS = {
+  'Galapa':   ['ATLANTICO','BOLIVAR','MAGDALENA','CESAR','CORDOBA','GUAJIRA','SUCRE','CAUCASIA','SANTANDER'],
+  'Bogotá':   ['CUNDINAMARCA','META','BOYACA'],
+  'Medellín': ['ANTIOQUIA'],
+};
+function deptosVisibles(){
+  const p = $('#f-plataforma').value;
+  return p && PLATAFORMAS[p] ? departamentosTodos.filter(d => PLATAFORMAS[p].includes(d)) : departamentosTodos;
+}
+$('#f-plataforma').innerHTML = '<option value="">Todas las plataformas</option>' +
+  Object.keys(PLATAFORMAS).map(p => `<option value="${p}">Plataforma ${p}</option>`).join('');
+
 let selectedDeptos = new Set(departamentosTodos);
 
 function updateDeptoLabel(){
   const n = selectedDeptos.size;
   const label = $('#f-depto-label');
   if(n === 0) label.textContent = 'Ningún departamento';
-  else if(n === departamentosTodos.length) label.textContent = 'Todos los departamentos';
+  else if(n === deptosVisibles().length) label.textContent = $('#f-plataforma').value ? `Todos (Plataforma ${$('#f-plataforma').value})` : 'Todos los departamentos';
   else if(n === 1) label.textContent = titleCase([...selectedDeptos][0]);
   else label.textContent = `${n} departamentos seleccionados`;
 }
 
 function populateDeptoOptions(){
   const box = $('#depto-options');
-  box.innerHTML = departamentosTodos.map(dep => {
+  box.innerHTML = deptosVisibles().map(dep => {
     const total = RAW.resumen.filter(r => r.departamento === dep).reduce((s,r) => s + r.total_ordenes, 0);
     const checked = selectedDeptos.has(dep);
     return `<div class="option-row" role="checkbox" aria-checked="${checked}" tabindex="0" data-dep="${dep}">
@@ -543,7 +573,11 @@ document.addEventListener('click', (e) => {
 });
 document.addEventListener('keydown', (e) => { if(e.key === 'Escape') setDeptoPanel(false); });
 $('#depto-select-all').addEventListener('click', () => {
-  selectedDeptos = new Set(departamentosTodos);
+  selectedDeptos = new Set(deptosVisibles());
+  populateDeptoOptions(); updateDeptoLabel(); render();
+});
+$('#f-plataforma').addEventListener('change', () => {
+  selectedDeptos = new Set(deptosVisibles());
   populateDeptoOptions(); updateDeptoLabel(); render();
 });
 $('#depto-clear').addEventListener('click', () => {

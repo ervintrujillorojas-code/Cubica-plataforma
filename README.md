@@ -2,14 +2,27 @@
 
 Tablero de cierre de agenda de picking (taller, devoluciones y piezas) por destino, construido replicando el patrón visual y de datos de **CUBICA+** (ver [`Arquitectura del Dashboard CUBICA+.md`](./Arquitectura%20del%20Dashboard%20CUBICA+.md)), pero aplicado a la agenda de picking de "plataforma" en vez del dashboard-poligono original de Jamar Admin.
 
-**Publicación:** GitHub Pages, actualizado automáticamente (ver *Actualización automática*). Copia manual en claude.ai: https://claude.ai/artifact/6ukrWozyfgbVvd6Y3CqNuG
-(HTML autocontenido, datos embebidos — no se conecta en vivo a Tableau; es una foto del extracto vigente al momento de publicarlo).
+**Tablero:** https://ervintrujillorojas-code.github.io/Cubica-plataforma/
 
-**Última actualización local de datos:** 22/09/2026 — 431 pedidos (taller, devolución y piezas), 69 combinaciones fecha-destino.
+**Repositorio:** https://github.com/ervintrujillorojas-code/Cubica-plataforma
+
+HTML autocontenido con datos embebidos: no se conecta en vivo a Tableau, es una foto del extracto de la última corrida. Se regenera solo cada hora de 6:00 a 18:00, lunes a sábado (ver *Actualización automática*). La hora de la última actualización se ve en la pestaña *Actions* del repositorio.
+
+## Versiones
+
+La versión y la hora de la última actualización de datos se muestran al pie del tablero. La versión se cambia a mano en `dashboard_template.html` (bloque `version-bar`) con cada ajuste al tablero; la hora la pone el script en cada corrida (hora Colombia).
+
+| Versión | Fecha | Cambio |
+|---|---|---|
+| 1.0 | 18/09/2026 | Tablero inicial: foto del día por destino, capacidad fija 18 serv / 18 m³, Caucasia aparte de Antioquia |
+| 1.1 | 21/09/2026 | Se agrega ZPZA (entrega piezas), mapa de calor con drill-down y tabla combinada Municipio × Clase |
+| 1.2 | 22/09/2026 | Capacidad por vehículos: Antioquia con 2 vehículos (36 / 36) |
+| 1.3 | 23/09/2026 | Publicación automática en GitHub Pages (cada hora) y pie con versión y hora de actualización |
+| 1.4 | 23/09/2026 | Filtro de Plataforma (Galapa, Bogotá, Medellín) y exclusión de Bocas del Toro (Panamá) |
 
 ## Qué muestra
 
-Dos modos de vista, con el mismo filtro de departamentos (selección múltiple) y de orden (más pedidos / menor ocupación / alfabético):
+Dos modos de vista, con el mismo filtro de plataforma, de departamentos (selección múltiple) y de orden (más pedidos / menor ocupación / alfabético):
 
 ### Foto del día (default)
 
@@ -53,10 +66,19 @@ Toggle "VISTA" → matriz con una fila por destino y una columna por cada uno de
 4. **Alcance de pedidos: taller, devolución y piezas** — `ZSCC` (Entrega taller), `ZSRT` (Recogida taller), `ZSRD` (Recogida devolución), `ZPZA` (Entrega piezas). Se excluyen venta, traslados (`ZTRC`) y las 4 clases de cambio total/parcial (`ZSRC`, `ZSCE`, `ZRCP`, `ZSCP`). Catálogo completo en la memoria del proyecto / `catalogo_clase_pedido.md`.
 5. **No se usa el cruce de validación Salesforce** (campo `v` del extracto anterior) — la ocupación se mide contra la capacidad por destino, no contra el estado de validación del caso.
 6. **La fecha es `FECHA_PICKING_POS`** (fecha de picking), no `FECHA_CITA` (fecha de entrega al cliente) — son campos distintos en `Detalle.csv`.
+7. **Plataformas:** cada destino pertenece a una plataforma; el filtro *Plataforma* limita la lista de departamentos (y todos los totales) a los de esa plataforma. Se define en `PLATAFORMAS` dentro de `dashboard_template.html`.
+
+   | Plataforma | Destinos |
+   |---|---|
+   | Galapa | Atlántico, Bolívar, Magdalena, Cesar, Córdoba, Guajira, Sucre, Caucasia, Santander |
+   | Bogotá | Cundinamarca, Meta, Boyacá |
+   | Medellín | Antioquia |
+
+8. **Bocas del Toro (Panamá) se excluye de todo el tablero** (`DESTINOS_EXCLUIDOS` en `actualizar_cubica_plataforma.py`).
 
 ## Cómo se generan los datos embebidos
 
-El HTML no lee `Detalle.csv` en vivo (los artifacts son estáticos). `actualizar_cubica_plataforma.py` automatiza todo el proceso (mismo patrón que `../actualizar_torre_control.py` para el dashboard hermano):
+El HTML no lee `Detalle.csv` en vivo (es una página estática). `actualizar_cubica_plataforma.py` automatiza todo el proceso (mismo patrón que `../actualizar_torre_control.py` para el dashboard hermano):
 
 1. Refresca `data/Detalle.csv` corriendo `extract_tableau.py`.
 2. Agrega por `(FECHA_PICKING_POS, destino)` — total de pedidos y suma de cubicaje, filtrando a las 4 clases de la regla 4 y aplicando la regla 1 (Caucasia aparte), con desglose por municipio y clase. También calcula el universo completo de destinos (todas las clases, sin filtrar) para que el filtro de departamentos los liste aunque tengan 0 pedidos en el alcance actual. Guarda el resultado en `data/cubica_data.json`.
@@ -73,17 +95,27 @@ El workflow `.github/workflows/actualizar-tablero.yml` corre el script en los se
 - **Credenciales:** el PAT de Tableau va en *Settings → Secrets and variables → Actions* como `TABLEAU_TOKEN_NAME` y `TABLEAU_TOKEN_SECRET`. `extract_tableau.py` los usa si existen; si no, lee `config/tableau_config.json`.
 - **Datos personales:** `data/Detalle.csv` trae cédula, nombre, dirección y teléfono de clientes. Está en `.gitignore` y el workflow solo publica `index.html`, que contiene conteos agregados (fecha, destino, municipio, clase, cubicaje). **Nunca subir la carpeta `data/` ni `config/`.**
 - **Visibilidad:** con un plan gratuito de GitHub, la página de Pages es pública para cualquiera que tenga el link (tiene `noindex` para que no aparezca en buscadores). Solo GitHub Enterprise permite Pages privado.
-- **Cambios al tablero:** editar `dashboard_template.html` o el script y hacer push; la siguiente corrida los toma.
+- **Cambios al tablero:** editar el archivo en GitHub (abrir el archivo → tecla `e` o cambiar `/blob/` por `/edit/` en la URL → *Commit changes*) o subirlo con *Add file → Upload files* **estando en la raíz del repositorio**. La siguiente corrida los toma; para verlos de inmediato, *Run workflow*. La carpeta local del PC no se sincroniza sola con GitHub.
 
-### Configuración inicial (una sola vez)
+### Configuración inicial (hecha el 22/09/2026)
 
-1. Crear el repositorio en GitHub y subir esta carpeta (el `.gitignore` excluye `config/`, `data/`, el Excel y los HTML generados).
-2. *Settings → Secrets and variables → Actions → New repository secret*: `TABLEAU_TOKEN_NAME` y `TABLEAU_TOKEN_SECRET`.
-3. *Settings → Pages → Build and deployment → Source*: **GitHub Actions**.
-4. *Actions → Actualizar tablero CUBICA+ Plataforma → Run workflow* y revisar que termine en verde. Si falla en el paso "Extraer de Tableau" con un timeout o error de conexión, el firewall de Jamar está bloqueando a GitHub: hay que pedirle a TI que permita el acceso a `elena.mueblesjamar.com.co`.
-5. El link del tablero queda en *Settings → Pages* (formato `https://<usuario>.github.io/<repositorio>/`).
+1. Repositorio público creado en GitHub. Los archivos se subieron por la web (el PC no tiene Git): la carga web ignora archivos que empiezan con punto, así que `.gitignore` y `.github/workflows/actualizar-tablero.yml` se crearon con *Add file → Create new file*.
+2. *Settings → Secrets and variables → Actions*: secretos `TABLEAU_TOKEN_NAME` y `TABLEAU_TOKEN_SECRET`.
+3. *Settings → Pages → Source*: **GitHub Actions**.
+4. Primera corrida exitosa: GitHub sí llega a `elena.mueblesjamar.com.co` (no hay bloqueo de firewall).
 
-El artifact de claude.ai (https://claude.ai/artifact/6ukrWozyfgbVvd6Y3CqNuG) deja de actualizarse solo; se puede seguir republicando a mano con Claude si se quiere mantener.
+### Si una corrida falla
+
+GitHub envía un correo. En *Actions*, abrir la corrida en rojo → *actualizar* → el paso con ❌:
+
+| Error | Causa | Solución |
+|---|---|---|
+| `401001 ... token de acceso personal ... no es válido` | Secreto mal copiado, o el PAT venció / fue revocado en Tableau | Revisar los dos secretos (sin comillas ni espacios; `TABLEAU_TOKEN_SECRET` lleva un `:` en medio). Si el PAT venció, generar uno nuevo en Tableau y actualizar ambos secretos (y `config/tableau_config.json` en local) |
+| Timeout / connection refused en "Extraer de Tableau" | Tableau caído o firewall bloqueando a GitHub | Probar más tarde; si persiste, escalar a TI |
+| `No such file` / `can't open file` | Algún archivo quedó fuera de la raíz del repo | Mover el archivo a la raíz (editar → borrar la carpeta del nombre con Backspace) |
+| Falla en "deploy" | Pages no está en *GitHub Actions* | *Settings → Pages → Source: GitHub Actions* |
+
+Copia anterior del tablero en claude.ai (ya no se actualiza sola, se puede republicar a mano con Claude): https://claude.ai/artifact/6ukrWozyfgbVvd6Y3CqNuG
 
 ## Pendiente
 

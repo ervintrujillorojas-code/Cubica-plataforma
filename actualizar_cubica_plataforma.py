@@ -22,11 +22,13 @@ y el HTML se publica en GitHub Pages; en local queda para revisarlo o republicar
 import json
 import subprocess
 import sys
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import pandas as pd
 
 BASE_DIR = Path(__file__).parent
+HORA_COLOMBIA = timezone(timedelta(hours=-5))  # Colombia no tiene horario de verano
 RAW_CSV = BASE_DIR / "data" / "Detalle.csv"
 TEMPLATE_HTML = BASE_DIR / "dashboard_template.html"
 OUTPUT_HTML = BASE_DIR / "cubica_plataforma.html"
@@ -34,6 +36,8 @@ DATA_JSON = BASE_DIR / "data" / "cubica_data.json"
 
 # Reglas de negocio confirmadas (ver README.md / memoria del proyecto)
 CLASES_ALCANCE = {"ZSCC", "ZSRT", "ZSRD", "ZPZA"}
+# Destinos fuera del alcance en todo el tablero (Bocas del Toro = Panama)
+DESTINOS_EXCLUIDOS = {"BOCAS DEL TORO"}
 DESC_CLASE = {
     "ZSCC": "Entrega taller",
     "ZSRT": "Recogida taller",
@@ -64,6 +68,7 @@ def extraer_de_tableau():
 def construir_raw():
     df = pd.read_csv(RAW_CSV, sep=";", encoding="utf-8", dtype=str)
     df["destino"] = df.apply(destino_de, axis=1)
+    df = df[~df["destino"].isin(DESTINOS_EXCLUIDOS)]
     df["cubicaje_num"] = df["CUBICAJE"].apply(
         lambda v: float(str(v).replace(",", ".")) if clean(v) is not None else 0.0
     )
@@ -121,7 +126,9 @@ def regenerar_html(raw):
     raw_json = json.dumps(raw, ensure_ascii=False, separators=(",", ":"))
     raw_json_safe = raw_json.replace("</script", "<\\/script")
 
-    html = template.replace("__RAW_JSON__", raw_json_safe)
+    generado = datetime.now(HORA_COLOMBIA).strftime("%d/%m/%Y %I:%M %p").replace("AM", "a. m.").replace("PM", "p. m.")
+
+    html = template.replace("__RAW_JSON__", raw_json_safe).replace("__GENERADO__", generado)
 
     with open(OUTPUT_HTML, "w", encoding="utf-8") as f:
         f.write(html)
