@@ -19,6 +19,8 @@ La versión y la hora de la última actualización de datos se muestran al pie d
 | 1.2 | 22/09/2026 | Capacidad por vehículos: Antioquia con 2 vehículos (36 / 36) |
 | 1.3 | 23/09/2026 | Publicación automática en GitHub Pages (cada hora) y pie con versión y hora de actualización |
 | 1.4 | 23/09/2026 | Filtro de Plataforma (Galapa, Bogotá, Medellín) y exclusión de Bocas del Toro (Panamá) |
+| 1.5 | 23/09/2026 | Botón *Descargar Excel* con el detalle pedido a pedido según vista y filtros |
+| 1.6 | 23/09/2026 | Se agrega ZSN1 (Devolución nota de cambio) al alcance; se excluye también el destino PANAMA |
 
 ## Qué muestra
 
@@ -37,6 +39,18 @@ Una tarjeta por destino (departamento, con Caucasia separada de Antioquia — ve
 Toggle "VISTA" → matriz con una fila por destino y una columna por cada uno de 30 días corridos de calendario (sin saltar días vacíos), empezando en la primera fecha con datos. Cada celda es un día: número = % de ocupación (mayor entre cubicaje y servicios), coloreado con el mismo semáforo; celda gris = sin agenda ese día; línea punteada = cambio de mes. El resumen superior pasa a mostrar totales del rango completo (30 días × capacidad diaria de cada destino — ver regla 2).
 
 **Drill-down:** clic en cualquier celda con datos abre, justo debajo de la fila de ese destino, la misma tarjeta de detalle que en "Foto del día" (badges, barras, desglose por municipio y clase) para ese destino y ese día puntual. Clic de nuevo sobre la celda (o sobre otra) la cierra/reemplaza.
+
+### Descargar Excel
+
+Botón *Descargar Excel* en el panel de filtros. Descarga un `.xlsx` con **un pedido por fila** del alcance del tablero, respetando los filtros:
+
+- **Foto del día:** los pedidos de la fecha de picking seleccionada.
+- **Mapa de calor:** todos los pedidos de los 30 días del rango.
+- En ambos casos, solo de la plataforma y los departamentos seleccionados.
+
+Columnas: Fecha picking, Fecha cita, Plataforma, Destino, Municipio, Clase pedido, Descripción clase, N° pedido SAP, N° pedido SEUS, Estado SEUS, Cubicaje (m³), Peso bruto, Departamento ruta, Puesto expedición, N° viaje / entrega tramo 1 y 2.
+
+**No incluye** cédula, nombre del cliente, dirección, barrio, señas, teléfonos ni `VALOR_OFERTA`: la página es pública y esos datos viajarían embebidos en ella. Las columnas se definen en `construir_pedidos()` de `actualizar_cubica_plataforma.py`; **no agregar datos personales mientras el tablero sea público.** El Excel se arma en el navegador con SheetJS (cargado desde cdn.jsdelivr.net solo al hacer clic).
 
 ## Semáforo de ocupación
 
@@ -63,7 +77,7 @@ Toggle "VISTA" → matriz con una fila por destino y una columna por cada uno de
 
    Aplica todos los días de la semana (22/09/2026). Para cambiar la cantidad de vehículos de un destino, editar `VEHICULOS_POR_DESTINO` en `dashboard_template.html` (ej. `{ANTIOQUIA: 2, ATLANTICO: 2}`; los destinos no listados valen 1) y volver a correr el script.
 3. **Criterio de alerta:** el destino/día queda en alerta cuando cubicaje ≥ capacidad del destino en m³ **o** servicios ≥ capacidad del destino (lo que se llene primero; ej. 18 en la mayoría, 36 en Antioquia). El estado nunca se muestra como "Cerrado" — siempre "Abierto", con el badge de alerta adicional si se llenó.
-4. **Alcance de pedidos: taller, devolución y piezas** — `ZSCC` (Entrega taller), `ZSRT` (Recogida taller), `ZSRD` (Recogida devolución), `ZPZA` (Entrega piezas). Se excluyen venta, traslados (`ZTRC`) y las 4 clases de cambio total/parcial (`ZSRC`, `ZSCE`, `ZRCP`, `ZSCP`). Catálogo completo en la memoria del proyecto / `catalogo_clase_pedido.md`.
+4. **Alcance de pedidos: taller, devolución y piezas** — `ZSCC` (Entrega taller), `ZSRT` (Recogida taller), `ZSRD` (Recogida devolución), `ZPZA` (Entrega piezas), `ZSN1` (Devolución nota de cambio, agregada 23/09/2026). Se excluyen venta, traslados (`ZTRC`) y las 4 clases de cambio total/parcial (`ZSRC`, `ZSCE`, `ZRCP`, `ZSCP`). Catálogo completo en la memoria del proyecto / `catalogo_clase_pedido.md`.
 5. **No se usa el cruce de validación Salesforce** (campo `v` del extracto anterior) — la ocupación se mide contra la capacidad por destino, no contra el estado de validación del caso.
 6. **La fecha es `FECHA_PICKING_POS`** (fecha de picking), no `FECHA_CITA` (fecha de entrega al cliente) — son campos distintos en `Detalle.csv`.
 7. **Plataformas:** cada destino pertenece a una plataforma; el filtro *Plataforma* limita la lista de departamentos (y todos los totales) a los de esa plataforma. Se define en `PLATAFORMAS` dentro de `dashboard_template.html`.
@@ -74,14 +88,14 @@ Toggle "VISTA" → matriz con una fila por destino y una columna por cada uno de
    | Bogotá | Cundinamarca, Meta, Boyacá |
    | Medellín | Antioquia |
 
-8. **Bocas del Toro (Panamá) se excluye de todo el tablero** (`DESTINOS_EXCLUIDOS` en `actualizar_cubica_plataforma.py`).
+8. **Panamá se excluye de todo el tablero** (el extracto lo trae como `BOCAS DEL TORO` o `PANAMA`) (`DESTINOS_EXCLUIDOS` en `actualizar_cubica_plataforma.py`).
 
 ## Cómo se generan los datos embebidos
 
 El HTML no lee `Detalle.csv` en vivo (es una página estática). `actualizar_cubica_plataforma.py` automatiza todo el proceso (mismo patrón que `../actualizar_torre_control.py` para el dashboard hermano):
 
 1. Refresca `data/Detalle.csv` corriendo `extract_tableau.py`.
-2. Agrega por `(FECHA_PICKING_POS, destino)` — total de pedidos y suma de cubicaje, filtrando a las 4 clases de la regla 4 y aplicando la regla 1 (Caucasia aparte), con desglose por municipio y clase. También calcula el universo completo de destinos (todas las clases, sin filtrar) para que el filtro de departamentos los liste aunque tengan 0 pedidos en el alcance actual. Guarda el resultado en `data/cubica_data.json`.
+2. Agrega por `(FECHA_PICKING_POS, destino)` — total de pedidos y suma de cubicaje, filtrando a las 5 clases de la regla 4 y aplicando la regla 1 (Caucasia aparte), con desglose por municipio y clase. También calcula el universo completo de destinos (todas las clases, sin filtrar) para que el filtro de departamentos los liste aunque tengan 0 pedidos en el alcance actual. Guarda el resultado en `data/cubica_data.json`.
 3. Inyecta ese JSON en `dashboard_template.html` (plantilla con el marcador `__RAW_JSON__`, extraída del artifact publicado) y genera `cubica_plataforma.html`.
 
 Uso local: `python actualizar_cubica_plataforma.py` (lee el PAT de `config/tableau_config.json`).

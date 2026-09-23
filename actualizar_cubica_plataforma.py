@@ -4,7 +4,7 @@ Actualiza los datos embebidos del tablero CUBICA+ Plataforma.
 Pasos:
 1. Extrae la vista "Detalle" del tablero Tableau (Agenda picking plataforma / ERVIN)
    usando el PAT configurado en config/tableau_config.json (mismo extract_tableau.py).
-2. Filtra a las 4 clases de taller/devolucion/piezas (ZSCC, ZSRT, ZSRD, ZPZA), aplica la regla de
+2. Filtra a las 5 clases de taller/devolucion/piezas (ZSCC, ZSRT, ZSRD, ZPZA, ZSN1), aplica la regla de
    Caucasia aparte de Antioquia, y agrega por (FECHA_PICKING_POS, destino):
    total de pedidos, suma de cubicaje y desglose por CLASE_PEDIDO.
 3. Calcula tambien el universo completo de destinos (todas las clases, sin filtrar)
@@ -35,14 +35,15 @@ OUTPUT_HTML = BASE_DIR / "cubica_plataforma.html"
 DATA_JSON = BASE_DIR / "data" / "cubica_data.json"
 
 # Reglas de negocio confirmadas (ver README.md / memoria del proyecto)
-CLASES_ALCANCE = {"ZSCC", "ZSRT", "ZSRD", "ZPZA"}
-# Destinos fuera del alcance en todo el tablero (Bocas del Toro = Panama)
-DESTINOS_EXCLUIDOS = {"BOCAS DEL TORO"}
+CLASES_ALCANCE = {"ZSCC", "ZSRT", "ZSRD", "ZPZA", "ZSN1"}
+# Destinos fuera del alcance en todo el tablero (Panama; el extracto lo trae como uno u otro)
+DESTINOS_EXCLUIDOS = {"BOCAS DEL TORO", "PANAMA"}
 DESC_CLASE = {
     "ZSCC": "Entrega taller",
     "ZSRT": "Recogida taller",
     "ZSRD": "Recogida devolucion",
     "ZPZA": "Entrega piezas",
+    "ZSN1": "Devolucion nota de cambio",
 }
 
 
