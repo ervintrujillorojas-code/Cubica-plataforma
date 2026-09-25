@@ -21,10 +21,11 @@ La versión y la hora de la última actualización de datos se muestran al pie d
 | 1.4 | 23/09/2026 | Filtro de Plataforma (Galapa, Bogotá, Medellín) y exclusión de Bocas del Toro (Panamá) |
 | 1.5 | 23/09/2026 | Botón *Descargar Excel* con el detalle pedido a pedido según vista y filtros |
 | 1.6 | 23/09/2026 | Se agrega ZSN1 (Devolución nota de cambio) al alcance; se excluye también el destino PANAMA |
+| 1.7 | 25/09/2026 | Filtro *Clase de pedido* (selección múltiple): recalcula tarjetas, mapa de calor, KPIs, alertas y Excel |
 
 ## Qué muestra
 
-Dos modos de vista, con el mismo filtro de plataforma, de departamentos (selección múltiple) y de orden (más pedidos / menor ocupación / alfabético):
+Dos modos de vista, con el mismo filtro de plataforma, de departamentos (selección múltiple), de clase de pedido (selección múltiple; recalcula pedidos, cubicaje y alertas solo con las clases elegidas) y de orden (más pedidos / menor ocupación / alfabético):
 
 ### Foto del día (default)
 

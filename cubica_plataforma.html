@@ -1,0 +1,1147 @@
+<!doctype html><html><head><meta charset=utf8><meta name="robots" content="noindex, nofollow"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>CUBICA+ Plataforma</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Karla:wght@400;500;600;700&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,500,0,0&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F8F9FE;
+    --surface:#FFFFFF;
+    --surface-2:#EEF1FB;
+    --header-dark:#232A45;
+    --header-dark-2:#2E3660;
+    --text:#20242E;
+    --text-muted:#6B7280;
+    --text-on-dark:#F3F4FA;
+    --text-on-dark-muted:#B6BCDA;
+    --border:#E3E7F3;
+    --accent:#3949AB;
+    --accent-soft:#E8EAFB;
+    --low:#FFB300;
+    --normal:#4CAF50;
+    --alert:#2196F3;
+    --closed:#E53935;
+    --closed-soft:#FDE8E7;
+    --open-soft:#E7F3EE;
+    --open-text:#1E7A53;
+    --shadow: 0 8px 20px rgba(32,36,46,.10);
+    --shadow-lg: 0 12px 28px rgba(32,36,46,.16);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#12141C;
+      --surface:#1B1F2A;
+      --surface-2:#232838;
+      --header-dark:#181C2C;
+      --header-dark-2:#232A45;
+      --text:#E7E9F0;
+      --text-muted:#9AA1B4;
+      --text-on-dark:#F3F4FA;
+      --text-on-dark-muted:#9AA1C8;
+      --border:#2C3245;
+      --accent:#7986CB;
+      --accent-soft:#262C4A;
+      --low:#FFCA28;
+      --normal:#66BB6A;
+      --alert:#4FA8F5;
+      --closed:#EF5350;
+      --closed-soft:#3A2027;
+      --open-soft:#1C3329;
+      --open-text:#7FD8AF;
+      --shadow: 0 8px 20px rgba(0,0,0,.35);
+      --shadow-lg: 0 12px 28px rgba(0,0,0,.45);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#12141C;
+    --surface:#1B1F2A;
+    --surface-2:#232838;
+    --header-dark:#181C2C;
+    --header-dark-2:#232A45;
+    --text:#E7E9F0;
+    --text-muted:#9AA1B4;
+    --text-on-dark:#F3F4FA;
+    --text-on-dark-muted:#9AA1C8;
+    --border:#2C3245;
+    --accent:#7986CB;
+    --accent-soft:#262C4A;
+    --low:#FFCA28;
+    --normal:#66BB6A;
+    --alert:#4FA8F5;
+    --closed:#EF5350;
+    --closed-soft:#3A2027;
+    --open-soft:#1C3329;
+    --open-text:#7FD8AF;
+    --shadow: 0 8px 20px rgba(0,0,0,.35);
+    --shadow-lg: 0 12px 28px rgba(0,0,0,.45);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Karla',-apple-system,'Segoe UI',sans-serif;
+    padding-inline:16px;
+    padding-block:24px 48px;
+    max-width:1180px;
+    margin:0 auto;
+  }
+  h1,h2,h3{font-family:'Poppins',-apple-system,'Segoe UI',sans-serif; margin:0; text-wrap:balance;}
+  .material-symbols-outlined{
+    font-variation-settings:'FILL' 0,'wght' 500,'GRAD' 0,'opsz' 24;
+    font-size:20px; line-height:1; vertical-align:middle;
+  }
+
+  /* ---- Page header ---- */
+  .page-head{display:flex; align-items:flex-start; justify-content:space-between; gap:16px; margin-bottom:20px; flex-wrap:wrap;}
+  .page-head .eyebrow{
+    font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--accent); margin:0 0 4px;
+  }
+  .page-head h1{font-size:26px; color:var(--text);}
+  .page-head p{margin:6px 0 0; color:var(--text-muted); font-size:14px; max-width:56ch;}
+
+  /* ---- Filters panel ---- */
+  .filters{
+    background:var(--surface);
+    border-radius:14px;
+    box-shadow:var(--shadow);
+    margin-bottom:22px;
+  }
+  .filters-head{
+    background:linear-gradient(135deg,var(--header-dark),var(--header-dark-2));
+    color:var(--text-on-dark);
+    padding:14px 20px;
+    border-radius:14px 14px 0 0;
+    display:flex; align-items:center; gap:10px;
+  }
+  .filters-head .material-symbols-outlined{color:var(--text-on-dark-muted);}
+  .filters-head span.label{font-weight:700; font-size:14px; letter-spacing:.02em;}
+  .filters-body{
+    padding:18px 20px 20px;
+    display:flex; flex-wrap:wrap; align-items:end; gap:16px;
+  }
+  .field{display:flex; flex-direction:column; gap:6px; min-width:160px;}
+  .field label{font-size:12px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:.04em;}
+  .field select, .field input{
+    font-family:inherit; font-size:14px; color:var(--text);
+    background:var(--surface-2); border:1px solid var(--border); border-radius:8px;
+    padding:9px 10px; min-height:38px;
+  }
+  .field select:focus, .field input:focus{outline:2px solid var(--accent); outline-offset:1px;}
+  .field select:disabled{opacity:.5; cursor:not-allowed;}
+  .date-nav{display:flex; align-items:center; gap:6px;}
+  .date-nav select{min-width:220px;}
+  .icon-btn{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:36px; height:36px; border-radius:8px; border:1px solid var(--border);
+    background:var(--surface-2); color:var(--text); cursor:pointer;
+  }
+  .icon-btn:hover{background:var(--accent-soft); border-color:var(--accent);}
+  .icon-btn:disabled{opacity:.4; cursor:not-allowed;}
+  .field.grow{flex:1 1 220px;}
+  .field.grow input{width:100%;}
+  .chip-hint{font-size:12px; color:var(--text-muted); margin-left:auto; align-self:center;}
+
+  .switch-row{display:flex; align-items:center; gap:8px; min-height:38px; cursor:pointer;}
+  .switch{position:relative; width:38px; height:21px; flex:none;}
+  .switch input{position:absolute; opacity:0; width:100%; height:100%; margin:0; cursor:pointer;}
+  .switch .slider{
+    position:absolute; inset:0; background:var(--surface-2); border:1px solid var(--border);
+    border-radius:999px; transition:background .2s ease;
+  }
+  .switch .slider::before{
+    content:''; position:absolute; width:15px; height:15px; left:2px; top:2px;
+    background:var(--surface); border:1px solid var(--border); border-radius:50%;
+    transition:transform .2s ease; box-shadow:0 1px 2px rgba(0,0,0,.15);
+  }
+  .switch input:checked + .slider{background:var(--accent); border-color:var(--accent);}
+  .switch input:checked + .slider::before{transform:translateX(17px); border-color:var(--accent);}
+  .switch input:focus-visible + .slider{outline:2px solid var(--accent); outline-offset:2px;}
+  #f-vista-label{font-size:13px; color:var(--text); white-space:nowrap;}
+
+  .heatmap-wrap{
+    grid-column:1/-1;
+    background:var(--surface); border-radius:12px; box-shadow:var(--shadow);
+    padding:18px; overflow-x:auto;
+  }
+  table.heatmap{border-collapse:separate; border-spacing:3px;}
+  .heat-row-label{
+    position:sticky; left:0; background:var(--surface); z-index:1;
+    text-align:left; padding:2px 12px 2px 2px; white-space:nowrap; vertical-align:middle;
+  }
+  .heat-row-label .name{font-size:13px; font-weight:700; color:var(--text);}
+  .heat-row-label .sub{font-size:10.5px; color:var(--text-muted); font-variant-numeric:tabular-nums;}
+  thead .heat-row-label{
+    font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:var(--text-muted);
+  }
+  .heat-col-label{
+    font-size:10px; font-weight:700; color:var(--text-muted); text-align:center;
+    padding-bottom:4px; font-variant-numeric:tabular-nums; min-width:24px;
+  }
+  .heat-col-label.month-start, td.heat-cell.month-start{border-left:1px dashed var(--border); padding-left:5px;}
+  .heat-cell{padding:0;}
+  .heat-box{
+    width:24px; height:24px; border-radius:6px; margin:0 auto;
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; font-size:9px; font-weight:700; font-variant-numeric:tabular-nums;
+  }
+  .heat-empty{background:var(--surface-2); border:1px dashed var(--border);}
+  .heat-box[data-fecha]{cursor:pointer;}
+  .heat-box[data-fecha]:hover{filter:brightness(1.08);}
+  .heat-box.heat-box-active{outline:2px solid var(--accent); outline-offset:2px;}
+  .heat-detail-row td{padding:0 0 10px;}
+  .heat-detail{
+    background:var(--surface-2); border:1px solid var(--border); border-radius:10px;
+    padding:14px 16px; display:flex; flex-direction:column; gap:12px; text-align:left;
+  }
+  .heat-detail-head{display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap;}
+  .clase-table{width:100%; border-collapse:collapse; font-size:12.5px;}
+  .clase-table th{
+    text-align:left; font-size:10.5px; text-transform:uppercase; letter-spacing:.04em;
+    color:var(--text-muted); font-weight:700; padding:4px 6px; border-bottom:1px solid var(--border);
+  }
+  .clase-table td{padding:5px 6px; border-bottom:1px solid var(--border); vertical-align:middle;}
+  .clase-table tr:last-child td{border-bottom:none;}
+
+  /* ---- Summary stats ---- */
+  .stats{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    gap:12px; margin-bottom:22px;
+  }
+  .stat-tile{
+    background:var(--surface); border-radius:12px; padding:14px 16px;
+    box-shadow:var(--shadow); display:flex; flex-direction:column; gap:4px;
+  }
+  .stat-tile .stat-label{font-size:11.5px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--text-muted);}
+  .stat-tile .stat-value{font-family:'Poppins',sans-serif; font-size:22px; font-weight:700; font-variant-numeric:tabular-nums;}
+  .stat-tile .stat-sub{font-size:12px; color:var(--text-muted);}
+
+  /* ---- Card grid ---- */
+  .grid{
+    display:grid; grid-template-columns:repeat(2,1fr); gap:16px;
+  }
+  @media (max-width:720px){ .grid{grid-template-columns:1fr;} }
+
+  .card{
+    position:relative;
+    background:var(--surface);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:20px;
+    display:flex; flex-direction:column; gap:14px;
+  }
+  .card-top{display:flex; align-items:flex-start; justify-content:space-between; gap:10px;}
+  .badge{
+    display:inline-flex; align-items:center; gap:5px;
+    font-size:11px; font-weight:700; letter-spacing:.03em; text-transform:uppercase;
+    padding:4px 9px; border-radius:5px;
+  }
+  .badge.cerrado{background:var(--closed); color:#fff;}
+  .badge.abierto{background:var(--open-soft); color:var(--open-text);}
+  .badge.alerta{background:var(--closed-soft); color:var(--closed);}
+  .card-badges{display:flex; align-items:center; gap:6px; flex-wrap:wrap;}
+  .poly-title{font-size:17px; font-weight:700; color:var(--text);}
+  .poly-sub{font-size:12px; color:var(--text-muted); margin-top:2px;}
+
+  .metrics-row{display:flex; gap:20px; flex-wrap:wrap;}
+  .metric-raw{font-size:13px; color:var(--text-muted);}
+  .metric-raw b{color:var(--text); font-variant-numeric:tabular-nums; font-weight:700;}
+
+  .bar-block{display:flex; flex-direction:column; gap:6px;}
+  .bar-label-row{display:flex; align-items:center; justify-content:space-between; font-size:12.5px; font-weight:600; color:var(--text);}
+  .bar-label-row .left{display:flex; align-items:center; gap:6px; color:var(--text-muted); font-weight:700; text-transform:uppercase; font-size:11px; letter-spacing:.03em;}
+  .bar-label-row .pct{font-variant-numeric:tabular-nums; font-weight:700;}
+  .progress-bar{
+    height:16px; border-radius:14px; background:var(--surface-2); overflow:hidden; border:1px solid var(--border);
+  }
+  .progress-fill{
+    height:100%; border-radius:14px;
+    display:flex; align-items:center; justify-content:flex-end;
+    color:#fff; font-size:10px; font-weight:700; padding-right:6px;
+    transition:width .4s ease;
+    min-width:2%;
+  }
+  .fill-low{background:var(--low);}
+  .fill-alert{background:var(--alert);}
+  .fill-normal{background:var(--normal);}
+  .fill-over{background:var(--closed);}
+
+  .card-actions{display:flex; justify-content:flex-end; border-top:1px solid var(--border); padding-top:12px;}
+  .download-btn{
+    display:inline-flex; align-items:center; gap:6px; min-height:38px;
+    background:var(--accent); color:#fff; border:none; border-radius:8px;
+    padding:9px 14px; font-family:inherit; font-size:13px; font-weight:700; cursor:pointer;
+  }
+  .download-btn:hover{filter:brightness(1.1);}
+  .download-btn:disabled{opacity:.6; cursor:wait;}
+  .download-btn .material-symbols-outlined{font-size:18px;}
+  .detail-btn{
+    display:inline-flex; align-items:center; gap:6px;
+    background:none; border:1px solid var(--border); border-radius:8px;
+    padding:7px 12px; font-family:inherit; font-size:12.5px; font-weight:600;
+    color:var(--accent); cursor:pointer;
+  }
+  .detail-btn:hover{background:var(--accent-soft);}
+  .detail-btn .material-symbols-outlined{font-size:17px;}
+
+  .detail-panel{
+    display:none; border-top:1px solid var(--border); padding-top:12px; margin-top:-2px;
+  }
+  .detail-panel.open{display:block;}
+  .detail-panel table{width:100%; border-collapse:collapse; font-size:12.5px;}
+  .detail-panel th{
+    text-align:left; font-size:10.5px; text-transform:uppercase; letter-spacing:.04em;
+    color:var(--text-muted); font-weight:700; padding:4px 6px; border-bottom:1px solid var(--border);
+  }
+  .detail-panel td{padding:5px 6px; border-bottom:1px solid var(--border); vertical-align:middle;}
+  .detail-panel tr:last-child td{border-bottom:none;}
+  .grupo-pill{
+    font-size:9.5px; font-weight:700; text-transform:uppercase; padding:2px 6px; border-radius:999px;
+    letter-spacing:.03em;
+  }
+  .grupo-pill.VENTA{background:var(--accent-soft); color:var(--accent);}
+  .grupo-pill.POSVENTA{background:var(--open-soft); color:var(--open-text);}
+  .grupo-pill.TRASLADO{background:var(--surface-2); color:var(--text-muted);}
+  .grupo-pill.OTRO{background:var(--surface-2); color:var(--text-muted);}
+  .mini-bar{width:100%; height:6px; border-radius:4px; background:var(--surface-2); overflow:hidden;}
+  .mini-fill{height:100%; border-radius:4px;}
+
+  .empty-state{
+    background:var(--surface); border-radius:12px; box-shadow:var(--shadow);
+    padding:40px 20px; text-align:center; color:var(--text-muted); font-size:14px;
+    grid-column:1/-1;
+  }
+  .empty-state .material-symbols-outlined{font-size:32px; display:block; margin:0 auto 10px; color:var(--text-muted);}
+
+  .multiselect{position:relative;}
+  .multiselect-btn{
+    width:100%; display:flex; align-items:center; justify-content:space-between; gap:8px;
+    font-family:inherit; font-size:14px; color:var(--text);
+    background:var(--surface-2); border:1px solid var(--border); border-radius:8px;
+    padding:9px 10px; min-height:38px; cursor:pointer; text-align:left;
+  }
+  .multiselect-btn:hover{border-color:var(--accent);}
+  .multiselect-btn:focus{outline:2px solid var(--accent); outline-offset:1px;}
+  .multiselect-btn .material-symbols-outlined{font-size:18px; color:var(--text-muted);}
+  .multiselect-panel{
+    position:absolute; top:calc(100% + 6px); left:0; z-index:20;
+    background:var(--surface); border:1px solid var(--border); border-radius:10px;
+    box-shadow:var(--shadow-lg); padding:10px; width:280px; max-height:300px;
+    box-sizing:border-box;
+    display:flex; flex-direction:column; gap:6px;
+  }
+  .multiselect-actions{display:flex; justify-content:space-between; padding-bottom:6px; border-bottom:1px solid var(--border);}
+  .link-btn{background:none; border:none; color:var(--accent); font-family:inherit; font-size:12px; font-weight:700; cursor:pointer; padding:2px 4px; border-radius:4px;}
+  .link-btn:hover{background:var(--accent-soft);}
+  .multiselect-options{overflow-y:auto; overflow-x:hidden; display:flex; flex-direction:column; gap:1px;}
+  .option-row{
+    display:flex; align-items:center; gap:8px; padding:7px 6px; border-radius:6px;
+    font-size:13px; cursor:pointer; color:var(--text); width:100%; box-sizing:border-box;
+  }
+  .option-row:hover, .option-row:focus-visible{background:var(--surface-2); outline:none;}
+  .option-row .opt-check{font-size:18px; flex:none; color:var(--text-muted);}
+  .option-row[aria-checked="true"] .opt-check{color:var(--accent);}
+  .option-row .opt-name{flex:1 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .option-row .opt-count{flex:none; font-size:11px; color:var(--text-muted); font-variant-numeric:tabular-nums;}
+
+  footer.legend{
+    margin-top:28px; padding-top:16px; border-top:1px solid var(--border);
+    display:flex; flex-wrap:wrap; gap:16px; font-size:12px; color:var(--text-muted);
+  }
+  .legend-item{display:flex; align-items:center; gap:6px;}
+  .legend-dot{width:10px; height:10px; border-radius:50%;}
+  .version-bar{
+    margin-top:14px; padding-top:12px; border-top:1px solid var(--border);
+    display:flex; flex-wrap:wrap; justify-content:space-between; gap:8px 16px;
+    font-size:12px; color:var(--text-muted); font-variant-numeric:tabular-nums;
+  }
+  .version-bar b{color:var(--text); font-weight:700;}
+</style>
+
+<div class="page-head">
+  <div>
+    <p class="eyebrow">Jamar Admin &middot; Logística</p>
+    <h1>Seguimiento CUBICA+ &mdash; Plataforma</h1>
+    <p>Cierre de agenda de picking de taller, devoluciones y piezas por departamento y plataforma (Galapa, Bogotá, Medellín), frente a la capacidad por día y destino: 18 servicios y 18 m³ por vehículo (Antioquia opera con 2 vehículos: 36 / 36). Excluye venta, traslados y cambio total/parcial.</p>
+  </div>
+</div>
+
+<div class="filters">
+  <div class="filters-head">
+    <span class="material-symbols-outlined">tune</span>
+    <span class="label">FILTROS</span>
+  </div>
+  <div class="filters-body">
+    <div class="field">
+      <label for="f-fecha">Fecha picking</label>
+      <div class="date-nav">
+        <button class="icon-btn" id="btn-prev" title="Día anterior" aria-label="Día anterior">
+          <span class="material-symbols-outlined">chevron_left</span>
+        </button>
+        <select id="f-fecha"></select>
+        <button class="icon-btn" id="btn-next" title="Día siguiente" aria-label="Día siguiente">
+          <span class="material-symbols-outlined">chevron_right</span>
+        </button>
+      </div>
+    </div>
+    <div class="field">
+      <label for="f-vista">Vista</label>
+      <label class="switch-row" for="f-vista">
+        <span class="switch">
+          <input type="checkbox" id="f-vista">
+          <span class="slider"></span>
+        </span>
+        <span id="f-vista-label">Foto del día</span>
+      </label>
+    </div>
+    <div class="field">
+      <label for="f-plataforma">Plataforma</label>
+      <select id="f-plataforma"></select>
+    </div>
+    <div class="field grow">
+      <label for="f-depto-btn">Departamentos</label>
+      <div class="multiselect" id="depto-multiselect">
+        <button type="button" class="multiselect-btn" id="f-depto-btn" aria-haspopup="listbox" aria-expanded="false">
+          <span id="f-depto-label">Todos los departamentos</span>
+          <span class="material-symbols-outlined">expand_more</span>
+        </button>
+        <div class="multiselect-panel" id="f-depto-panel" hidden>
+          <div class="multiselect-actions">
+            <button type="button" class="link-btn" id="depto-select-all">Seleccionar todos</button>
+            <button type="button" class="link-btn" id="depto-clear">Limpiar</button>
+          </div>
+          <div class="multiselect-options" id="depto-options"></div>
+        </div>
+      </div>
+    </div>
+    <div class="field grow">
+      <label for="f-clase-btn">Clase de pedido</label>
+      <div class="multiselect" id="clase-multiselect">
+        <button type="button" class="multiselect-btn" id="f-clase-btn" aria-haspopup="listbox" aria-expanded="false">
+          <span id="f-clase-label">Todas las clases</span>
+          <span class="material-symbols-outlined">expand_more</span>
+        </button>
+        <div class="multiselect-panel" id="f-clase-panel" hidden>
+          <div class="multiselect-actions">
+            <button type="button" class="link-btn" id="clase-select-all">Seleccionar todas</button>
+            <button type="button" class="link-btn" id="clase-clear">Limpiar</button>
+          </div>
+          <div class="multiselect-options" id="clase-options"></div>
+        </div>
+      </div>
+    </div>
+    <div class="field">
+      <label for="f-orden">Ordenar por</label>
+      <select id="f-orden">
+        <option value="pedidos">Más pedidos primero</option>
+        <option value="avance">Menor avance primero</option>
+        <option value="nombre">Nombre (A-Z)</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="btn-descargar">Detalle</label>
+      <button type="button" class="download-btn" id="btn-descargar" title="Descarga los pedidos de la vista actual con los filtros aplicados">
+        <span class="material-symbols-outlined">download</span>
+        Descargar Excel
+      </button>
+    </div>
+    <span class="chip-hint" id="chip-hint"></span>
+  </div>
+</div>
+
+<div class="stats" id="stats"></div>
+
+<div class="grid" id="grid"></div>
+
+<footer class="legend">
+  <div class="legend-item"><span class="legend-dot" style="background:var(--low)"></span> Ocupación baja (&lt;40%)</div>
+  <div class="legend-item"><span class="legend-dot" style="background:var(--alert)"></span> Ocupación media (40&ndash;79%)</div>
+  <div class="legend-item"><span class="legend-dot" style="background:var(--normal)"></span> Ocupación alta (80&ndash;99%)</div>
+  <div class="legend-item"><span class="legend-dot" style="background:var(--closed)"></span> Capacidad llena o superada (&ge;100%)</div>
+  <div class="legend-item">Capacidad: 18 servicios / 18 m³ por vehículo por día (Antioquia: 2 vehículos = 36 / 36; Caucasia aparte con 18 / 18). El día se marca en alerta con el que se llene primero, sin cerrarse.</div>
+  <div class="legend-item">Caucasia se trata como destino aparte, no se mezcla con el resto de Antioquia.</div>
+  <div class="legend-item">Mapa de calor: cada celda es un día (número = % de ocupación), la línea punteada marca el cambio de mes. Celda gris = sin agenda ese día. Clic en una celda con datos para ver el detalle de ese día.</div>
+</footer>
+
+<!-- Versión del tablero: subirla con cada cambio (ver historial en README.md) -->
+<div class="version-bar">
+  <span>Versión del tablero <b>1.7</b></span>
+  <span>Datos actualizados: <b>25/09/2026 09:54 a. m.</b> (hora Colombia)</span>
+</div>
+
+<script>
+const RAW = {"resumen":[{"fecha":"2026-09-23","departamento":"ANTIOQUIA","total_ordenes":42,"ordenes_ocupadas":0,"cubicaje_total":37.45,"cubicaje_ocupado":0.0},{"fecha":"2026-09-23","departamento":"ATLANTICO","total_ordenes":28,"ordenes_ocupadas":0,"cubicaje_total":23.04,"cubicaje_ocupado":0.0},{"fecha":"2026-09-23","departamento":"BOLIVAR","total_ordenes":10,"ordenes_ocupadas":0,"cubicaje_total":7.76,"cubicaje_ocupado":0.0},{"fecha":"2026-09-23","departamento":"CUNDINAMARCA","total_ordenes":18,"ordenes_ocupadas":0,"cubicaje_total":17.46,"cubicaje_ocupado":0.0},{"fecha":"2026-09-23","departamento":"SANTANDER","total_ordenes":14,"ordenes_ocupadas":0,"cubicaje_total":8.91,"cubicaje_ocupado":0.0},{"fecha":"2026-09-24","departamento":"ANTIOQUIA","total_ordenes":22,"ordenes_ocupadas":0,"cubicaje_total":16.9,"cubicaje_ocupado":0.0},{"fecha":"2026-09-24","departamento":"ATLANTICO","total_ordenes":24,"ordenes_ocupadas":0,"cubicaje_total":21.23,"cubicaje_ocupado":0.0},{"fecha":"2026-09-24","departamento":"BOLIVAR","total_ordenes":20,"ordenes_ocupadas":0,"cubicaje_total":17.99,"cubicaje_ocupado":0.0},{"fecha":"2026-09-24","departamento":"CUNDINAMARCA","total_ordenes":19,"ordenes_ocupadas":0,"cubicaje_total":10.39,"cubicaje_ocupado":0.0},{"fecha":"2026-09-24","departamento":"GUAJIRA","total_ordenes":7,"ordenes_ocupadas":0,"cubicaje_total":6.72,"cubicaje_ocupado":0.0},{"fecha":"2026-09-24","departamento":"MAGDALENA","total_ordenes":3,"ordenes_ocupadas":0,"cubicaje_total":3.01,"cubicaje_ocupado":0.0},{"fecha":"2026-09-25","departamento":"ATLANTICO","total_ordenes":16,"ordenes_ocupadas":0,"cubicaje_total":14.41,"cubicaje_ocupado":0.0},{"fecha":"2026-09-27","departamento":"ANTIOQUIA","total_ordenes":24,"ordenes_ocupadas":0,"cubicaje_total":18.16,"cubicaje_ocupado":0.0},{"fecha":"2026-09-27","departamento":"CESAR","total_ordenes":21,"ordenes_ocupadas":0,"cubicaje_total":15.91,"cubicaje_ocupado":0.0},{"fecha":"2026-09-27","departamento":"CUNDINAMARCA","total_ordenes":19,"ordenes_ocupadas":0,"cubicaje_total":14.75,"cubicaje_ocupado":0.0},{"fecha":"2026-09-27","departamento":"GUAJIRA","total_ordenes":1,"ordenes_ocupadas":0,"cubicaje_total":0.42,"cubicaje_ocupado":0.0},{"fecha":"2026-09-27","departamento":"SANTANDER","total_ordenes":12,"ordenes_ocupadas":0,"cubicaje_total":5.58,"cubicaje_ocupado":0.0},{"fecha":"2026-09-28","departamento":"ANTIOQUIA","total_ordenes":16,"ordenes_ocupadas":0,"cubicaje_total":14.33,"cubicaje_ocupado":0.0},{"fecha":"2026-09-28","departamento":"ATLANTICO","total_ordenes":9,"ordenes_ocupadas":0,"cubicaje_total":6.81,"cubicaje_ocupado":0.0},{"fecha":"2026-09-28","departamento":"BOLIVAR","total_ordenes":18,"ordenes_ocupadas":0,"cubicaje_total":22.75,"cubicaje_ocupado":0.0},{"fecha":"2026-09-28","departamento":"CUNDINAMARCA","total_ordenes":2,"ordenes_ocupadas":0,"cubicaje_total":2.69,"cubicaje_ocupado":0.0},{"fecha":"2026-09-29","departamento":"ANTIOQUIA","total_ordenes":5,"ordenes_ocupadas":0,"cubicaje_total":6.75,"cubicaje_ocupado":0.0},{"fecha":"2026-09-29","departamento":"ATLANTICO","total_ordenes":18,"ordenes_ocupadas":0,"cubicaje_total":13.83,"cubicaje_ocupado":0.0},{"fecha":"2026-09-29","departamento":"BOLIVAR","total_ordenes":1,"ordenes_ocupadas":0,"cubicaje_total":0.42,"cubicaje_ocupado":0.0},{"fecha":"2026-09-29","departamento":"CORDOBA","total_ordenes":8,"ordenes_ocupadas":0,"cubicaje_total":7.43,"cubicaje_ocupado":0.0},{"fecha":"2026-09-29","departamento":"CUNDINAMARCA","total_ordenes":12,"ordenes_ocupadas":0,"cubicaje_total":10.78,"cubicaje_ocupado":0.0},{"fecha":"2026-09-29","departamento":"MAGDALENA","total_ordenes":10,"ordenes_ocupadas":0,"cubicaje_total":4.68,"cubicaje_ocupado":0.0},{"fecha":"2026-09-29","departamento":"META","total_ordenes":1,"ordenes_ocupadas":0,"cubicaje_total":0.56,"cubicaje_ocupado":0.0},{"fecha":"2026-09-29","departamento":"SUCRE","total_ordenes":3,"ordenes_ocupadas":0,"cubicaje_total":2.12,"cubicaje_ocupado":0.0},{"fecha":"2026-09-30","departamento":"ANTIOQUIA","total_ordenes":8,"ordenes_ocupadas":0,"cubicaje_total":6.38,"cubicaje_ocupado":0.0},{"fecha":"2026-09-30","departamento":"ATLANTICO","total_ordenes":5,"ordenes_ocupadas":0,"cubicaje_total":3.81,"cubicaje_ocupado":0.0},{"fecha":"2026-09-30","departamento":"BOLIVAR","total_ordenes":13,"ordenes_ocupadas":0,"cubicaje_total":13.27,"cubicaje_ocupado":0.0},{"fecha":"2026-09-30","departamento":"CUNDINAMARCA","total_ordenes":6,"ordenes_ocupadas":0,"cubicaje_total":1.79,"cubicaje_ocupado":0.0},{"fecha":"2026-09-30","departamento":"SANTANDER","total_ordenes":4,"ordenes_ocupadas":0,"cubicaje_total":5.33,"cubicaje_ocupado":0.0},{"fecha":"2026-10-01","departamento":"ANTIOQUIA","total_ordenes":13,"ordenes_ocupadas":0,"cubicaje_total":14.3,"cubicaje_ocupado":0.0},{"fecha":"2026-10-01","departamento":"ATLANTICO","total_ordenes":5,"ordenes_ocupadas":0,"cubicaje_total":5.62,"cubicaje_ocupado":0.0},{"fecha":"2026-10-01","departamento":"BOLIVAR","total_ordenes":7,"ordenes_ocupadas":0,"cubicaje_total":6.01,"cubicaje_ocupado":0.0},{"fecha":"2026-10-01","departamento":"CUNDINAMARCA","total_ordenes":2,"ordenes_ocupadas":0,"cubicaje_total":2.1,"cubicaje_ocupado":0.0},{"fecha":"2026-10-01","departamento":"GUAJIRA","total_ordenes":3,"ordenes_ocupadas":0,"cubicaje_total":1.66,"cubicaje_ocupado":0.0},{"fecha":"2026-10-01","departamento":"MAGDALENA","total_ordenes":3,"ordenes_ocupadas":0,"cubicaje_total":3.34,"cubicaje_ocupado":0.0},{"fecha":"2026-10-02","departamento":"ATLANTICO","total_ordenes":5,"ordenes_ocupadas":0,"cubicaje_total":5.16,"cubicaje_ocupado":0.0},{"fecha":"2026-10-04","departamento":"ANTIOQUIA","total_ordenes":9,"ordenes_ocupadas":0,"cubicaje_total":9.0,"cubicaje_ocupado":0.0},{"fecha":"2026-10-04","departamento":"CESAR","total_ordenes":2,"ordenes_ocupadas":0,"cubicaje_total":1.51,"cubicaje_ocupado":0.0},{"fecha":"2026-10-04","departamento":"CUNDINAMARCA","total_ordenes":8,"ordenes_ocupadas":0,"cubicaje_total":5.6,"cubicaje_ocupado":0.0},{"fecha":"2026-10-04","departamento":"SANTANDER","total_ordenes":8,"ordenes_ocupadas":0,"cubicaje_total":5.75,"cubicaje_ocupado":0.0},{"fecha":"2026-10-05","departamento":"ANTIOQUIA","total_ordenes":2,"ordenes_ocupadas":0,"cubicaje_total":3.92,"cubicaje_ocupado":0.0},{"fecha":"2026-10-05","departamento":"ATLANTICO","total_ordenes":4,"ordenes_ocupadas":0,"cubicaje_total":3.38,"cubicaje_ocupado":0.0},{"fecha":"2026-10-05","departamento":"BOLIVAR","total_ordenes":2,"ordenes_ocupadas":0,"cubicaje_total":1.93,"cubicaje_ocupado":0.0},{"fecha":"2026-10-05","departamento":"CUNDINAMARCA","total_ordenes":2,"ordenes_ocupadas":0,"cubicaje_total":2.0,"cubicaje_ocupado":0.0},{"fecha":"2026-10-06","departamento":"ANTIOQUIA","total_ordenes":3,"ordenes_ocupadas":0,"cubicaje_total":1.34,"cubicaje_ocupado":0.0},{"fecha":"2026-10-06","departamento":"CAUCASIA","total_ordenes":3,"ordenes_ocupadas":0,"cubicaje_total":2.05,"cubicaje_ocupado":0.0},{"fecha":"2026-10-06","departamento":"CUNDINAMARCA","total_ordenes":1,"ordenes_ocupadas":0,"cubicaje_total":0.43,"cubicaje_ocupado":0.0},{"fecha":"2026-10-06","departamento":"SUCRE","total_ordenes":1,"ordenes_ocupadas":0,"cubicaje_total":0.07,"cubicaje_ocupado":0.0},{"fecha":"2026-10-07","departamento":"ANTIOQUIA","total_ordenes":1,"ordenes_ocupadas":0,"cubicaje_total":1.27,"cubicaje_ocupado":0.0},{"fecha":"2026-10-07","departamento":"CUNDINAMARCA","total_ordenes":2,"ordenes_ocupadas":0,"cubicaje_total":0.72,"cubicaje_ocupado":0.0},{"fecha":"2026-10-08","departamento":"ANTIOQUIA","total_ordenes":2,"ordenes_ocupadas":0,"cubicaje_total":1.63,"cubicaje_ocupado":0.0},{"fecha":"2026-10-08","departamento":"GUAJIRA","total_ordenes":1,"ordenes_ocupadas":0,"cubicaje_total":1.06,"cubicaje_ocupado":0.0},{"fecha":"2026-10-11","departamento":"CESAR","total_ordenes":2,"ordenes_ocupadas":0,"cubicaje_total":2.42,"cubicaje_ocupado":0.0},{"fecha":"2026-10-13","departamento":"ATLANTICO","total_ordenes":2,"ordenes_ocupadas":0,"cubicaje_total":1.79,"cubicaje_ocupado":0.0},{"fecha":"2026-10-13","departamento":"CORDOBA","total_ordenes":1,"ordenes_ocupadas":0,"cubicaje_total":1.96,"cubicaje_ocupado":0.0},{"fecha":"2026-10-13","departamento":"SANTANDER","total_ordenes":1,"ordenes_ocupadas":0,"cubicaje_total":2.02,"cubicaje_ocupado":0.0},{"fecha":"2026-10-15","departamento":"ANTIOQUIA","total_ordenes":1,"ordenes_ocupadas":0,"cubicaje_total":1.32,"cubicaje_ocupado":0.0},{"fecha":"2026-10-15","departamento":"ATLANTICO","total_ordenes":1,"ordenes_ocupadas":0,"cubicaje_total":0.6,"cubicaje_ocupado":0.0},{"fecha":"2026-10-19","departamento":"ATLANTICO","total_ordenes":1,"ordenes_ocupadas":0,"cubicaje_total":0.57,"cubicaje_ocupado":0.0},{"fecha":"2026-10-20","departamento":"BOLIVAR","total_ordenes":1,"ordenes_ocupadas":0,"cubicaje_total":2.62,"cubicaje_ocupado":0.0},{"fecha":"2026-11-02","departamento":"CUNDINAMARCA","total_ordenes":6,"ordenes_ocupadas":0,"cubicaje_total":4.92,"cubicaje_ocupado":0.0}],"detalle":{"2026-09-23|ANTIOQUIA":[{"municipio":"BELLO","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":6,"ocupado":0},{"municipio":"BELLO","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":2,"ocupado":0},{"municipio":"COPACABANA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":2,"ocupado":0},{"municipio":"COPACABANA","clase":"ZSN1","desc":"Devolucion nota de cambio","grupo":"POSVENTA","total":2,"ocupado":0},{"municipio":"COPACABANA","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":2,"ocupado":0},{"municipio":"ENVIGADO","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":2,"ocupado":0},{"municipio":"ENVIGADO","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"LA CEJA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"LA CEJA","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"LA ESTRELLA","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"MEDELLIN","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":6,"ocupado":0},{"municipio":"MEDELLIN","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":4,"ocupado":0},{"municipio":"MEDELLIN","clase":"ZSN1","desc":"Devolucion nota de cambio","grupo":"POSVENTA","total":2,"ocupado":0},{"municipio":"RIONEGRO","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":2,"ocupado":0},{"municipio":"RIONEGRO","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":2,"ocupado":0},{"municipio":"RIONEGRO","clase":"ZSN1","desc":"Devolucion nota de cambio","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"SABANETA","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":4,"ocupado":0},{"municipio":"SABANETA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0}],"2026-09-23|ATLANTICO":[{"municipio":"BARRANQUILLA","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":11,"ocupado":0},{"municipio":"BARRANQUILLA","clase":"ZSN1","desc":"Devolucion nota de cambio","grupo":"POSVENTA","total":8,"ocupado":0},{"municipio":"BARRANQUILLA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"PUERTO COLOMBIA","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":2,"ocupado":0},{"municipio":"SOLEDAD","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":4,"ocupado":0},{"municipio":"SOLEDAD","clase":"ZSN1","desc":"Devolucion nota de cambio","grupo":"POSVENTA","total":2,"ocupado":0}],"2026-09-23|BOLIVAR":[{"municipio":"CARTAGENA","clase":"ZSN1","desc":"Devolucion nota de cambio","grupo":"POSVENTA","total":6,"ocupado":0},{"municipio":"CARTAGENA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":4,"ocupado":0}],"2026-09-23|CUNDINAMARCA":[{"municipio":"BOGOTA","clase":"ZSN1","desc":"Devolucion nota de cambio","grupo":"POSVENTA","total":7,"ocupado":0},{"municipio":"BOGOTA","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":7,"ocupado":0},{"municipio":"BOGOTA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":4,"ocupado":0}],"2026-09-23|SANTANDER":[{"municipio":"BUCARAMANGA","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":4,"ocupado":0},{"municipio":"BUCARAMANGA","clase":"ZSN1","desc":"Devolucion nota de cambio","grupo":"POSVENTA","total":3,"ocupado":0},{"municipio":"FLORIDABLANCA","clase":"ZSN1","desc":"Devolucion nota de cambio","grupo":"POSVENTA","total":2,"ocupado":0},{"municipio":"FLORIDABLANCA","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":2,"ocupado":0},{"municipio":"FLORIDABLANCA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"GIRON","clase":"ZSN1","desc":"Devolucion nota de cambio","grupo":"POSVENTA","total":2,"ocupado":0}],"2026-09-24|ANTIOQUIA":[{"municipio":"BELLO","clase":"ZSN1","desc":"Devolucion nota de cambio","grupo":"POSVENTA","total":3,"ocupado":0},{"municipio":"BELLO","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":2,"ocupado":0},{"municipio":"ENVIGADO","clase":"ZSN1","desc":"Devolucion nota de cambio","grupo":"POSVENTA","total":3,"ocupado":0},{"municipio":"ENVIGADO","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"ITAGUI","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":2,"ocupado":0},{"municipio":"MEDELLIN","clase":"ZSN1","desc":"Devolucion nota de cambio","grupo":"POSVENTA","total":4,"ocupado":0},{"municipio":"MEDELLIN","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":3,"ocupado":0},{"municipio":"MEDELLIN","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"SABANETA","clase":"ZSN1","desc":"Devolucion nota de cambio","grupo":"POSVENTA","total":2,"ocupado":0},{"municipio":"SABANETA","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":1,"ocupado":0}],"2026-09-24|ATLANTICO":[{"municipio":"BARRANQUILLA","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":6,"ocupado":0},{"municipio":"BARRANQUILLA","clase":"ZSN1","desc":"Devolucion nota de cambio","grupo":"POSVENTA","total":4,"ocupado":0},{"municipio":"BARRANQUILLA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":3,"ocupado":0},{"municipio":"MALAMBO","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"PALMAR DE VARELA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"PUERTO COLOMBIA","clase":"ZSN1","desc":"Devolucion nota de cambio","grupo":"POSVENTA","total":2,"ocupado":0},{"municipio":"PUERTO COLOMBIA","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":2,"ocupado":0},{"municipio":"SANTO TOMAS","clase":"ZSN1","desc":"Devolucion nota de cambio","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"SOLEDAD","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":2,"ocupado":0},{"municipio":"SOLEDAD","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"SOLEDAD","clase":"ZSN1","desc":"Devolucion nota de cambio","grupo":"POSVENTA","total":1,"ocupado":0}],"2026-09-24|BOLIVAR":[{"municipio":"CARTAGENA","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":13,"ocupado":0},{"municipio":"CARTAGENA","clase":"ZSN1","desc":"Devolucion nota de cambio","grupo":"POSVENTA","total":5,"ocupado":0},{"municipio":"CARTAGENA","clase":"ZSRD","desc":"Recogida devolucion","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"TURBACO","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":1,"ocupado":0}],"2026-09-24|CUNDINAMARCA":[{"municipio":"BOGOTA","clase":"ZSN1","desc":"Devolucion nota de cambio","grupo":"POSVENTA","total":9,"ocupado":0},{"municipio":"BOGOTA","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":7,"ocupado":0},{"municipio":"BOGOTA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":3,"ocupado":0}],"2026-09-24|GUAJIRA":[{"municipio":"MAICAO","clase":"ZSN1","desc":"Devolucion nota de cambio","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"RIOHACHA","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":3,"ocupado":0},{"municipio":"RIOHACHA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":2,"ocupado":0},{"municipio":"RIOHACHA","clase":"ZSN1","desc":"Devolucion nota de cambio","grupo":"POSVENTA","total":1,"ocupado":0}],"2026-09-24|MAGDALENA":[{"municipio":"SANTA MARTA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":3,"ocupado":0}],"2026-09-25|ATLANTICO":[{"municipio":"BARRANQUILLA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":5,"ocupado":0},{"municipio":"BARRANQUILLA","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":3,"ocupado":0},{"municipio":"BARRANQUILLA","clase":"ZSN1","desc":"Devolucion nota de cambio","grupo":"POSVENTA","total":2,"ocupado":0},{"municipio":"POLONUEVO","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"PUERTO COLOMBIA","clase":"ZSN1","desc":"Devolucion nota de cambio","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"SOLEDAD","clase":"ZSN1","desc":"Devolucion nota de cambio","grupo":"POSVENTA","total":2,"ocupado":0},{"municipio":"SOLEDAD","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"SOLEDAD","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":1,"ocupado":0}],"2026-09-27|ANTIOQUIA":[{"municipio":"BELLO","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":2,"ocupado":0},{"municipio":"BELLO","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":2,"ocupado":0},{"municipio":"ENVIGADO","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"ITAGUI","clase":"ZSN1","desc":"Devolucion nota de cambio","grupo":"POSVENTA","total":2,"ocupado":0},{"municipio":"MEDELLIN","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":13,"ocupado":0},{"municipio":"MEDELLIN","clase":"ZSN1","desc":"Devolucion nota de cambio","grupo":"POSVENTA","total":2,"ocupado":0},{"municipio":"MEDELLIN","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"SABANETA","clase":"ZSN1","desc":"Devolucion nota de cambio","grupo":"POSVENTA","total":1,"ocupado":0}],"2026-09-27|CESAR":[{"municipio":"AGUSTIN CODAZZI","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"BOSCONIA","clase":"ZSN1","desc":"Devolucion nota de cambio","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"BOSCONIA","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"VALLEDUPAR","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":8,"ocupado":0},{"municipio":"VALLEDUPAR","clase":"ZSN1","desc":"Devolucion nota de cambio","grupo":"POSVENTA","total":6,"ocupado":0},{"municipio":"VALLEDUPAR","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":3,"ocupado":0},{"municipio":"VALLEDUPAR","clase":"ZSRD","desc":"Recogida devolucion","grupo":"POSVENTA","total":1,"ocupado":0}],"2026-09-27|CUNDINAMARCA":[{"municipio":"BOGOTA","clase":"ZSN1","desc":"Devolucion nota de cambio","grupo":"POSVENTA","total":7,"ocupado":0},{"municipio":"BOGOTA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":4,"ocupado":0},{"municipio":"BOGOTA","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":3,"ocupado":0},{"municipio":"CAJICA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":2,"ocupado":0},{"municipio":"ZIPAQUIRA","clase":"ZSN1","desc":"Devolucion nota de cambio","grupo":"POSVENTA","total":2,"ocupado":0},{"municipio":"ZIPAQUIRA","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":1,"ocupado":0}],"2026-09-27|GUAJIRA":[{"municipio":"FONSECA","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":1,"ocupado":0}],"2026-09-27|SANTANDER":[{"municipio":"BARRANCABERMEJA","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"BUCARAMANGA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":2,"ocupado":0},{"municipio":"BUCARAMANGA","clase":"ZSN1","desc":"Devolucion nota de cambio","grupo":"POSVENTA","total":2,"ocupado":0},{"municipio":"FLORIDABLANCA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":3,"ocupado":0},{"municipio":"FLORIDABLANCA","clase":"ZSN1","desc":"Devolucion nota de cambio","grupo":"POSVENTA","total":3,"ocupado":0},{"municipio":"FLORIDABLANCA","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":1,"ocupado":0}],"2026-09-28|ANTIOQUIA":[{"municipio":"BELLO","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":3,"ocupado":0},{"municipio":"ITAGUI","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":2,"ocupado":0},{"municipio":"MEDELLIN","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":8,"ocupado":0},{"municipio":"SABANETA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":3,"ocupado":0}],"2026-09-28|ATLANTICO":[{"municipio":"BARRANQUILLA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":8,"ocupado":0},{"municipio":"SOLEDAD","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0}],"2026-09-28|BOLIVAR":[{"municipio":"CARTAGENA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":12,"ocupado":0},{"municipio":"CARTAGENA","clase":"ZSN1","desc":"Devolucion nota de cambio","grupo":"POSVENTA","total":6,"ocupado":0}],"2026-09-28|CUNDINAMARCA":[{"municipio":"BOGOTA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"BOGOTA","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":1,"ocupado":0}],"2026-09-29|ANTIOQUIA":[{"municipio":"BELLO","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"ITAGUI","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"MEDELLIN","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":2,"ocupado":0},{"municipio":"SABANETA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0}],"2026-09-29|ATLANTICO":[{"municipio":"BARRANQUILLA","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":10,"ocupado":0},{"municipio":"BARRANQUILLA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":2,"ocupado":0},{"municipio":"GALAPA","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"PUERTO COLOMBIA","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"SOLEDAD","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":2,"ocupado":0},{"municipio":"SOLEDAD","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":2,"ocupado":0}],"2026-09-29|BOLIVAR":[{"municipio":"SAN JACINTO","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0}],"2026-09-29|CORDOBA":[{"municipio":"MONTERIA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":3,"ocupado":0},{"municipio":"MONTERIA","clase":"ZSN1","desc":"Devolucion nota de cambio","grupo":"POSVENTA","total":2,"ocupado":0},{"municipio":"MONTERIA","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":2,"ocupado":0},{"municipio":"SAHAGUN","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":1,"ocupado":0}],"2026-09-29|CUNDINAMARCA":[{"municipio":"BOGOTA","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":3,"ocupado":0},{"municipio":"BOGOTA","clase":"ZSN1","desc":"Devolucion nota de cambio","grupo":"POSVENTA","total":2,"ocupado":0},{"municipio":"BOGOTA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"FUSAGASUGA","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":3,"ocupado":0},{"municipio":"SOACHA","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":2,"ocupado":0},{"municipio":"SOACHA","clase":"ZSN1","desc":"Devolucion nota de cambio","grupo":"POSVENTA","total":1,"ocupado":0}],"2026-09-29|MAGDALENA":[{"municipio":"SANTA MARTA","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":5,"ocupado":0},{"municipio":"SANTA MARTA","clase":"ZSN1","desc":"Devolucion nota de cambio","grupo":"POSVENTA","total":3,"ocupado":0},{"municipio":"SANTA MARTA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":2,"ocupado":0}],"2026-09-29|META":[{"municipio":"VILLAVICENCIO","clase":"ZSN1","desc":"Devolucion nota de cambio","grupo":"POSVENTA","total":1,"ocupado":0}],"2026-09-29|SUCRE":[{"municipio":"SINCELEJO","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":2,"ocupado":0},{"municipio":"SINCELEJO","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0}],"2026-09-30|ANTIOQUIA":[{"municipio":"COPACABANA","clase":"ZSN1","desc":"Devolucion nota de cambio","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"ENVIGADO","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"GIRARDOTA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"LA ESTRELLA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"MEDELLIN","clase":"ZSN1","desc":"Devolucion nota de cambio","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"MEDELLIN","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"RIONEGRO","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"RIONEGRO","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":1,"ocupado":0}],"2026-09-30|ATLANTICO":[{"municipio":"BARRANQUILLA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":3,"ocupado":0},{"municipio":"SOLEDAD","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":2,"ocupado":0}],"2026-09-30|BOLIVAR":[{"municipio":"CARTAGENA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":9,"ocupado":0},{"municipio":"CARTAGENA","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":4,"ocupado":0}],"2026-09-30|CUNDINAMARCA":[{"municipio":"BOGOTA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":3,"ocupado":0},{"municipio":"BOGOTA","clase":"ZSN1","desc":"Devolucion nota de cambio","grupo":"POSVENTA","total":2,"ocupado":0},{"municipio":"BOGOTA","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":1,"ocupado":0}],"2026-09-30|SANTANDER":[{"municipio":"BUCARAMANGA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":3,"ocupado":0},{"municipio":"GIRON","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0}],"2026-10-01|ANTIOQUIA":[{"municipio":"BELLO","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":4,"ocupado":0},{"municipio":"ENVIGADO","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"ITAGUI","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"LA ESTRELLA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"MEDELLIN","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":5,"ocupado":0},{"municipio":"SABANETA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0}],"2026-10-01|ATLANTICO":[{"municipio":"BARRANQUILLA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":2,"ocupado":0},{"municipio":"BARRANQUILLA","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"PUERTO COLOMBIA","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"SABANALARGA","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":1,"ocupado":0}],"2026-10-01|BOLIVAR":[{"municipio":"ARJONA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"ARJONA","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"CARTAGENA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":3,"ocupado":0},{"municipio":"TURBACO","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":2,"ocupado":0}],"2026-10-01|CUNDINAMARCA":[{"municipio":"BOGOTA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":2,"ocupado":0}],"2026-10-01|GUAJIRA":[{"municipio":"MAICAO","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"RIOHACHA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"RIOHACHA","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":1,"ocupado":0}],"2026-10-01|MAGDALENA":[{"municipio":"SANTA MARTA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":2,"ocupado":0},{"municipio":"SANTA MARTA","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":1,"ocupado":0}],"2026-10-02|ATLANTICO":[{"municipio":"BARRANQUILLA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":3,"ocupado":0},{"municipio":"SOLEDAD","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":2,"ocupado":0}],"2026-10-04|ANTIOQUIA":[{"municipio":"BELLO","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":5,"ocupado":0},{"municipio":"MEDELLIN","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":3,"ocupado":0},{"municipio":"SABANETA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0}],"2026-10-04|CESAR":[{"municipio":"VALLEDUPAR","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":2,"ocupado":0}],"2026-10-04|CUNDINAMARCA":[{"municipio":"BOGOTA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":3,"ocupado":0},{"municipio":"CAJICA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"CHIA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"TOCANCIPA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":2,"ocupado":0},{"municipio":"ZIPAQUIRA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0}],"2026-10-04|SANTANDER":[{"municipio":"BUCARAMANGA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":5,"ocupado":0},{"municipio":"FLORIDABLANCA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":2,"ocupado":0},{"municipio":"GIRON","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0}],"2026-10-05|ANTIOQUIA":[{"municipio":"BELLO","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"SABANETA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0}],"2026-10-05|ATLANTICO":[{"municipio":"BARRANQUILLA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":4,"ocupado":0}],"2026-10-05|BOLIVAR":[{"municipio":"CARTAGENA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":2,"ocupado":0}],"2026-10-05|CUNDINAMARCA":[{"municipio":"BOGOTA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":2,"ocupado":0}],"2026-10-06|ANTIOQUIA":[{"municipio":"BELLO","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"SABANETA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":2,"ocupado":0}],"2026-10-06|CAUCASIA":[{"municipio":"CAUCASIA","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":2,"ocupado":0},{"municipio":"CAUCASIA","clase":"ZSN1","desc":"Devolucion nota de cambio","grupo":"POSVENTA","total":1,"ocupado":0}],"2026-10-06|CUNDINAMARCA":[{"municipio":"SOACHA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0}],"2026-10-06|SUCRE":[{"municipio":"SINCELEJO","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0}],"2026-10-07|ANTIOQUIA":[{"municipio":"MEDELLIN","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0}],"2026-10-07|CUNDINAMARCA":[{"municipio":"BOGOTA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":2,"ocupado":0}],"2026-10-08|ANTIOQUIA":[{"municipio":"ENVIGADO","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0},{"municipio":"MEDELLIN","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0}],"2026-10-08|GUAJIRA":[{"municipio":"RIOHACHA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0}],"2026-10-11|CESAR":[{"municipio":"VALLEDUPAR","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":2,"ocupado":0}],"2026-10-13|ATLANTICO":[{"municipio":"BARRANQUILLA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":2,"ocupado":0}],"2026-10-13|CORDOBA":[{"municipio":"PLANETA RICA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0}],"2026-10-13|SANTANDER":[{"municipio":"BARRANCABERMEJA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0}],"2026-10-15|ANTIOQUIA":[{"municipio":"MEDELLIN","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0}],"2026-10-15|ATLANTICO":[{"municipio":"BARRANQUILLA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0}],"2026-10-19|ATLANTICO":[{"municipio":"BARRANQUILLA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":1,"ocupado":0}],"2026-10-20|BOLIVAR":[{"municipio":"MAGANGUE","clase":"ZSRT","desc":"Recogida taller","grupo":"POSVENTA","total":1,"ocupado":0}],"2026-11-02|CUNDINAMARCA":[{"municipio":"BOGOTA","clase":"ZSCC","desc":"Entrega taller","grupo":"POSVENTA","total":6,"ocupado":0}]},"destinos":["ANTIOQUIA","ATLANTICO","BOLIVAR","BOYACA","CAUCASIA","CESAR","CORDOBA","CUNDINAMARCA","GUAJIRA","MAGDALENA","META","SANTANDER","SUCRE"],"pedidos":[["2026-09-23","2026-09-24","ANTIOQUIA","BELLO","ZSCC","Entrega taller","7040799697","F8-2025-01786641",null,1.258,1.0,"RE - ANTIOQUIA","2008","833537","84131186","833537",null],["2026-09-23","2026-09-24","ANTIOQUIA","BELLO","ZSCC","Entrega taller","7040801077","B4-2026-01820343",null,0.987,1.0,"RE - ANTIOQUIA","2008","836867","84135836","836867",null],["2026-09-23","2026-09-24","ANTIOQUIA","BELLO","ZSCC","Entrega taller","7040801078","B4-2026-01820973",null,0.267,8.0,"RE - ANTIOQUIA","2008","836867","84135837","836867",null],["2026-09-23","2026-09-24","ANTIOQUIA","BELLO","ZSCC","Entrega taller","7040801080","A3-2023-01820724",null,1.485,2.0,"RE - ANTIOQUIA","2008",null,"84135839",null,null],["2026-09-23","2026-09-24","ANTIOQUIA","BELLO","ZSCC","Entrega taller","7040801081","F8-2024-01818890",null,1.605,2.0,"RE - ANTIOQUIA","2008",null,"84135840",null,null],["2026-09-23","2026-09-24","ANTIOQUIA","BELLO","ZSCC","Entrega taller","7040801335","A8-2026-01823521",null,0.036,1.0,"RE - ANTIOQUIA","2008","837093","84136816","837093",null],["2026-09-23","2026-09-24","ANTIOQUIA","BELLO","ZSRT","Recogida taller","7040804173","F8-2025-01853330",null,1.628,74.0,"RE - ANTIOQUIA","2008",null,"84145798",null,null],["2026-09-23","2026-09-24","ANTIOQUIA","BELLO","ZSRT","Recogida taller","7040804447","B4-2026-01854506",null,0.104,2.0,"RE - ANTIOQUIA","2008",null,"84147708",null,null],["2026-09-23","2026-09-24","ANTIOQUIA","COPACABANA","ZSCC","Entrega taller","7040802255","F8-2025-01813093",null,1.14,2.0,"RE - ANTIOQUIA","2008","837238","84139092","837238",null],["2026-09-23","2026-09-24","ANTIOQUIA","COPACABANA","ZSCC","Entrega taller","7040802257","A8-2024-01812684",null,1.526,55.3,"RE - ANTIOQUIA","2008","837238","84139094","837238",null],["2026-09-23","2026-09-24","ANTIOQUIA","COPACABANA","ZSN1","Devolucion nota de cambio","7040803140","A3-2026-01799666",null,2.33,88.2,"RE - ANTIOQUIA","2508","837238","84142992","837238",null],["2026-09-23","2026-09-24","ANTIOQUIA","COPACABANA","ZSRT","Recogida taller","7040804301","A3-2024-01807413",null,1.652,71.0,"RE - ANTIOQUIA","2008","837238","84147506","837238",null],["2026-09-23","2026-09-24","ANTIOQUIA","COPACABANA","ZSN1","Devolucion nota de cambio","7040804379","A3-2026-01773750",null,0.096,1.0,"RE - ANTIOQUIA","2508","837238","84147603","837238",null],["2026-09-23","2026-09-24","ANTIOQUIA","COPACABANA","ZSRT","Recogida taller","7040804475","F8-2026-01842148",null,1.011,1.0,"RE - ANTIOQUIA","2008","837238","84147751","837238",null],["2026-09-23","2026-09-24","ANTIOQUIA","ENVIGADO","ZSCC","Entrega taller","7040798914","A3-2025-01768438",null,0.904,2.0,"RE - ANTIOQUIA","2008","833357","84129221","833357",null],["2026-09-23","2026-09-24","ANTIOQUIA","ENVIGADO","ZSCC","Entrega taller","7040801082","A3-2024-01816404",null,0.992,5.0,"RE - ANTIOQUIA","2008","837091","84135848","837091",null],["2026-09-23","2026-09-24","ANTIOQUIA","ENVIGADO","ZSRT","Recogida taller","7040804214","A3-2026-01853478",null,0.116,1.0,"RE - ANTIOQUIA","2008",null,"84146529",null,null],["2026-09-23","2026-09-24","ANTIOQUIA","LA CEJA","ZSCC","Entrega taller","7040800221","A8-2026-01784744",null,0.851,1.0,"RE - ANTIOQUIA","2008","837239","84132391","837239",null],["2026-09-23","2026-09-24","ANTIOQUIA","LA CEJA","ZSRT","Recogida taller","7040803122","A3-2026-01827825",null,0.118,2.0,"RE - ANTIOQUIA","2008",null,"84142515",null,null],["2026-09-23","2026-09-24","ANTIOQUIA","LA ESTRELLA","ZSRT","Recogida taller","7040804357","A8-2025-01853883",null,0.366,1.0,"RE - ANTIOQUIA","2008","837091","84147573","837091",null],["2026-09-23","2026-09-24","ANTIOQUIA","MEDELLIN","ZSCC","Entrega taller","7040799701","A8-2026-01801942",null,0.851,1.0,"RE - ANTIOQUIA","2008","837093","84131258","837093",null],["2026-09-23","2026-09-24","ANTIOQUIA","MEDELLIN","ZSCC","Entrega taller","7040801079","A8-2019-5201588",null,0.912,27.2,"RE - ANTIOQUIA","2008",null,"84135838",null,null],["2026-09-23","2026-09-24","ANTIOQUIA","MEDELLIN","ZSCC","Entrega taller","7040801333","A8-2025-01824693",null,1.491,32.0,"RE - ANTIOQUIA","2008","837093","84136814","837093",null],["2026-09-23","2026-09-24","ANTIOQUIA","MEDELLIN","ZSCC","Entrega taller","7040801334","B4-2026-01825077",null,0.904,2.0,"RE - ANTIOQUIA","2008",null,"84136815",null,null],["2026-09-23","2026-09-24","ANTIOQUIA","MEDELLIN","ZSCC","Entrega taller","7040801964","A8-2021-01821193",null,1.091,76.0,"RE - ANTIOQUIA","2008",null,"84138333",null,null],["2026-09-23","2026-09-24","ANTIOQUIA","MEDELLIN","ZSCC","Entrega taller","7040801965","B4-2023-01810339",null,0.798,2.0,"RE - ANTIOQUIA","2008","837238","84138334","837238",null],["2026-09-23","2026-09-24","ANTIOQUIA","MEDELLIN","ZSRT","Recogida taller","7040803553","A8-2026-01828735",null,1.134,8.0,"RE - ANTIOQUIA","2008","837238","84144169","837238",null],["2026-09-23","2026-09-24","ANTIOQUIA","MEDELLIN","ZSRT","Recogida taller","7040804280","A8-2026-01839080",null,0.159,13.0,"RE - ANTIOQUIA","2008","837093","84147482","837093",null],["2026-09-23","2026-09-24","ANTIOQUIA","MEDELLIN","ZSN1","Devolucion nota de cambio","7040804418","B4-2026-01850293",null,1.645,58.5,"RE - ANTIOQUIA","2508","837238","84147669","837238",null],["2026-09-23","2026-09-24","ANTIOQUIA","MEDELLIN","ZSN1","Devolucion nota de cambio","7040804479","A8-2026-01791577",null,0.057,1.0,"RE - ANTIOQUIA","2508","837093","84147756","837093",null],["2026-09-23","2026-09-24","ANTIOQUIA","MEDELLIN","ZSRT","Recogida taller","7040804495","A8-2026-01850637",null,0.431,21.0,"RE - ANTIOQUIA","2008",null,"84147786",null,null],["2026-09-23","2026-09-24","ANTIOQUIA","MEDELLIN","ZSRT","Recogida taller","7040804497","A8-2026-01850637",null,0.431,21.0,"RE - ANTIOQUIA","2008","837238","84147788","837238",null],["2026-09-23","2026-09-24","ANTIOQUIA","RIONEGRO","ZSCC","Entrega taller","7040802006","A8-2026-01824588",null,1.58,1.0,"RE - ANTIOQUIA","2008",null,"84138683",null,null],["2026-09-23","2026-09-24","ANTIOQUIA","RIONEGRO","ZSCC","Entrega taller","7040802007","B4-2026-01823829",null,1.393,67.4,"RE - ANTIOQUIA","2008","837239","84138684","837239",null],["2026-09-23","2026-09-24","ANTIOQUIA","RIONEGRO","ZSN1","Devolucion nota de cambio","7040803765","A3-2025-01808234",null,1.628,74.0,"RE - ANTIOQUIA","2508","837239","84145029","837239",null],["2026-09-23","2026-09-24","ANTIOQUIA","RIONEGRO","ZSRT","Recogida taller","7040804423","A3-2026-01853934",null,0.851,1.0,"RE - ANTIOQUIA","2008",null,"84147676",null,null],["2026-09-23","2026-09-24","ANTIOQUIA","RIONEGRO","ZSRT","Recogida taller","7040804433","A3-2026-01854459",null,0.418,2.0,"RE - ANTIOQUIA","2008",null,"84147690",null,null],["2026-09-23","2026-09-24","ANTIOQUIA","SABANETA","ZSCC","Entrega taller","7040798934","95-2021-01746830",null,1.125,42.0,"RE - ANTIOQUIA","2008","833536","84129299","833536",null],["2026-09-23","2026-09-24","ANTIOQUIA","SABANETA","ZSRT","Recogida taller","7040804463","A3-2025-01832571",null,0.268,50.0,"RE - ANTIOQUIA","2008","837239","84147732","837239",null],["2026-09-23","2026-09-24","ANTIOQUIA","SABANETA","ZSRT","Recogida taller","7040804488","A3-2025-01854704",null,0.248,9.0,"RE - ANTIOQUIA","2008","837239","84147775","837239",null],["2026-09-23","2026-09-24","ANTIOQUIA","SABANETA","ZSRT","Recogida taller","7040804492","A3-2025-01854703",null,0.248,9.0,"RE - ANTIOQUIA","2008","837239","84147778","837239",null],["2026-09-23","2026-09-24","ANTIOQUIA","SABANETA","ZSRT","Recogida taller","7040804494","A3-2026-01854719",null,1.316,1.0,"RE - ANTIOQUIA","2008","837239","84147784","837239",null],["2026-09-23","2026-09-24","ATLANTICO","BARRANQUILLA","ZSCC","Entrega taller","7040801960","95-2026-01827000",null,0.441,2.0,"C1 - ATLANTICO","2000",null,"84138329",null,null],["2026-09-23","2026-09-24","ATLANTICO","BARRANQUILLA","ZSN1","Devolucion nota de cambio","7040804078","01-2025-01845101",null,0.131,2.0,"C1 - ATLANTICO","2500","837208","84145607","837208",null],["2026-09-23","2026-09-24","ATLANTICO","BARRANQUILLA","ZSN1","Devolucion nota de cambio","7040804080","95-2026-01851137",null,1.675,103.0,"C1 - ATLANTICO","2500","837208","84145609","837208",null],["2026-09-23","2026-09-24","ATLANTICO","BARRANQUILLA","ZSN1","Devolucion nota de cambio","7040804092","95-2026-01850579",null,0.564,29.5,"C1 - ATLANTICO","2500","837208","84145624","837208",null],["2026-09-23","2026-09-24","ATLANTICO","BARRANQUILLA","ZSRT","Recogida taller","7040804104","B5-2026-01847140",null,0.835,30.0,"C1 - ATLANTICO","2000","837211","84145636","837211",null],["2026-09-23","2026-09-24","ATLANTICO","BARRANQUILLA","ZSN1","Devolucion nota de cambio","7040804115","95-2026-01790435",null,2.15,6.0,"C1 - ATLANTICO","2500","837211","84145669","837211",null],["2026-09-23","2026-09-24","ATLANTICO","BARRANQUILLA","ZSRT","Recogida taller","7040804160","95-2026-01853305",null,1.212,32.0,"C1 - ATLANTICO","2000",null,"84145771",null,null],["2026-09-23","2026-09-24","ATLANTICO","BARRANQUILLA","ZSRT","Recogida taller","7040804162","95-2026-01853305",null,1.212,32.0,"C1 - ATLANTICO","2000","837208","84145773","837208",null],["2026-09-23","2026-09-24","ATLANTICO","BARRANQUILLA","ZSRT","Recogida taller","7040804220","XX-2026-01853262",null,0.418,2.0,"C1 - AT/Dif. Acc","2000","837211","84147378","837211",null],["2026-09-23","2026-09-24","ATLANTICO","BARRANQUILLA","ZSRT","Recogida taller","7040804227","95-2026-01853269",null,0.95,2.0,"C1 - ATLANTICO","2000","837208","84147385","837208",null],["2026-09-23","2026-09-24","ATLANTICO","BARRANQUILLA","ZSN1","Devolucion nota de cambio","7040804250","95-2026-01835733",null,0.256,6.0,"C1 - ATLANTICO","2500","837208","84147435","837208",null],["2026-09-23","2026-09-24","ATLANTICO","BARRANQUILLA","ZSRT","Recogida taller","7040804259","95-2026-01853618",null,1.325,1.0,"C1 - ATLANTICO","2000","837208","84147444","837208",null],["2026-09-23","2026-09-24","ATLANTICO","BARRANQUILLA","ZSN1","Devolucion nota de cambio","7040804263","95-2025-01852878",null,0.253,3.0,"C1 - ATLANTICO","2500","837208","84147452","837208",null],["2026-09-23","2026-09-24","ATLANTICO","BARRANQUILLA","ZSRT","Recogida taller","7040804265","01-2026-01840100",null,1.064,1.0,"C1 - ATLANTICO","2000","836877","84147455","836877",null],["2026-09-23","2026-09-24","ATLANTICO","BARRANQUILLA","ZSRT","Recogida taller","7040804270","95-2026-01853597",null,0.424,2.0,"C1 - ATLANTICO","2000","837208","84147466","837208",null],["2026-09-23","2026-09-24","ATLANTICO","BARRANQUILLA","ZSN1","Devolucion nota de cambio","7040804286","B5-2026-01828452",null,0.194,1.0,"C1 - ATLANTICO","2500",null,"84147489",null,null],["2026-09-23","2026-09-24","ATLANTICO","BARRANQUILLA","ZSN1","Devolucion nota de cambio","7040804287","B5-2026-01828452",null,0.194,1.0,"C1 - ATLANTICO","2500","837211","84147491","837211",null],["2026-09-23","2026-09-24","ATLANTICO","BARRANQUILLA","ZSRT","Recogida taller","7040804313","95-2026-01853942",null,0.987,1.0,"C1 - ATLANTICO","2000","837208","84147524","837208",null],["2026-09-23","2026-09-24","ATLANTICO","BARRANQUILLA","ZSRT","Recogida taller","7040804395","95-2026-01825549",null,1.113,1.0,"C1 - ATLANTICO","2000","837208","84147642","837208",null],["2026-09-23","2026-09-24","ATLANTICO","BARRANQUILLA","ZSRT","Recogida taller","7040804466","95-2024-01841259",null,0.745,2.0,"C1 - ATLANTICO","2000","837211","84147743","837211",null],["2026-09-23","2026-09-24","ATLANTICO","PUERTO COLOMBIA","ZSRT","Recogida taller","7040804310","95-2026-01853902",null,1.264,2.0,"C1 - ATLANTICO","2000","837208","84147513","837208",null],["2026-09-23","2026-09-24","ATLANTICO","PUERTO COLOMBIA","ZSRT","Recogida taller","7040804398","B5-2026-01854282",null,1.228,2.0,"C1 - ATLANTICO","2000",null,"84147645",null,null],["2026-09-23","2026-09-24","ATLANTICO","SOLEDAD","ZSRT","Recogida taller","7040804184","B5-2026-01853376",null,1.232,3.0,"C1 - AT/Dif. Acc","2000",null,"84145824",null,null],["2026-09-23","2026-09-24","ATLANTICO","SOLEDAD","ZSRT","Recogida taller","7040804186","B5-2026-01853376",null,1.232,3.0,"C1 - AT/Dif. Acc","2000","837211","84145830","837211",null],["2026-09-23","2026-09-24","ATLANTICO","SOLEDAD","ZSRT","Recogida taller","7040804221","B5-2026-01853260",null,1.083,1.0,"C1 - ATLANTICO","2000","837211","84147379","837211",null],["2026-09-23","2026-09-24","ATLANTICO","SOLEDAD","ZSN1","Devolucion nota de cambio","7040804248","B5-2026-01827551",null,0.102,2.0,"C1 - ATLANTICO","2500","837211","84147433","837211",null],["2026-09-23","2026-09-24","ATLANTICO","SOLEDAD","ZSRT","Recogida taller","7040804284","B5-2025-01849420",null,0.56,27.5,"C1 - AT/Dif. Acc","2000","837211","84147487","837211",null],["2026-09-23","2026-09-24","ATLANTICO","SOLEDAD","ZSN1","Devolucion nota de cambio","7040804597","XX-2026-01808260",null,0.194,1.0,"C1 - ATLANTICO","2500","837211","84148501","837211",null],["2026-09-23","2026-09-24","BOLIVAR","CARTAGENA","ZSCC","Entrega taller","7040801962","10-2026-01783123",null,1.113,1.0,"C1 - BOLIVAR","2000","837213","84138331","837213",null],["2026-09-23","2026-09-24","BOLIVAR","CARTAGENA","ZSCC","Entrega taller","7040802078","10-2023-01827261",null,1.122,2.0,"C1 - BOLIVAR","2000","837213","84138753","837213",null],["2026-09-23","2026-09-24","BOLIVAR","CARTAGENA","ZSCC","Entrega taller","7040802079","67-2024-01810973",null,0.367,2.0,"C1 - BOLIVAR","2000","837213","84138754","837213",null],["2026-09-23","2026-09-24","BOLIVAR","CARTAGENA","ZSCC","Entrega taller","7040802080","67-2021-01829787",null,2.41,2.0,"C1 - BOLIVAR","2000",null,"84138755",null,null],["2026-09-23","2026-09-24","BOLIVAR","CARTAGENA","ZSN1","Devolucion nota de cambio","7040803980","67-2026-01829164",null,0.546,3.0,"C1 - BOLIVAR","2500","837213","84145379","837213",null],["2026-09-23","2026-09-24","BOLIVAR","CARTAGENA","ZSN1","Devolucion nota de cambio","7040803991","84-2025-01822744",null,0.328,3.0,"C1 - BOLIVAR","2500","837213","84145389","837213",null],["2026-09-23","2026-09-24","BOLIVAR","CARTAGENA","ZSN1","Devolucion nota de cambio","7040804023","67-2026-01849916",null,0.798,1.0,"C1 - BOLIVAR","2500","837213","84145453","837213",null],["2026-09-23","2026-09-24","BOLIVAR","CARTAGENA","ZSN1","Devolucion nota de cambio","7040804061","67-2026-01823880",null,0.158,2.0,"C1 - BOLIVAR","2500","837213","84145590","837213",null],["2026-09-23","2026-09-24","BOLIVAR","CARTAGENA","ZSN1","Devolucion nota de cambio","7040804125","67-2026-01853157",null,0.798,1.0,"C1 - BOLIVAR","2500","837213","84145689","837213",null],["2026-09-23","2026-09-24","BOLIVAR","CARTAGENA","ZSN1","Devolucion nota de cambio","7040804405","67-2026-01839085",null,0.119,1.0,"C1 - BOLIVAR","2500","837213","84147656","837213",null],["2026-09-23","2026-09-24","CUNDINAMARCA","BOGOTA","ZSCC","Entrega taller","7040802775","H4-2026-01823281",null,1.216,2.0,"RE - CUNDINAMARCA","2006","837261","84141941","837261",null],["2026-09-23","2026-09-24","CUNDINAMARCA","BOGOTA","ZSCC","Entrega taller","7040802777","H1-2026-01824476",null,0.958,2.0,"RE - CUNDINAMARCA","2006","836168","84141943","836168",null],["2026-09-23","2026-09-24","CUNDINAMARCA","BOGOTA","ZSCC","Entrega taller","7040802994","H4-2026-01777596",null,1.228,2.0,"RE - CUNDINAMARCA","2006","835829","84142260","835829",null],["2026-09-23","2026-09-24","CUNDINAMARCA","BOGOTA","ZSCC","Entrega taller","7040803119","F7-2023-01831685",null,1.011,2.0,"RE - CUNDINAMARCA","2006","837261","84142512","837261",null],["2026-09-23","2026-09-24","CUNDINAMARCA","BOGOTA","ZSRT","Recogida taller","7040803143","F7-2022-01805772",null,2.403,112.0,"RE - CUNDINAMARCA","2006","837261","84143076","837261",null],["2026-09-23","2026-09-24","CUNDINAMARCA","BOGOTA","ZSN1","Devolucion nota de cambio","7040803608","H4-2026-01777390",null,1.733,4.0,"RE - CUNDINAMARCA","2506","837261","84144315","837261",null],["2026-09-23","2026-09-24","CUNDINAMARCA","BOGOTA","ZSN1","Devolucion nota de cambio","7040803776","H4-2026-01810693",null,0.15,83.4,"RE - CUNDINAMARCA","2506","836303","84145068","836303",null],["2026-09-23","2026-09-24","CUNDINAMARCA","BOGOTA","ZSRT","Recogida taller","7040803782","A9-2025-01851697",null,0.367,2.0,"RE - CUNDINAMARCA","2006","837261","84145079","837261",null],["2026-09-23","2026-09-24","CUNDINAMARCA","BOGOTA","ZSN1","Devolucion nota de cambio","7040803809","F7-2026-01849390",null,1.848,51.0,"RE - CUNDINAMARCA","2506","836340","84145110","836340",null],["2026-09-23","2026-09-24","CUNDINAMARCA","BOGOTA","ZSN1","Devolucion nota de cambio","7040803840","H1-2026-01831199",null,0.221,1.0,"RE - CUNDINAMARCA","2506","837261","84145140","837261",null],["2026-09-23","2026-09-24","CUNDINAMARCA","BOGOTA","ZSRT","Recogida taller","7040803857","H4-2026-5242607",null,0.431,21.0,"RE - CUNDINAMARCA","2006","837261","84145193","837261",null],["2026-09-23","2026-09-24","CUNDINAMARCA","BOGOTA","ZSN1","Devolucion nota de cambio","7040803881","F7-2026-01801663",null,0.291,101.2,"RE - CUNDINAMARCA","2506","836340","84145240","836340",null],["2026-09-23","2026-09-24","CUNDINAMARCA","BOGOTA","ZSN1","Devolucion nota de cambio","7040803885","F7-2026-01824301",null,1.622,2.0,"RE - CUNDINAMARCA","2506","836340","84145244","836340",null],["2026-09-23","2026-09-24","CUNDINAMARCA","BOGOTA","ZSRT","Recogida taller","7040803911","F7-2025-01830747",null,0.56,27.5,"RE - CUNDINAMARCA","2006","836347","84145282","836347",null],["2026-09-23","2026-09-24","CUNDINAMARCA","BOGOTA","ZSRT","Recogida taller","7040804012","H4-2026-01844514",null,0.358,1.0,"RE - CUNDINAMARCA","2006","837261","84145429","837261",null],["2026-09-23","2026-09-24","CUNDINAMARCA","BOGOTA","ZSRT","Recogida taller","7040804109","H1-2026-01834835",null,1.449,38.0,"RE - CUNDINAMARCA","2006","837261","84145642","837261",null],["2026-09-23","2026-09-24","CUNDINAMARCA","BOGOTA","ZSN1","Devolucion nota de cambio","7040804233","F7-2026-01851686",null,0.553,3.0,"RE - CUNDINAMARCA","2506","837261","84147407","837261",null],["2026-09-23","2026-09-24","CUNDINAMARCA","BOGOTA","ZSRT","Recogida taller","7040804258","H4-2025-01853600",null,1.064,1.0,"RE - CUNDINAMARCA","2006","837261","84147443","837261",null],["2026-09-23","2026-09-25","SANTANDER","BUCARAMANGA","ZSRT","Recogida taller","7040803583","18-2026-01850985",null,0.347,2.0,"RE - SANTANDER","2000",null,"84144284",null,null],["2026-09-23","2026-09-25","SANTANDER","BUCARAMANGA","ZSRT","Recogida taller","7040803585","18-2026-01850985",null,0.347,2.0,"RE - SANTANDER","2000","837215","84144286","837215",null],["2026-09-23","2026-09-25","SANTANDER","BUCARAMANGA","ZSRT","Recogida taller","7040803891","18-2025-01851015",null,1.204,6.0,"RE - SANTANDER","2000","837215","84145252","837215",null],["2026-09-23","2026-09-25","SANTANDER","BUCARAMANGA","ZSN1","Devolucion nota de cambio","7040804054","18-2026-01849520",null,0.014,1.0,"RE - SANTANDER","2500",null,"84145580",null,null],["2026-09-23","2026-09-25","SANTANDER","BUCARAMANGA","ZSN1","Devolucion nota de cambio","7040804114","18-2026-01852734",null,1.228,2.0,"RE - SANTANDER","2500","837215","84145661","837215",null],["2026-09-23","2026-09-25","SANTANDER","BUCARAMANGA","ZSRT","Recogida taller","7040804329","18-2026-01854018",null,0.623,1.0,"RE - SANTANDER","2000",null,"84147539",null,null],["2026-09-23","2026-09-25","SANTANDER","BUCARAMANGA","ZSN1","Devolucion nota de cambio","7040804631","18-2026-01854018",null,0.623,1.0,"RE - SANTANDER","2500","837215","84148534","837215",null],["2026-09-23","2026-09-25","SANTANDER","FLORIDABLANCA","ZSCC","Entrega taller","7040801765","18-2026-01825745",null,1.313,43.6,"RE - SANTANDER","2000","837215","84137952","837215",null],["2026-09-23","2026-09-25","SANTANDER","FLORIDABLANCA","ZSRT","Recogida taller","7040803984","18-2026-01840836",null,0.487,63.15,"RE - SANTANDER","2000","837215","84145383","837215",null],["2026-09-23","2026-09-25","SANTANDER","FLORIDABLANCA","ZSN1","Devolucion nota de cambio","7040804069","18-2026-01851913",null,0.213,4.0,"RE - SANTANDER","2500","837215","84145596","837215",null],["2026-09-23","2026-09-25","SANTANDER","FLORIDABLANCA","ZSN1","Devolucion nota de cambio","7040804105","18-2026-01852833",null,0.089,1.0,"RE - SANTANDER","2500","837215","84145638","837215",null],["2026-09-23","2026-09-25","SANTANDER","FLORIDABLANCA","ZSRT","Recogida taller","7040804283","18-2026-01853804",null,0.385,1.0,"RE - SANTANDER","2000","837215","84147486","837215",null],["2026-09-23","2026-09-25","SANTANDER","GIRON","ZSN1","Devolucion nota de cambio","7040803550","18-2026-01842668",null,1.927,31.0,"RE - SANTANDER","2500","837215","84144164","837215",null],["2026-09-23","2026-09-25","SANTANDER","GIRON","ZSN1","Devolucion nota de cambio","7040804057","18-2026-01808813",null,0.109,17.0,"RE - SANTANDER","2500","837247","84145585","837247",null],["2026-09-24","2026-09-25","ANTIOQUIA","BELLO","ZSRT","Recogida taller","7040804676","A3-2025-01855268",null,1.848,51.0,"RE - ANTIOQUIA","2008",null,"84148570",null,null],["2026-09-24","2026-09-25","ANTIOQUIA","BELLO","ZSRT","Recogida taller","7040804705","F8-2026-01855398",null,0.726,67.0,"RE - ANTIOQUIA","2008",null,"84148597",null,null],["2026-09-24","2026-09-25","ANTIOQUIA","BELLO","ZSN1","Devolucion nota de cambio","7040804740","F8-2025-01853330",null,1.628,74.0,"RE - ANTIOQUIA","2508","837238","84148677","837238",null],["2026-09-24","2026-09-25","ANTIOQUIA","BELLO","ZSN1","Devolucion nota de cambio","7040804796","F8-2026-01814023",null,0.306,37.2,"RE - ANTIOQUIA","2508",null,"84148749",null,null],["2026-09-24","2026-09-25","ANTIOQUIA","BELLO","ZSN1","Devolucion nota de cambio","7040804843","F8-2026-01855748",null,0.223,3.0,"RE - ANTIOQUIA","2508",null,"84148813",null,null],["2026-09-24","2026-09-25","ANTIOQUIA","ENVIGADO","ZSN1","Devolucion nota de cambio","7040804613","A3-2026-01854615",null,0.089,1.0,"RE - ANTIOQUIA","2508",null,"84148518",null,null],["2026-09-24","2026-09-25","ANTIOQUIA","ENVIGADO","ZSN1","Devolucion nota de cambio","7040804652","A3-2026-01843207",null,1.37,48.0,"RE - ANTIOQUIA","2508",null,"84148552",null,null],["2026-09-24","2026-09-25","ANTIOQUIA","ENVIGADO","ZSRT","Recogida taller","7040804724","B4-2026-01855446",null,0.133,16.0,"RE - ANTIOQUIA","2008",null,"84148648",null,null],["2026-09-24","2026-09-25","ANTIOQUIA","ENVIGADO","ZSN1","Devolucion nota de cambio","7040804800","A8-2026-01826373",null,0.247,2.0,"RE - ANTIOQUIA","2508",null,"84148753",null,null],["2026-09-24","2026-09-25","ANTIOQUIA","ITAGUI","ZSRT","Recogida taller","7040804593","A3-2026-01847824",null,0.851,1.0,"RE - ANTIOQUIA","2008",null,"84148497",null,null],["2026-09-24","2026-09-25","ANTIOQUIA","ITAGUI","ZSRT","Recogida taller","7040804594","A3-2018-01850392",null,1.011,2.0,"RE - ANTIOQUIA","2008",null,"84148498",null,null],["2026-09-24","2026-09-25","ANTIOQUIA","MEDELLIN","ZSCC","Entrega taller","7040801956","A3-2026-01813908",null,0.518,36.0,"RE - ANTIOQUIA","2008",null,"84138326",null,null],["2026-09-24","2026-09-25","ANTIOQUIA","MEDELLIN","ZSRT","Recogida taller","7040804232","B4-2026-01853546",null,0.832,2.0,"RE - ANTIOQUIA","2008",null,"84147403",null,null],["2026-09-24","2026-09-25","ANTIOQUIA","MEDELLIN","ZSN1","Devolucion nota de cambio","7040804567","A8-2026-01854348",null,0.084,2.0,"RE - ANTIOQUIA","2508",null,"84148460",null,null],["2026-09-24","2026-09-25","ANTIOQUIA","MEDELLIN","ZSRT","Recogida taller","7040804582","A8-2022-01850340",null,1.144,2.0,"RE - ANTIOQUIA","2008",null,"84148475",null,null],["2026-09-24","2026-09-25","ANTIOQUIA","MEDELLIN","ZSN1","Devolucion nota de cambio","7040804667","B4-2026-01828579",null,0.046,3.0,"RE - ANTIOQUIA","2508",null,"84148563",null,null],["2026-09-24","2026-09-25","ANTIOQUIA","MEDELLIN","ZSN1","Devolucion nota de cambio","7040804695","B4-2026-01854105",null,1.216,1.0,"RE - ANTIOQUIA","2508",null,"84148588",null,null],["2026-09-24","2026-09-25","ANTIOQUIA","MEDELLIN","ZSN1","Devolucion nota de cambio","7040804715","B4-2025-5212082",null,0.851,1.0,"RE - ANTIOQUIA","2508",null,"84148636",null,null],["2026-09-24","2026-09-25","ANTIOQUIA","MEDELLIN","ZSRT","Recogida taller","7040804776","A3-2026-01855841",null,1.083,1.0,"RE - ANTIOQUIA","2008",null,"84148730",null,null],["2026-09-24","2026-09-25","ANTIOQUIA","SABANETA","ZSN1","Devolucion nota de cambio","7040804708","A3-2025-01853226",null,1.906,9.0,"RE - ANTIOQUIA","2508",null,"84148626",null,null],["2026-09-24","2026-09-25","ANTIOQUIA","SABANETA","ZSN1","Devolucion nota de cambio","7040804750","A3-2026-01787529",null,0.341,92.0,"RE - ANTIOQUIA","2508",null,"84148697",null,null],["2026-09-24","2026-09-25","ANTIOQUIA","SABANETA","ZSRT","Recogida taller","7040804771","A3-2026-01855828",null,0.447,35.6,"RE - ANTIOQUIA","2008",null,"84148724",null,null],["2026-09-24","2026-09-25","ATLANTICO","BARRANQUILLA","ZSCC","Entrega taller","7040801783","95-2025-01821831",null,2.133,2.0,"C1 - ATLANTICO","2000",null,"84137969",null,null],["2026-09-24","2026-09-25","ATLANTICO","BARRANQUILLA","ZSCC","Entrega taller","7040801784","01-2025-01825829",null,0.418,2.0,"C1 - ATLANTICO","2000",null,"84137970",null,null],["2026-09-24","2026-09-25","ATLANTICO","BARRANQUILLA","ZSCC","Entrega taller","7040803200","01-2025-01824277",null,1.496,2.0,"C1 - ATLANTICO","2000",null,"84143175",null,null],["2026-09-24","2026-09-25","ATLANTICO","BARRANQUILLA","ZSN1","Devolucion nota de cambio","7040804107","01-2026-01852929",null,1.064,1.0,"C1 - ATLANTICO","2500",null,"84145640",null,null],["2026-09-24","2026-09-25","ATLANTICO","BARRANQUILLA","ZSN1","Devolucion nota de cambio","7040804131","95-2026-01852410",null,1.064,1.0,"C1 - AT/Dif. Acc","2500",null,"84145708",null,null],["2026-09-24","2026-09-25","ATLANTICO","BARRANQUILLA","ZSRT","Recogida taller","7040804600","95-2026-01829836",null,0.424,2.0,"C1 - ATLANTICO","2000",null,"84148506",null,null],["2026-09-24","2026-09-25","ATLANTICO","BARRANQUILLA","ZSRT","Recogida taller","7040804612","XX-2025-01853612",null,0.056,2.0,"C1 - ATLANTICO","2000",null,"84148516",null,null],["2026-09-24","2026-09-25","ATLANTICO","BARRANQUILLA","ZSN1","Devolucion nota de cambio","7040804634","95-2026-01827788",null,0.067,2.0,"C1 - ATLANTICO","2500",null,"84148536",null,null],["2026-09-24","2026-09-25","ATLANTICO","BARRANQUILLA","ZSRT","Recogida taller","7040804693","95-2025-01852109",null,1.6,1.0,"C1 - ATLANTICO","2000",null,"84148585",null,null],["2026-09-24","2026-09-25","ATLANTICO","BARRANQUILLA","ZSRT","Recogida taller","7040804729","01-2026-01855564",null,0.29,71.6,"C1 - ATLANTICO","2000",null,"84148659",null,null],["2026-09-24","2026-09-25","ATLANTICO","BARRANQUILLA","ZSN1","Devolucion nota de cambio","7040804747","B5-2026-01830140",null,0.158,2.0,"C1 - ATLANTICO","2500",null,"84148691",null,null],["2026-09-24","2026-09-25","ATLANTICO","BARRANQUILLA","ZSRT","Recogida taller","7040804855","95-2025-01847076",null,1.36,40.0,"C1 - ATLANTICO","2000",null,"84148824",null,null],["2026-09-24","2026-09-25","ATLANTICO","BARRANQUILLA","ZSRT","Recogida taller","7040804858","B5-2024-01773768",null,1.478,2.0,"C1 - ATLANTICO","2000",null,"84148837",null,null],["2026-09-24","2026-09-25","ATLANTICO","MALAMBO","ZSCC","Entrega taller","7040801693","B5-2025-01797500",null,0.798,1.0,"C1 - ATLANTICO","2000",null,"84137857",null,null],["2026-09-24","2026-09-25","ATLANTICO","PALMAR DE VARELA","ZSCC","Entrega taller","7040801692","01-2025-01825919",null,0.851,1.0,"C1 - ATLANTICO","2000",null,"84137856",null,null],["2026-09-24","2026-09-25","ATLANTICO","PUERTO COLOMBIA","ZSN1","Devolucion nota de cambio","7040804106","95-2026-01850371",null,0.484,1.0,"C1 - ATLANTICO","2500",null,"84145639",null,null],["2026-09-24","2026-09-25","ATLANTICO","PUERTO COLOMBIA","ZSN1","Devolucion nota de cambio","7040804424","01-2026-01829301",null,0.362,138.0,"C1 - ATLANTICO","2500",null,"84147677",null,null],["2026-09-24","2026-09-25","ATLANTICO","PUERTO COLOMBIA","ZSRT","Recogida taller","7040804918","95-2025-01850773",null,1.457,67.4,"C1 - ATLANTICO","2000",null,"84149409",null,null],["2026-09-24","2026-09-25","ATLANTICO","PUERTO COLOMBIA","ZSRT","Recogida taller","7040804919","95-2025-01850773",null,1.457,67.4,"C1 - ATLANTICO","2000",null,"84149410",null,null],["2026-09-24","2026-09-25","ATLANTICO","SANTO TOMAS","ZSN1","Devolucion nota de cambio","7040804430","01-2026-01853588",null,2.301,4.0,"C1 - ATLANTICO","2500",null,"84147686",null,null],["2026-09-24","2026-09-25","ATLANTICO","SOLEDAD","ZSCC","Entrega taller","7040799548","XX-2026-01767078",null,0.418,2.0,"C1 - ATLANTICO","2000",null,"84130513",null,null],["2026-09-24","2026-09-25","ATLANTICO","SOLEDAD","ZSN1","Devolucion nota de cambio","7040804648","01-2026-01854339",null,0.362,138.0,"C1 - ATLANTICO","2500",null,"84148549",null,null],["2026-09-24","2026-09-25","ATLANTICO","SOLEDAD","ZSRT","Recogida taller","7040804813","B5-2026-01855995",null,0.068,13.0,"C1 - AT/Dif. Acc","2000",null,"84148772",null,null],["2026-09-24","2026-09-25","ATLANTICO","SOLEDAD","ZSRT","Recogida taller","7040804814","XX-2025-01812392",null,1.064,1.0,"C1 - ATLANTICO","2000",null,"84148774",null,null],["2026-09-24","2026-09-25","BOLIVAR","CARTAGENA","ZSRD","Recogida devolucion","7040801587","10-2026-5228404",null,1.543,5.0,"C1 - BOLIVAR","2500","834808","84137205","834808",null],["2026-09-24","2026-09-25","BOLIVAR","CARTAGENA","ZSRT","Recogida taller","7040804117","10-2026-01847663",null,0.105,12.0,"C1 - BOLIVAR","2000",null,"84145677",null,null],["2026-09-24","2026-09-25","BOLIVAR","CARTAGENA","ZSRT","Recogida taller","7040804128","67-2026-01853185",null,1.569,6.0,"C1 - BOLIVAR","2000",null,"84145696",null,null],["2026-09-24","2026-09-25","BOLIVAR","CARTAGENA","ZSRT","Recogida taller","7040804306","10-2026-01833757",null,0.851,1.0,"C1 - BOLIVAR","2000",null,"84147510",null,null],["2026-09-24","2026-09-25","BOLIVAR","CARTAGENA","ZSRT","Recogida taller","7040804421","F8-2024-01818023",null,0.973,2.0,"C1 - BOLIVAR","2000",null,"84147675",null,null],["2026-09-24","2026-09-25","BOLIVAR","CARTAGENA","ZSRT","Recogida taller","7040804502","67-2026-01854297",null,0.401,1.0,"C1 - BOLIVAR","2000",null,"84147794",null,null],["2026-09-24","2026-09-25","BOLIVAR","CARTAGENA","ZSRT","Recogida taller","7040804506","67-2026-01854297",null,0.401,1.0,"C1 - BOLIVAR","2000",null,"84147798",null,null],["2026-09-24","2026-09-25","BOLIVAR","CARTAGENA","ZSRT","Recogida taller","7040804623","67-2026-01855098",null,0.586,1.0,"C1 - BOLIVAR","2000",null,"84148527",null,null],["2026-09-24","2026-09-25","BOLIVAR","CARTAGENA","ZSRT","Recogida taller","7040804672","67-2026-01854856",null,0.068,13.0,"C1 - BOLIVAR","2000",null,"84148567",null,null],["2026-09-24","2026-09-25","BOLIVAR","CARTAGENA","ZSRT","Recogida taller","7040804721","67-2026-01855479",null,2.816,2.0,"C1 - BOLIVAR","2000",null,"84148643",null,null],["2026-09-24","2026-09-25","BOLIVAR","CARTAGENA","ZSN1","Devolucion nota de cambio","7040804751","10-2026-01810158",null,1.381,2.0,"C1 - BOLIVAR","2500",null,"84148698",null,null],["2026-09-24","2026-09-25","BOLIVAR","CARTAGENA","ZSRT","Recogida taller","7040804812","67-2026-01842990",null,0.518,36.0,"C1 - BOLIVAR","2000",null,"84148771",null,null],["2026-09-24","2026-09-25","BOLIVAR","CARTAGENA","ZSRT","Recogida taller","7040804819","10-2026-01856049",null,1.083,1.0,"C1 - BOLIVAR","2000",null,"84148788",null,null],["2026-09-24","2026-09-25","BOLIVAR","CARTAGENA","ZSRT","Recogida taller","7040804891","10-2026-01853701",null,1.064,1.0,"C1 - BOLIVAR","2000",null,"84149301",null,null],["2026-09-24","2026-09-25","BOLIVAR","CARTAGENA","ZSN1","Devolucion nota de cambio","7040804898","10-2026-01838029",null,1.064,60.0,"C1 - BOLIVAR","2500",null,"84149378",null,null],["2026-09-24","2026-09-25","BOLIVAR","CARTAGENA","ZSRT","Recogida taller","7040804906","67-2025-01820335",null,1.938,3.0,"C1 - BOLIVAR","2000",null,"84149388",null,null],["2026-09-24","2026-09-25","BOLIVAR","CARTAGENA","ZSN1","Devolucion nota de cambio","7040804923","10-2026-01855015",null,0.586,1.0,"C1 - BOLIVAR","2500",null,"84149419",null,null],["2026-09-24","2026-09-25","BOLIVAR","CARTAGENA","ZSN1","Devolucion nota de cambio","7040804958","67-2026-01851364",null,0.187,1.0,"C1 - BOLIVAR","2500",null,"84149453",null,null],["2026-09-24","2026-09-25","BOLIVAR","CARTAGENA","ZSN1","Devolucion nota de cambio","7040804959","67-2026-01852007",null,0.187,1.0,"C1 - BOLIVAR","2500",null,"84149454",null,null],["2026-09-24","2026-09-25","BOLIVAR","TURBACO","ZSRT","Recogida taller","7040804917","67-2026-01856316",null,0.665,35.0,"C1 - BOLIVAR","2000",null,"84149408",null,null],["2026-09-24","2026-09-25","CUNDINAMARCA","BOGOTA","ZSCC","Entrega taller","7040801401","B9-2022-01790631",null,0.343,2.0,"RE - CUNDINAMARCA","2006","834853","84136898","834853",null],["2026-09-24","2026-09-25","CUNDINAMARCA","BOGOTA","ZSCC","Entrega taller","7040801953","H1-2025-01829144",null,0.431,21.0,"RE - CUNDINAMARCA","2006",null,"84138323",null,null],["2026-09-24","2026-09-25","CUNDINAMARCA","BOGOTA","ZSCC","Entrega taller","7040802754","H1-2024-01826389",null,1.003,2.0,"RE - CUNDINAMARCA","2006",null,"84141405",null,null],["2026-09-24","2026-09-25","CUNDINAMARCA","BOGOTA","ZSN1","Devolucion nota de cambio","7040803202","H1-2026-01848787",null,0.207,1.0,"RE - CUNDINAMARCA","2506",null,"84143180",null,null],["2026-09-24","2026-09-25","CUNDINAMARCA","BOGOTA","ZSN1","Devolucion nota de cambio","7040803203","H1-2026-01848789",null,0.207,1.0,"RE - CUNDINAMARCA","2506",null,"84143188",null,null],["2026-09-24","2026-09-25","CUNDINAMARCA","BOGOTA","ZSN1","Devolucion nota de cambio","7040803225","H1-2026-01734110",null,0.077,10.0,"RE - CUNDINAMARCA","2506",null,null,null,null],["2026-09-24","2026-09-25","CUNDINAMARCA","BOGOTA","ZSRT","Recogida taller","7040803306","H4-2026-01845608",null,1.441,1.0,"RE - CUNDINAMARCA","2006","836878","84143375","836878",null],["2026-09-24","2026-09-25","CUNDINAMARCA","BOGOTA","ZSRT","Recogida taller","7040803375","H4-2024-01838963",null,2.502,2.0,"RE - CUNDINAMARCA","2006",null,"84143471",null,null],["2026-09-24","2026-09-25","CUNDINAMARCA","BOGOTA","ZSN1","Devolucion nota de cambio","7040803768","H1-2025-01830477",null,0.464,1.0,"RE - CUNDINAMARCA","2506",null,"84145031",null,null],["2026-09-24","2026-09-25","CUNDINAMARCA","BOGOTA","ZSN1","Devolucion nota de cambio","7040804043","H4-2026-01849523",null,0.286,5.0,"RE - CUNDINAMARCA","2506","836878","84145571","836878",null],["2026-09-24","2026-09-25","CUNDINAMARCA","BOGOTA","ZSN1","Devolucion nota de cambio","7040804269","F7-2026-01853695",null,0.223,1.0,"RE - CUNDINAMARCA","2506","836800","84147465","836800",null],["2026-09-24","2026-09-25","CUNDINAMARCA","BOGOTA","ZSRT","Recogida taller","7040804347","H1-2026-01850657",null,1.026,1.0,"RE - CUNDINAMARCA","2006",null,"84147564",null,null],["2026-09-24","2026-09-25","CUNDINAMARCA","BOGOTA","ZSN1","Devolucion nota de cambio","7040804348","B9-2026-01839458",null,0.594,2.0,"RE - CUNDINAMARCA","2506","837183","84147566","837183",null],["2026-09-24","2026-09-25","CUNDINAMARCA","BOGOTA","ZSN1","Devolucion nota de cambio","7040804359","H1-2026-01841523",null,0.37,2.0,"RE - CUNDINAMARCA","2506",null,"84147580",null,null],["2026-09-24","2026-09-25","CUNDINAMARCA","BOGOTA","ZSRT","Recogida taller","7040804375","B9-2025-5214308",null,0.376,2.0,"RE - CUNDINAMARCA","2006",null,"84147598",null,null],["2026-09-24","2026-09-25","CUNDINAMARCA","BOGOTA","ZSRT","Recogida taller","7040804378","B9-2025-5214323",null,0.376,2.0,"RE - CUNDINAMARCA","2006",null,"84147600",null,null],["2026-09-24","2026-09-25","CUNDINAMARCA","BOGOTA","ZSRT","Recogida taller","7040804621","B9-2026-01827172",null,0.214,3.0,"RE - CUNDINAMARCA","2006",null,"84148525",null,null],["2026-09-24","2026-09-25","CUNDINAMARCA","BOGOTA","ZSRT","Recogida taller","7040804684","H1-2026-01855300",null,0.09,2.0,"RE - CUNDINAMARCA","2006",null,"84148576",null,null],["2026-09-24","2026-09-25","CUNDINAMARCA","BOGOTA","ZSN1","Devolucion nota de cambio","7040804775","B9-2026-01855145",null,0.163,3.0,"RE - CUNDINAMARCA","2506",null,"84148727",null,null],["2026-09-24","2026-09-26","GUAJIRA","MAICAO","ZSN1","Devolucion nota de cambio","7040804639","39-2026-01854481",null,0.225,3.0,"C2 - GUAJIRA","2500",null,"84148542",null,null],["2026-09-24","2026-09-26","GUAJIRA","RIOHACHA","ZSCC","Entrega taller","7040800762","39-2026-01789950",null,1.652,71.0,"C2 - GUAJIRA","2000","836082","84134778","836082",null],["2026-09-24","2026-09-26","GUAJIRA","RIOHACHA","ZSCC","Entrega taller","7040800837","39-2026-01807190",null,1.496,2.0,"C2 - GUAJIRA","2000",null,"84136959",null,null],["2026-09-24","2026-09-26","GUAJIRA","RIOHACHA","ZSN1","Devolucion nota de cambio","7040803298","39-2026-01829196",null,0.101,3.0,"C2 - GUAJIRA","2500",null,"84143363",null,null],["2026-09-24","2026-09-26","GUAJIRA","RIOHACHA","ZSRT","Recogida taller","7040804049","39-2025-01849862",null,0.585,22.0,"C2 - GUAJIRA","2000",null,"84145576",null,null],["2026-09-24","2026-09-26","GUAJIRA","RIOHACHA","ZSRT","Recogida taller","7040804121","39-2025-01852897",null,1.33,55.0,"C2 - GUAJIRA","2000",null,"84145684",null,null],["2026-09-24","2026-09-26","GUAJIRA","RIOHACHA","ZSRT","Recogida taller","7040804122","39-2025-01852897",null,1.33,55.0,"C2 - GUAJIRA","2000",null,"84145685",null,null],["2026-09-24","2026-09-25","MAGDALENA","SANTA MARTA","ZSCC","Entrega taller","7040801781","85-2026-01824640",null,0.197,1.0,"C1 - MAGDALENA","2000","837068","84137966","837068",null],["2026-09-24","2026-09-25","MAGDALENA","SANTA MARTA","ZSCC","Entrega taller","7040802473","85-2026-01828029",null,1.799,4.0,"C1 - MAGDALENA","2000",null,"84140080",null,null],["2026-09-24","2026-09-25","MAGDALENA","SANTA MARTA","ZSCC","Entrega taller","7040802474","85-2025-01826906",null,1.011,1.0,"C1 - MAGDALENA","2000","837068","84140081","837068",null],["2026-09-25","2026-09-26","ATLANTICO","BARRANQUILLA","ZSCC","Entrega taller","7040801473","95-2025-01806271",null,2.73,122.0,"C1 - ATLANTICO","2000",null,"84137030",null,null],["2026-09-25","2026-09-26","ATLANTICO","BARRANQUILLA","ZSCC","Entrega taller","7040801599","95-2026-01790832",null,0.112,14.0,"C1 - ATLANTICO","2000","836284","84137224","836284",null],["2026-09-25","2026-09-26","ATLANTICO","BARRANQUILLA","ZSCC","Entrega taller","7040802346","95-2023-01833847",null,0.163,2.0,"C1 - ATLANTICO","2000",null,"84139243",null,null],["2026-09-25","2026-09-26","ATLANTICO","BARRANQUILLA","ZSCC","Entrega taller","7040802508","01-2025-01825019",null,1.449,67.4,"C1 - ATLANTICO","2000",null,"84141013",null,null],["2026-09-25","2026-09-26","ATLANTICO","BARRANQUILLA","ZSCC","Entrega taller","7040804030","95-2019-01839147",null,1.22,2.0,"C1 - ATLANTICO","2000",null,"84145511",null,null],["2026-09-25","2026-09-26","ATLANTICO","BARRANQUILLA","ZSRT","Recogida taller","7040804942","01-2026-01856360",null,0.162,18.0,"C1 - AT/Dif. Acc","2000",null,"84149435",null,null],["2026-09-25","2026-09-26","ATLANTICO","BARRANQUILLA","ZSN1","Devolucion nota de cambio","7040804983","95-2026-01845409",null,1.717,59.0,"C1 - ATLANTICO","2500","837224","84149481","837224",null],["2026-09-25","2026-09-26","ATLANTICO","BARRANQUILLA","ZSRT","Recogida taller","7040805004","95-2026-01822499",null,1.449,38.0,"C1 - ATLANTICO","2000",null,"84149528",null,null],["2026-09-25","2026-09-26","ATLANTICO","BARRANQUILLA","ZSRT","Recogida taller","7040805013","01-2022-01845575",null,0.776,2.0,"C1 - ATLANTICO","2000",null,"84149537",null,null],["2026-09-25","2026-09-26","ATLANTICO","BARRANQUILLA","ZSN1","Devolucion nota de cambio","7040805029","XX-2026-01856166",null,0.38,61.0,"C1 - ATLANTICO","2500",null,"84149564",null,null],["2026-09-25","2026-09-26","ATLANTICO","POLONUEVO","ZSRT","Recogida taller","7040804941","01-2025-01853459",null,0.532,2.0,"C1 - ATLANTICO","2000",null,"84149434",null,null],["2026-09-25","2026-09-26","ATLANTICO","PUERTO COLOMBIA","ZSN1","Devolucion nota de cambio","7040805020","95-2026-01854661",null,1.003,2.0,"C1 - ATLANTICO","2500",null,"84149551",null,null],["2026-09-25","2026-09-26","ATLANTICO","SOLEDAD","ZSCC","Entrega taller","7040804039","B5-2023-01835356",null,0.798,2.0,"C1 - ATLANTICO","2000",null,"84145520",null,null],["2026-09-25","2026-09-26","ATLANTICO","SOLEDAD","ZSN1","Devolucion nota de cambio","7040805009","B5-2026-01856400",null,0.084,14.5,"C1 - AT/Dif. Acc","2500",null,"84149533",null,null],["2026-09-25","2026-09-26","ATLANTICO","SOLEDAD","ZSN1","Devolucion nota de cambio","7040805010","B5-2026-01856295",null,1.632,6.0,"C1 - ATLANTICO","2500",null,"84149534",null,null],["2026-09-25","2026-09-26","ATLANTICO","SOLEDAD","ZSRT","Recogida taller","7040805091","B5-2026-01825974",null,0.207,48.0,"C1 - ATLANTICO","2000",null,"84149685",null,null],["2026-09-27","2026-09-28","ANTIOQUIA","BELLO","ZSCC","Entrega taller","7040802012","B4-2026-01829968",null,0.504,1.0,"RE - ANTIOQUIA","2008","837093","84138690","837093",null],["2026-09-27","2026-09-28","ANTIOQUIA","BELLO","ZSCC","Entrega taller","7040802256","B4-2026-01829987",null,0.267,8.0,"RE - ANTIOQUIA","2008","836867","84139093","836867",null],["2026-09-27","2026-09-28","ANTIOQUIA","BELLO","ZSRT","Recogida taller","7040804808","F8-2025-01852551",null,2.306,59.0,"RE - ANTIOQUIA","2008",null,"84148765",null,null],["2026-09-27","2026-09-28","ANTIOQUIA","BELLO","ZSRT","Recogida taller","7040805001","F8-2026-01856743",null,0.987,1.0,"RE - ANTIOQUIA","2008",null,"84149523",null,null],["2026-09-27","2026-09-28","ANTIOQUIA","ENVIGADO","ZSRT","Recogida taller","7040805036","A3-2024-01829865",null,0.851,2.0,"RE - ANTIOQUIA","2008",null,"84149581",null,null],["2026-09-27","2026-09-28","ANTIOQUIA","ITAGUI","ZSN1","Devolucion nota de cambio","7040804925","A3-2026-01819543",null,0.85,102.0,"RE - ANTIOQUIA","2508",null,"84149423",null,null],["2026-09-27","2026-09-28","ANTIOQUIA","ITAGUI","ZSN1","Devolucion nota de cambio","7040804930","A3-2026-01819575",null,1.094,2.0,"RE - ANTIOQUIA","2508",null,"84149426",null,null],["2026-09-27","2026-09-28","ANTIOQUIA","MEDELLIN","ZSCC","Entrega taller","7040802254","B4-2025-01823246",null,0.73,2.0,"RE - ANTIOQUIA","2008",null,"84139091",null,null],["2026-09-27","2026-09-28","ANTIOQUIA","MEDELLIN","ZSRT","Recogida taller","7040804844","A8-2026-01856168",null,0.347,13.0,"RE - ANTIOQUIA","2008",null,"84148814",null,null],["2026-09-27","2026-09-28","ANTIOQUIA","MEDELLIN","ZSRT","Recogida taller","7040804845","A8-2026-01856168",null,0.347,13.0,"RE - ANTIOQUIA","2008",null,"84148815",null,null],["2026-09-27","2026-09-28","ANTIOQUIA","MEDELLIN","ZSRT","Recogida taller","7040804951","A8-2024-01854918",null,1.33,49.9,"RE - ANTIOQUIA","2008",null,"84149445",null,null],["2026-09-27","2026-09-28","ANTIOQUIA","MEDELLIN","ZSN1","Devolucion nota de cambio","7040804952","A3-2025-01845228",null,0.44,6.0,"RE - ANTIOQUIA","2508",null,"84149448",null,null],["2026-09-27","2026-09-28","ANTIOQUIA","MEDELLIN","ZSRT","Recogida taller","7040804956","A3-2026-01856432",null,1.521,1.0,"RE - ANTIOQUIA","2008",null,"84149451",null,null],["2026-09-27","2026-09-28","ANTIOQUIA","MEDELLIN","ZSRT","Recogida taller","7040804978","A8-2026-01856172",null,0.347,13.0,"RE - ANTIOQUIA","2008",null,"84149476",null,null],["2026-09-27","2026-09-28","ANTIOQUIA","MEDELLIN","ZSRT","Recogida taller","7040804979","A8-2026-01856172",null,0.347,13.0,"RE - ANTIOQUIA","2008",null,"84149477",null,null],["2026-09-27","2026-09-28","ANTIOQUIA","MEDELLIN","ZSRT","Recogida taller","7040805022","A3-2026-01856450",null,0.139,20.0,"RE - ANTIOQUIA","2008",null,"84149554",null,null],["2026-09-27","2026-09-28","ANTIOQUIA","MEDELLIN","ZSRT","Recogida taller","7040805023","A3-2026-01856458",null,0.139,20.0,"RE - ANTIOQUIA","2008",null,"84149555",null,null],["2026-09-27","2026-09-28","ANTIOQUIA","MEDELLIN","ZSRT","Recogida taller","7040805045","A3-2025-01857048",null,1.064,1.0,"RE - ANTIOQUIA","2008",null,"84149604",null,null],["2026-09-27","2026-09-28","ANTIOQUIA","MEDELLIN","ZSN1","Devolucion nota de cambio","7040805046","B4-2026-01769658",null,1.544,51.0,"RE - ANTIOQUIA","2508",null,"84149622",null,null],["2026-09-27","2026-09-28","ANTIOQUIA","MEDELLIN","ZSRT","Recogida taller","7040805050","F8-2026-01856137",null,0.109,17.0,"RE - ANTIOQUIA","2008",null,"84149634",null,null],["2026-09-27","2026-09-28","ANTIOQUIA","MEDELLIN","ZSRT","Recogida taller","7040805059","A8-2026-01847979",null,1.2,1.0,"RE - ANTIOQUIA","2008",null,"84149641",null,null],["2026-09-27","2026-09-28","ANTIOQUIA","MEDELLIN","ZSRT","Recogida taller","7040805076","A3-2025-01851299",null,0.798,30.0,"RE - ANTIOQUIA","2008",null,"84149665",null,null],["2026-09-27","2026-09-28","ANTIOQUIA","MEDELLIN","ZSRT","Recogida taller","7040805083","B4-2026-01857207",null,0.798,1.0,"RE - ANTIOQUIA","2008",null,"84149679",null,null],["2026-09-27","2026-09-28","ANTIOQUIA","SABANETA","ZSN1","Devolucion nota de cambio","7040804967","A3-2026-01845185",null,0.096,2.0,"RE - ANTIOQUIA","2508",null,"84149467",null,null],["2026-09-27","2026-09-29","CESAR","AGUSTIN CODAZZI","ZSRT","Recogida taller","7040803526","F6-2026-01785646",null,0.813,2.0,"C2 - CESAR","2000",null,"84144138",null,null],["2026-09-27","2026-09-29","CESAR","BOSCONIA","ZSN1","Devolucion nota de cambio","7040803871","F6-2026-01810108",null,0.257,119.5,"C2 - CESAR","2500",null,"84145208",null,null],["2026-09-27","2026-09-29","CESAR","BOSCONIA","ZSRT","Recogida taller","7040803972","F6-2026-01828624",null,1.064,1.0,"C2 - CESAR","2000",null,"84145370",null,null],["2026-09-27","2026-09-29","CESAR","VALLEDUPAR","ZSCC","Entrega taller","7040801458","F6-2025-01824187",null,1.021,1.0,"C2 - CESAR","2000",null,null,null,null],["2026-09-27","2026-09-29","CESAR","VALLEDUPAR","ZSCC","Entrega taller","7040803318","F6-2025-01833217",null,1.034,1.0,"C2 - CESAR","2000",null,"84145236",null,null],["2026-09-27","2026-09-29","CESAR","VALLEDUPAR","ZSN1","Devolucion nota de cambio","7040803591","F6-2025-01800881",null,0.074,31.2,"C2 - CESAR","2500",null,"84144291",null,null],["2026-09-27","2026-09-29","CESAR","VALLEDUPAR","ZSRT","Recogida taller","7040803656","F6-2026-01850438",null,0.048,2.0,"C2 - CESAR","2000",null,"84144396",null,null],["2026-09-27","2026-09-29","CESAR","VALLEDUPAR","ZSN1","Devolucion nota de cambio","7040803659","F6-2026-01850438",null,0.048,2.0,"C2 - CESAR","2500","836341","84144399","836341",null],["2026-09-27","2026-09-29","CESAR","VALLEDUPAR","ZSN1","Devolucion nota de cambio","7040803686","F6-2026-01850672",null,0.101,3.0,"C2 - CESAR","2500",null,"84144455",null,null],["2026-09-27","2026-09-29","CESAR","VALLEDUPAR","ZSRT","Recogida taller","7040803742","F6-2024-01849209",null,1.2,2.0,"C2 - CESAR","2000",null,"84144983",null,null],["2026-09-27","2026-09-29","CESAR","VALLEDUPAR","ZSCC","Entrega taller","7040803849","F6-2024-5165165",null,1.555,2.0,"C2 - CESAR","2000","836323","84145186","836323",null],["2026-09-27","2026-09-29","CESAR","VALLEDUPAR","ZSRT","Recogida taller","7040803952","F6-2025-01850230",null,0.851,1.0,"C2 - CESAR","2000",null,"84145341",null,null],["2026-09-27","2026-09-29","CESAR","VALLEDUPAR","ZSRD","Recogida devolucion","7040803955","F6-2026-5221844",null,1.216,1.0,"C2 - CESAR","2500",null,"84145348",null,null],["2026-09-27","2026-09-29","CESAR","VALLEDUPAR","ZSRT","Recogida taller","7040804119","F6-2026-01852958",null,0.2,1.0,"C2 - CESAR","2000",null,"84145681",null,null],["2026-09-27","2026-09-29","CESAR","VALLEDUPAR","ZSN1","Devolucion nota de cambio","7040804175","F6-2026-01853357",null,0.502,34.0,"C2 - CESAR","2500",null,"84145800",null,null],["2026-09-27","2026-10-02","CESAR","VALLEDUPAR","ZSRT","Recogida taller","7040804260","F6-2025-01770609",null,0.745,2.0,"C2 - CESAR","2000",null,"84147446",null,null],["2026-09-27","2026-09-29","CESAR","VALLEDUPAR","ZSN1","Devolucion nota de cambio","7040804425","F6-2026-01825204",null,0.119,1.0,"C2 - CESAR","2500",null,"84147680",null,null],["2026-09-27","2026-09-29","CESAR","VALLEDUPAR","ZSN1","Devolucion nota de cambio","7040804673","F6-2026-01846527",null,1.816,8.0,"C2 - CESAR","2500",null,"84148568",null,null],["2026-09-27","2026-09-29","CESAR","VALLEDUPAR","ZSRT","Recogida taller","7040804736","F6-2026-01855625",null,1.17,2.0,"C2 - CESAR","2000",null,"84148671",null,null],["2026-09-27","2026-09-29","CESAR","VALLEDUPAR","ZSRT","Recogida taller","7040804924","F6-2026-01856345",null,1.117,2.0,"C2 - CESAR","2000",null,"84149421",null,null],["2026-09-27","2026-09-29","CESAR","VALLEDUPAR","ZSRT","Recogida taller","7040804946","F6-2026-01853215",null,0.964,58.0,"C2 - CESAR","2000",null,"84149441",null,null],["2026-09-27","2026-09-28","CUNDINAMARCA","BOGOTA","ZSCC","Entrega taller","7040802776","F7-2026-01835401",null,0.543,45.0,"RE - CUNDINAMARCA","2006",null,"84141942",null,null],["2026-09-27","2026-09-28","CUNDINAMARCA","BOGOTA","ZSCC","Entrega taller","7040803744","H4-2026-01825414",null,1.094,2.0,"RE - CUNDINAMARCA","2006","837261","84145009","837261",null],["2026-09-27","2026-09-28","CUNDINAMARCA","BOGOTA","ZSCC","Entrega taller","7040803745","H4-2025-01845717",null,0.798,1.0,"RE - CUNDINAMARCA","2006","837261","84145010","837261",null],["2026-09-27","2026-09-28","CUNDINAMARCA","BOGOTA","ZSRT","Recogida taller","7040804617","A9-2021-01812878",null,3.005,2.0,"RE - CUNDINAMARCA","2006",null,"84148522",null,null],["2026-09-27","2026-09-28","CUNDINAMARCA","BOGOTA","ZSN1","Devolucion nota de cambio","7040804655","H4-2026-01852199",null,0.164,2.0,"RE - CUNDINAMARCA","2506",null,"84148555",null,null],["2026-09-27","2026-09-28","CUNDINAMARCA","BOGOTA","ZSN1","Devolucion nota de cambio","7040804658","H4-2026-01852200",null,0.461,18.0,"RE - CUNDINAMARCA","2506",null,"84148557",null,null],["2026-09-27","2026-09-28","CUNDINAMARCA","BOGOTA","ZSN1","Devolucion nota de cambio","7040804659","H4-2026-01852202",null,0.286,5.0,"RE - CUNDINAMARCA","2506",null,"84148558",null,null],["2026-09-27","2026-09-28","CUNDINAMARCA","BOGOTA","ZSRT","Recogida taller","7040804662","A3-2025-01836154",null,0.804,3.0,"RE - CUNDINAMARCA","2006",null,"84148560",null,null],["2026-09-27","2026-09-28","CUNDINAMARCA","BOGOTA","ZSN1","Devolucion nota de cambio","7040804716","F7-2026-01810711",null,0.079,1.0,"RE - CUNDINAMARCA","2506",null,"84148637",null,null],["2026-09-27","2026-09-28","CUNDINAMARCA","BOGOTA","ZSN1","Devolucion nota de cambio","7040804720","F7-2026-01810728",null,0.079,1.0,"RE - CUNDINAMARCA","2506",null,"84148641",null,null],["2026-09-27","2026-09-28","CUNDINAMARCA","BOGOTA","ZSCC","Entrega taller","7040804764","F7-2026-01609830",null,0.34,1.0,"RE - CUNDINAMARCA","2006",null,"84148715",null,null],["2026-09-27","2026-09-28","CUNDINAMARCA","BOGOTA","ZSN1","Devolucion nota de cambio","7040804797","H4-2025-01855911",null,0.335,26.0,"RE - CUNDINAMARCA","2506","837101","84148750","837101",null],["2026-09-27","2026-09-28","CUNDINAMARCA","BOGOTA","ZSRT","Recogida taller","7040804985","H4-2026-01856630",null,1.449,38.0,"RE - CUNDINAMARCA","2006",null,"84149484",null,null],["2026-09-27","2026-09-28","CUNDINAMARCA","BOGOTA","ZSN1","Devolucion nota de cambio","7040805090","F7-2026-01854834",null,1.764,7.0,"RE - CUNDINAMARCA","2506",null,"84149684",null,null],["2026-09-27","2026-09-28","CUNDINAMARCA","CAJICA","ZSCC","Entrega taller","7040803118","F7-2026-01824296",null,0.023,2.0,"RE - CUNDINAMARCA","2006",null,"84142511",null,null],["2026-09-27","2026-09-28","CUNDINAMARCA","CAJICA","ZSCC","Entrega taller","7040803120","F7-2026-01824303",null,0.023,2.0,"RE - CUNDINAMARCA","2006",null,"84142513",null,null],["2026-09-27","2026-09-28","CUNDINAMARCA","ZIPAQUIRA","ZSN1","Devolucion nota de cambio","7040804345","H1-2026-01850741",null,2.33,88.2,"RE - CUNDINAMARCA","2506","837013","84147561","837013",null],["2026-09-27","2026-09-28","CUNDINAMARCA","ZIPAQUIRA","ZSN1","Devolucion nota de cambio","7040804346","H1-2026-01850724",null,0.137,59.07,"RE - CUNDINAMARCA","2506","837013","84147562","837013",null],["2026-09-27","2026-09-28","CUNDINAMARCA","ZIPAQUIRA","ZSRT","Recogida taller","7040804899","H4-2025-01848790",null,1.034,1.0,"RE - CUNDINAMARCA","2006",null,"84149379",null,null],["2026-09-27","2026-09-29","GUAJIRA","FONSECA","ZSRT","Recogida taller","7040804637","39-2026-01855163",null,0.418,2.0,"C2 - GUAJIRA","2000",null,"84148538",null,null],["2026-09-27","2026-09-29","SANTANDER","BARRANCABERMEJA","ZSRT","Recogida taller","7040804626","18-2026-01840499",null,0.146,33.0,"RE - BARRANCABERMEJA","2000",null,"84148530",null,null],["2026-09-27","2026-09-29","SANTANDER","BUCARAMANGA","ZSCC","Entrega taller","7040802757","18-2025-01826176",null,0.441,2.0,"RE - SANTANDER","2000",null,"84141408",null,null],["2026-09-27","2026-09-29","SANTANDER","BUCARAMANGA","ZSCC","Entrega taller","7040804523","18-2023-01830547",null,0.475,2.0,"RE - SANTANDER","2000",null,"84147893",null,null],["2026-09-27","2026-09-29","SANTANDER","BUCARAMANGA","ZSN1","Devolucion nota de cambio","7040804737","18-2026-01843184",null,0.17,3.0,"RE - SANTANDER","2500",null,"84148675",null,null],["2026-09-27","2026-09-29","SANTANDER","BUCARAMANGA","ZSN1","Devolucion nota de cambio","7040805030","18-2026-01856926",null,0.014,1.0,"RE - SANTANDER","2500","837247","84149565","837247",null],["2026-09-27","2026-09-29","SANTANDER","FLORIDABLANCA","ZSCC","Entrega taller","7040801524","18-2024-01796485",null,0.904,1.0,"RE - SANTANDER","2000","835505","84137093","835505",null],["2026-09-27","2026-09-29","SANTANDER","FLORIDABLANCA","ZSCC","Entrega taller","7040802514","18-2025-01828398",null,1.496,2.0,"RE - SANTANDER","2000",null,"84141026",null,null],["2026-09-27","2026-09-29","SANTANDER","FLORIDABLANCA","ZSCC","Entrega taller","7040804386","18-2026-01840853",null,1.083,1.0,"RE - SANTANDER","2000",null,"84147631",null,null],["2026-09-27","2026-09-29","SANTANDER","FLORIDABLANCA","ZSN1","Devolucion nota de cambio","7040804733","18-2026-01853442",null,0.126,1.0,"RE - SANTANDER","2500",null,"84148665",null,null],["2026-09-27","2026-09-29","SANTANDER","FLORIDABLANCA","ZSN1","Devolucion nota de cambio","7040804735","18-2026-01853443",null,0.126,1.0,"RE - SANTANDER","2500",null,"84148667",null,null],["2026-09-27","2026-09-29","SANTANDER","FLORIDABLANCA","ZSN1","Devolucion nota de cambio","7040804943","18-2026-01834377",null,0.081,1.0,"RE - SANTANDER","2500","837247","84149436","837247",null],["2026-09-27","2026-09-29","SANTANDER","FLORIDABLANCA","ZSRT","Recogida taller","7040804961","18-2026-01856494",null,0.518,52.0,"RE - SANTANDER","2000",null,"84149456",null,null],["2026-09-28","2026-09-29","ANTIOQUIA","BELLO","ZSCC","Entrega taller","7040801649","F8-2025-01771692",null,1.386,6.0,"RE - ANTIOQUIA","2008","834867","84137657","834867",null],["2026-09-28","2026-09-29","ANTIOQUIA","BELLO","ZSCC","Entrega taller","7040802781","F8-2026-01832317",null,0.543,45.0,"RE - ANTIOQUIA","2008",null,"84141949",null,null],["2026-09-28","2026-09-29","ANTIOQUIA","BELLO","ZSCC","Entrega taller","7040803411","F8-2026-01838431",null,0.395,30.0,"RE - ANTIOQUIA","2008",null,"84143601",null,null],["2026-09-28","2026-09-29","ANTIOQUIA","ITAGUI","ZSCC","Entrega taller","7040802780","A3-2025-01834281",null,0.475,25.0,"RE - ANTIOQUIA","2008",null,"84141948",null,null],["2026-09-28","2026-09-29","ANTIOQUIA","ITAGUI","ZSCC","Entrega taller","7040803156","A3-2026-01837020",null,0.308,37.0,"RE - ANTIOQUIA","2008",null,"84143105",null,null],["2026-09-28","2026-09-29","ANTIOQUIA","MEDELLIN","ZSCC","Entrega taller","7040801825","B4-2025-01803750",null,1.267,48.0,"RE - ANTIOQUIA","2008","834869","84138047","834869",null],["2026-09-28","2026-09-29","ANTIOQUIA","MEDELLIN","ZSCC","Entrega taller","7040802779","B4-2026-01833709",null,0.308,37.0,"RE - ANTIOQUIA","2008",null,"84141947",null,null],["2026-09-28","2026-09-29","ANTIOQUIA","MEDELLIN","ZSCC","Entrega taller","7040803117","95-2024-01790567",null,1.398,31.0,"RE - ANTIOQUIA","2008",null,"84142510",null,null],["2026-09-28","2026-09-29","ANTIOQUIA","MEDELLIN","ZSCC","Entrega taller","7040803149","A8-2024-01828487",null,0.987,1.0,"RE - ANTIOQUIA","2008",null,"84143100",null,null],["2026-09-28","2026-09-29","ANTIOQUIA","MEDELLIN","ZSCC","Entrega taller","7040803151","A3-2026-01836982",null,0.139,20.0,"RE - ANTIOQUIA","2008",null,"84143101",null,null],["2026-09-28","2026-09-29","ANTIOQUIA","MEDELLIN","ZSCC","Entrega taller","7040803152","A3-2026-01837144",null,0.139,20.0,"RE - ANTIOQUIA","2008",null,"84143102",null,null],["2026-09-28","2026-09-29","ANTIOQUIA","MEDELLIN","ZSCC","Entrega taller","7040803410","B4-2025-01814678",null,2.15,6.0,"RE - ANTIOQUIA","2008",null,"84143600",null,null],["2026-09-28","2026-09-29","ANTIOQUIA","MEDELLIN","ZSCC","Entrega taller","7040804027","A8-2023-01815109",null,1.916,2.0,"RE - ANTIOQUIA","2008",null,"84145508",null,null],["2026-09-28","2026-09-29","ANTIOQUIA","SABANETA","ZSCC","Entrega taller","7040803154","A3-2025-01829200",null,1.034,1.0,"RE - ANTIOQUIA","2008",null,"84143103",null,null],["2026-09-28","2026-09-29","ANTIOQUIA","SABANETA","ZSCC","Entrega taller","7040803155","A3-2026-01813573",null,0.227,1.0,"RE - ANTIOQUIA","2008",null,"84143104",null,null],["2026-09-28","2026-09-29","ANTIOQUIA","SABANETA","ZSCC","Entrega taller","7040803749","A3-2023-01800572",null,1.66,71.0,"RE - ANTIOQUIA","2008",null,"84145016",null,null],["2026-09-28","2026-09-29","ATLANTICO","BARRANQUILLA","ZSCC","Entrega taller","7040801700","B5-2026-01826438",null,0.26,30.5,"C1 - ATLANTICO","2000",null,"84137865",null,null],["2026-09-28","2026-09-29","ATLANTICO","BARRANQUILLA","ZSCC","Entrega taller","7040802081","01-2026-01786739",null,1.476,2.0,"C1 - ATLANTICO","2000","835505","84138756","835505",null],["2026-09-28","2026-09-29","ATLANTICO","BARRANQUILLA","ZSCC","Entrega taller","7040802182","95-2025-01830449",null,1.063,2.0,"C1 - ATLANTICO","2000",null,"84138894",null,null],["2026-09-28","2026-09-29","ATLANTICO","BARRANQUILLA","ZSCC","Entrega taller","7040802183","95-2026-01826952",null,1.647,1.0,"C1 - ATLANTICO","2000",null,"84138895",null,null],["2026-09-28","2026-09-29","ATLANTICO","BARRANQUILLA","ZSCC","Entrega taller","7040802347","95-2026-01833953",null,0.159,13.0,"C1 - ATLANTICO","2000",null,"84139244",null,null],["2026-09-28","2026-09-29","ATLANTICO","BARRANQUILLA","ZSCC","Entrega taller","7040803333","95-2026-01838453",null,0.116,1.0,"C1 - ATLANTICO","2000",null,"84143405",null,null],["2026-09-28","2026-09-29","ATLANTICO","BARRANQUILLA","ZSCC","Entrega taller","7040803334","95-2026-01834619",null,0.112,14.0,"C1 - ATLANTICO","2000",null,"84143406",null,null],["2026-09-28","2026-09-29","ATLANTICO","BARRANQUILLA","ZSCC","Entrega taller","7040804058","95-2025-01835977",null,0.745,1.0,"C1 - ATLANTICO","2000",null,"84145587",null,null],["2026-09-28","2026-09-29","ATLANTICO","SOLEDAD","ZSCC","Entrega taller","7040803398","B5-2026-01831441",null,1.232,3.0,"C1 - ATLANTICO","2000",null,"84143589",null,null],["2026-09-28","2026-09-29","BOLIVAR","CARTAGENA","ZSCC","Entrega taller","7040802336","67-2026-01817006",null,0.958,1.0,"C1 - BOLIVAR","2000",null,"84139232",null,null],["2026-09-28","2026-09-29","BOLIVAR","CARTAGENA","ZSCC","Entrega taller","7040802472","67-2025-01812284",null,1.228,2.0,"C1 - BOLIVAR","2000",null,"84140079",null,null],["2026-09-28","2026-09-29","BOLIVAR","CARTAGENA","ZSCC","Entrega taller","7040802756","67-2025-01812282",null,1.228,2.0,"C1 - BOLIVAR","2000",null,"84141407",null,null],["2026-09-28","2026-09-29","BOLIVAR","CARTAGENA","ZSCC","Entrega taller","7040803299","67-2026-01836396",null,1.496,2.0,"C1 - BOLIVAR","2000",null,"84143367",null,null],["2026-09-28","2026-09-29","BOLIVAR","CARTAGENA","ZSCC","Entrega taller","7040803300","10-2024-01834294",null,2.457,103.0,"C1 - BOLIVAR","2000",null,"84143368",null,null],["2026-09-28","2026-09-29","BOLIVAR","CARTAGENA","ZSCC","Entrega taller","7040803301","10-2026-01838770",null,1.232,3.0,"C1 - BOLIVAR","2000",null,"84143369",null,null],["2026-09-28","2026-09-29","BOLIVAR","CARTAGENA","ZSCC","Entrega taller","7040803310","10-2025-01819016",null,0.531,100.5,"C1 - BOLIVAR","2000",null,"84143377",null,null],["2026-09-28","2026-09-29","BOLIVAR","CARTAGENA","ZSCC","Entrega taller","7040803399","10-2024-01824048",null,2.457,103.0,"C1 - BOLIVAR","2000",null,"84143590",null,null],["2026-09-28","2026-09-29","BOLIVAR","CARTAGENA","ZSCC","Entrega taller","7040803400","84-2025-01829141",null,2.075,3.0,"C1 - BOLIVAR","2000",null,"84143591",null,null],["2026-09-28","2026-09-29","BOLIVAR","CARTAGENA","ZSCC","Entrega taller","7040803401","67-2024-01820203",null,0.745,2.0,"C1 - BOLIVAR","2000",null,"84143592",null,null],["2026-09-28","2026-09-29","BOLIVAR","CARTAGENA","ZSCC","Entrega taller","7040803402","84-2024-01826818",null,1.485,2.0,"C1 - BOLIVAR","2000",null,"84143593",null,null],["2026-09-28","2026-09-29","BOLIVAR","CARTAGENA","ZSCC","Entrega taller","7040803403","95-2025-01829695",null,0.745,2.0,"C1 - BOLIVAR","2000",null,"84143594",null,null],["2026-09-28","2026-09-29","BOLIVAR","CARTAGENA","ZSN1","Devolucion nota de cambio","7040804989","01-2026-01850628",null,0.266,1.0,"C1 - BOLIVAR","2500","837247","84149496","837247",null],["2026-09-28","2026-09-29","BOLIVAR","CARTAGENA","ZSN1","Devolucion nota de cambio","7040804990","01-2026-01850614",null,0.38,2.0,"C1 - BOLIVAR","2500","837247","84149497","837247",null],["2026-09-28","2026-09-29","BOLIVAR","CARTAGENA","ZSN1","Devolucion nota de cambio","7040804993","67-2026-01851735",null,1.367,1.0,"C1 - BOLIVAR","2500",null,"84149499",null,null],["2026-09-28","2026-09-29","BOLIVAR","CARTAGENA","ZSN1","Devolucion nota de cambio","7040804994","67-2026-01851728",null,1.367,1.0,"C1 - BOLIVAR","2500",null,"84149500",null,null],["2026-09-28","2026-09-29","BOLIVAR","CARTAGENA","ZSN1","Devolucion nota de cambio","7040804995","67-2026-01851725",null,1.367,1.0,"C1 - BOLIVAR","2500",null,"84149501",null,null],["2026-09-28","2026-09-29","BOLIVAR","CARTAGENA","ZSN1","Devolucion nota de cambio","7040804996","67-2026-01850397",null,1.367,1.0,"C1 - BOLIVAR","2500",null,"84149502",null,null],["2026-09-28","2026-09-29","CUNDINAMARCA","BOGOTA","ZSCC","Entrega taller","7040803136","B9-2026-01837376",null,0.38,38.7,"RE - CUNDINAMARCA","2006",null,"84142933",null,null],["2026-09-28","2026-09-29","CUNDINAMARCA","BOGOTA","ZSRT","Recogida taller","7040804638","H1-2025-01839503",null,2.311,79.0,"RE - CUNDINAMARCA","2006",null,"84148539",null,null],["2026-09-29","2026-09-30","ANTIOQUIA","BELLO","ZSCC","Entrega taller","7040803470","F8-2026-01842791",null,1.228,2.0,"RE - ANTIOQUIA","2008",null,"84144071",null,null],["2026-09-29","2026-09-30","ANTIOQUIA","ITAGUI","ZSRT","Recogida taller","7040804353","A3-2022-01854068",null,1.044,2.0,"RE - ANTIOQUIA","2008",null,"84147570",null,null],["2026-09-29","2026-09-30","ANTIOQUIA","MEDELLIN","ZSCC","Entrega taller","7040802243","B4-2025-01770451",null,0.585,22.0,"RE - ANTIOQUIA","2008",null,"84139029",null,null],["2026-09-29","2026-09-30","ANTIOQUIA","MEDELLIN","ZSCC","Entrega taller","7040803463","A3-2026-01839307",null,1.49,2.0,"RE - ANTIOQUIA","2008",null,"84144065",null,null],["2026-09-29","2026-09-30","ANTIOQUIA","SABANETA","ZSCC","Entrega taller","7040803464","A8-2024-01842982",null,2.406,104.0,"RE - ANTIOQUIA","2008",null,"84144066",null,null],["2026-09-29","2026-09-30","ATLANTICO","BARRANQUILLA","ZSRT","Recogida taller","7040802123","01-2026-01827949",null,1.888,88.2,"C1 - ATLANTICO","2000",null,"84138811",null,null],["2026-09-29","2026-09-30","ATLANTICO","BARRANQUILLA","ZSRT","Recogida taller","7040802261","95-2018-01839162",null,1.28,37.4,"C1 - ATLANTICO","2000",null,"84139099",null,null],["2026-09-29","2026-09-30","ATLANTICO","BARRANQUILLA","ZSRT","Recogida taller","7040802364","95-2024-01821732",null,0.523,22.3,"C1 - ATLANTICO","2000","835164","84139270","835164",null],["2026-09-29","2026-09-30","ATLANTICO","BARRANQUILLA","ZSRT","Recogida taller","7040802594","95-2026-01835446",null,0.131,16.0,"C1 - ATLANTICO","2000",null,"84141152",null,null],["2026-09-29","2026-09-30","ATLANTICO","BARRANQUILLA","ZSRT","Recogida taller","7040802614","95-2024-01844932",null,1.064,1.0,"C1 - ATLANTICO","2000",null,"84141179",null,null],["2026-09-29","2026-09-30","ATLANTICO","BARRANQUILLA","ZSRT","Recogida taller","7040802673","XX-2026-01833243",null,0.603,25.0,"C1 - ATLANTICO","2000","835950","84141249","835950",null],["2026-09-29","2026-09-30","ATLANTICO","BARRANQUILLA","ZSRT","Recogida taller","7040802707","01-2026-01790914",null,1.267,48.0,"C1 - ATLANTICO","2000","835950","84141283","835950",null],["2026-09-29","2026-09-30","ATLANTICO","BARRANQUILLA","ZSRT","Recogida taller","7040802792","95-2026-01844653",null,1.064,1.0,"C1 - ATLANTICO","2000",null,"84141984",null,null],["2026-09-29","2026-09-30","ATLANTICO","BARRANQUILLA","ZSRT","Recogida taller","7040802823","B5-2025-01840789",null,0.511,2.0,"C1 - AT/Dif. Acc","2000",null,"84142016",null,null],["2026-09-29","2026-09-30","ATLANTICO","BARRANQUILLA","ZSRT","Recogida taller","7040803084","95-2026-01840311",null,0.42,33.0,"C1 - ATLANTICO","2000",null,"84142375",null,null],["2026-09-29","2026-09-30","ATLANTICO","BARRANQUILLA","ZSCC","Entrega taller","7040803599","01-2025-01783191",null,0.418,43.0,"C1 - AT/Dif. Acc","2000",null,"84144303",null,null],["2026-09-29","2026-09-30","ATLANTICO","BARRANQUILLA","ZSCC","Entrega taller","7040803705","01-2026-01826248",null,0.654,1.0,"C1 - ATLANTICO","2000",null,"84144543",null,null],["2026-09-29","2026-09-30","ATLANTICO","GALAPA","ZSRT","Recogida taller","7040802232","95-2026-01840875",null,1.295,36.0,"C1 - ATLANTICO","2000",null,"84139011",null,null],["2026-09-29","2026-09-30","ATLANTICO","PUERTO COLOMBIA","ZSRT","Recogida taller","7040802026","01-2026-01826545",null,1.398,2.0,"C1 - ATLANTICO","2000",null,"84138702",null,null],["2026-09-29","2026-09-30","ATLANTICO","SOLEDAD","ZSCC","Entrega taller","7040802350","95-2026-01809611",null,0.322,3.0,"C1 - ATLANTICO","2000",null,"84139247",null,null],["2026-09-29","2026-09-30","ATLANTICO","SOLEDAD","ZSCC","Entrega taller","7040802471","B5-2024-01826831",null,0.798,1.0,"C1 - ATLANTICO","2000",null,"84140078",null,null],["2026-09-29","2026-09-30","ATLANTICO","SOLEDAD","ZSRT","Recogida taller","7040802526","01-2026-01842903",null,0.107,16.7,"C1 - AT/Dif. Acc","2000",null,"84141040",null,null],["2026-09-29","2026-09-30","ATLANTICO","SOLEDAD","ZSRT","Recogida taller","7040803110","01-2026-01839305",null,0.092,2.0,"C1 - AT/Dif. Acc","2000",null,"84142421",null,null],["2026-09-29","2026-10-01","BOLIVAR","SAN JACINTO","ZSCC","Entrega taller","7040803873","84-2026-01836986",null,0.418,2.0,"C2 - SUCRE","2000",null,"84145232",null,null],["2026-09-29","2026-10-01","CORDOBA","MONTERIA","ZSCC","Entrega taller","7040802035","55-2026-01821321",null,2.133,2.0,"C2 - CORDOBA","2000",null,"84138713",null,null],["2026-09-29","2026-10-01","CORDOBA","MONTERIA","ZSCC","Entrega taller","7040803858","55-2026-01830518",null,0.973,2.0,"C2 - CORDOBA","2000",null,"84145194",null,null],["2026-09-29","2026-10-01","CORDOBA","MONTERIA","ZSCC","Entrega taller","7040804026","55-2022-01826943",null,0.798,2.0,"C2 - CORDOBA","2000",null,"84145507",null,null],["2026-09-29","2026-10-01","CORDOBA","MONTERIA","ZSRT","Recogida taller","7040804295","55-2026-01853833",null,1.361,1.0,"C2 - CORDOBA","2000",null,"84147499",null,null],["2026-09-29","2026-10-01","CORDOBA","MONTERIA","ZSN1","Devolucion nota de cambio","7040804782","55-2026-01854113",null,0.172,22.0,"C2 - CORDOBA","2500",null,"84148738",null,null],["2026-09-29","2026-10-01","CORDOBA","MONTERIA","ZSRT","Recogida taller","7040804859","55-2026-01853932",null,0.745,1.0,"C2 - CORDOBA","2000",null,"84148860",null,null],["2026-09-29","2026-10-01","CORDOBA","MONTERIA","ZSN1","Devolucion nota de cambio","7040805028","55-2026-01853776",null,1.011,1.0,"C2 - CORDOBA","2500",null,"84149563",null,null],["2026-09-29","2026-10-01","CORDOBA","SAHAGUN","ZSRT","Recogida taller","7040804931","55-2026-01856361",null,0.236,1.0,"C2 - CORDOBA","2000",null,"84149427",null,null],["2026-09-29","2026-09-30","CUNDINAMARCA","BOGOTA","ZSCC","Entrega taller","7040803454","C1-2022-01839371",null,1.399,2.0,"RE - CUNDINAMARCA","2006","836878","84144035","836878",null],["2026-09-29","2026-09-30","CUNDINAMARCA","BOGOTA","ZSN1","Devolucion nota de cambio","7040804247","B9-2026-01826501",null,1.9,50.0,"RE - CUNDINAMARCA","2506",null,"84147432",null,null],["2026-09-29","2026-09-30","CUNDINAMARCA","BOGOTA","ZSRT","Recogida taller","7040804427","H4-2026-01823428",null,0.183,25.0,"RE - CUNDINAMARCA","2006",null,"84147683",null,null],["2026-09-29","2026-09-30","CUNDINAMARCA","BOGOTA","ZSRT","Recogida taller","7040804608","H4-2025-01855012",null,1.628,74.0,"RE - CUNDINAMARCA","2006",null,"84148512",null,null],["2026-09-29","2026-09-30","CUNDINAMARCA","BOGOTA","ZSN1","Devolucion nota de cambio","7040804653","B9-2025-01787316",null,0.406,154.0,"RE - CUNDINAMARCA","2506",null,"84148553",null,null],["2026-09-29","2026-09-30","CUNDINAMARCA","BOGOTA","ZSRT","Recogida taller","7040804783","F7-2026-01818894",null,1.117,2.0,"RE - CUNDINAMARCA","2006",null,"84148740",null,null],["2026-09-29","2026-09-30","CUNDINAMARCA","FUSAGASUGA","ZSRT","Recogida taller","7040803887","H1-2026-01812957",null,1.264,2.0,"RE - CUNDINAMARCA","2006",null,"84145246",null,null],["2026-09-29","2026-09-30","CUNDINAMARCA","FUSAGASUGA","ZSRT","Recogida taller","7040804044","H1-2026-01812957",null,1.264,2.0,"RE - CUNDINAMARCA","2006",null,"84145572",null,null],["2026-09-29","2026-09-30","CUNDINAMARCA","FUSAGASUGA","ZSRT","Recogida taller","7040804045","H1-2026-01812956",null,1.264,2.0,"RE - CUNDINAMARCA","2006",null,"84145573",null,null],["2026-09-29","2026-09-30","CUNDINAMARCA","SOACHA","ZSRT","Recogida taller","7040804358","F7-2026-01854167",null,0.209,7.5,"RE - CUNDINAMARCA","2006",null,"84147579",null,null],["2026-09-29","2026-09-30","CUNDINAMARCA","SOACHA","ZSN1","Devolucion nota de cambio","7040804742","B9-2026-01851138",null,0.041,39.4,"RE - CUNDINAMARCA","2506",null,"84148679",null,null],["2026-09-29","2026-09-30","CUNDINAMARCA","SOACHA","ZSRT","Recogida taller","7040804748","H4-2026-01855709",null,0.106,1.0,"RE - CUNDINAMARCA","2006",null,"84148695",null,null],["2026-09-29","2026-09-30","MAGDALENA","SANTA MARTA","ZSCC","Entrega taller","7040803595","85-2025-01840051",null,1.628,74.0,"C1 - MAGDALENA","2000",null,"84144296",null,null],["2026-09-29","2026-09-30","MAGDALENA","SANTA MARTA","ZSCC","Entrega taller","7040803596","85-2026-01840798",null,0.11,9.5,"C1 - MAGDALENA","2000",null,"84144297",null,null],["2026-09-29","2026-09-30","MAGDALENA","SANTA MARTA","ZSN1","Devolucion nota de cambio","7040804343","85-2026-01826128",null,1.011,1.0,"C1 - MAGDALENA","2500",null,"84147557",null,null],["2026-09-29","2026-09-30","MAGDALENA","SANTA MARTA","ZSRT","Recogida taller","7040804473","85-2026-01812535",null,0.093,12.0,"C1 - MAGDALENA","2000",null,"84147748",null,null],["2026-09-29","2026-09-30","MAGDALENA","SANTA MARTA","ZSRT","Recogida taller","7040804478","85-2026-01854647",null,0.063,17.7,"C1 - MAGDALENA","2000",null,"84147755",null,null],["2026-09-29","2026-09-30","MAGDALENA","SANTA MARTA","ZSN1","Devolucion nota de cambio","7040804723","85-2026-01854207",null,0.321,55.0,"C1 - MAGDALENA","2500",null,"84148645",null,null],["2026-09-29","2026-09-30","MAGDALENA","SANTA MARTA","ZSRT","Recogida taller","7040804758","85-2026-01855785",null,0.115,15.7,"C1 - MAGDALENA","2000",null,"84148707",null,null],["2026-09-29","2026-09-30","MAGDALENA","SANTA MARTA","ZSRT","Recogida taller","7040804759","85-2026-01855785",null,0.115,15.7,"C1 - MAGDALENA","2000",null,"84148708",null,null],["2026-09-29","2026-09-30","MAGDALENA","SANTA MARTA","ZSN1","Devolucion nota de cambio","7040804913","C1-2026-01855854",null,0.263,1.0,"C1 - MAGDALENA","2500",null,"84149392",null,null],["2026-09-29","2026-09-30","MAGDALENA","SANTA MARTA","ZSRT","Recogida taller","7040805080","85-2025-01857190",null,0.964,58.0,"C1 - MAGDALENA","2000",null,"84149671",null,null],["2026-09-29","2026-09-30","META","VILLAVICENCIO","ZSN1","Devolucion nota de cambio","7040804529","F7-2026-01806675",null,0.562,64.0,"RE - CUNDINAMARCA","2506",null,"84147899",null,null],["2026-09-29","2026-10-01","SUCRE","SINCELEJO","ZSCC","Entrega taller","7040803872","65-2026-01827948",null,1.216,1.0,"C2 - SUCRE","2000",null,"84145231",null,null],["2026-09-29","2026-10-01","SUCRE","SINCELEJO","ZSRT","Recogida taller","7040804360","65-2026-01854213",null,0.45,1.0,"C2 - SUCRE","2000",null,"84147582",null,null],["2026-09-29","2026-10-01","SUCRE","SINCELEJO","ZSRT","Recogida taller","7040804366","65-2026-01854212",null,0.45,1.0,"C2 - SUCRE","2000",null,"84147586",null,null],["2026-09-30","2026-10-01","ANTIOQUIA","COPACABANA","ZSN1","Devolucion nota de cambio","7040804916","F8-2026-01855170",null,0.08,2.0,"RE - ANTIOQUIA","2508",null,"84149394",null,null],["2026-09-30","2026-10-01","ANTIOQUIA","ENVIGADO","ZSCC","Entrega taller","7040803157","A3-2026-01836997",null,0.116,1.0,"RE - ANTIOQUIA","2008",null,"84143106",null,null],["2026-09-30","2026-10-01","ANTIOQUIA","GIRARDOTA","ZSCC","Entrega taller","7040802011","F8-2026-01824551",null,1.034,2.0,"RE - ANTIOQUIA","2008",null,"84138689",null,null],["2026-09-30","2026-10-01","ANTIOQUIA","LA ESTRELLA","ZSCC","Entrega taller","7040804041","A3-2026-01786842",null,2.397,2.0,"RE - ANTIOQUIA","2008",null,"84145522",null,null],["2026-09-30","2026-10-01","ANTIOQUIA","MEDELLIN","ZSN1","Devolucion nota de cambio","7040804462","A3-2025-01824363",null,0.263,1.0,"RE - ANTIOQUIA","2508",null,"84147729",null,null],["2026-09-30","2026-10-01","ANTIOQUIA","MEDELLIN","ZSRT","Recogida taller","7040805044","A8-2026-01849217",null,0.083,1.0,"RE - ANTIOQUIA","2008",null,"84149603",null,null],["2026-09-30","2026-10-01","ANTIOQUIA","RIONEGRO","ZSCC","Entrega taller","7040803755","A3-2026-01835165",null,0.851,1.0,"RE - ANTIOQUIA","2008",null,"84145022",null,null],["2026-09-30","2026-10-01","ANTIOQUIA","RIONEGRO","ZSRT","Recogida taller","7040805047","F8-2024-01857069",null,1.554,56.0,"RE - ANTIOQUIA","2008",null,"84149628",null,null],["2026-09-30","2026-10-01","ATLANTICO","BARRANQUILLA","ZSCC","Entrega taller","7040803291","95-2026-01832333",null,0.471,1.0,"C1 - ATLANTICO","2000",null,"84143344",null,null],["2026-09-30","2026-10-01","ATLANTICO","BARRANQUILLA","ZSCC","Entrega taller","7040804031","95-2024-01832829",null,1.216,2.0,"C1 - ATLANTICO","2000",null,"84145512",null,null],["2026-09-30","2026-10-01","ATLANTICO","BARRANQUILLA","ZSCC","Entrega taller","7040804032","01-2026-01834208",null,0.29,71.6,"C1 - ATLANTICO","2000",null,"84145513",null,null],["2026-09-30","2026-10-01","ATLANTICO","SOLEDAD","ZSCC","Entrega taller","7040803843","01-2026-01843139",null,0.424,33.5,"C1 - ATLANTICO","2000",null,"84145142",null,null],["2026-09-30","2026-10-01","ATLANTICO","SOLEDAD","ZSCC","Entrega taller","7040803844","01-2025-01788167",null,1.405,3.0,"C1 - ATLANTICO","2000",null,"84145143",null,null],["2026-09-30","2026-10-01","BOLIVAR","CARTAGENA","ZSCC","Entrega taller","7040802184","10-2025-01781813",null,1.449,67.4,"C1 - BOLIVAR","2000",null,"84138896",null,null],["2026-09-30","2026-10-01","BOLIVAR","CARTAGENA","ZSCC","Entrega taller","7040802185","67-2021-01829791",null,0.153,2.0,"C1 - BOLIVAR","2000",null,"84138897",null,null],["2026-09-30","2026-10-01","BOLIVAR","CARTAGENA","ZSCC","Entrega taller","7040802186","67-2026-01819372",null,1.243,1.0,"C1 - BOLIVAR","2000",null,"84138898",null,null],["2026-09-30","2026-10-01","BOLIVAR","CARTAGENA","ZSCC","Entrega taller","7040802253","67-2026-01789126",null,0.607,1.0,"C1 - BOLIVAR","2000",null,"84139090",null,null],["2026-09-30","2026-10-01","BOLIVAR","CARTAGENA","ZSCC","Entrega taller","7040803405","10-2025-01812439",null,1.68,58.0,"C1 - BOLIVAR","2000",null,"84143596",null,null],["2026-09-30","2026-10-01","BOLIVAR","CARTAGENA","ZSCC","Entrega taller","7040804034","10-2024-01836748",null,0.973,1.0,"C1 - BOLIVAR","2000",null,"84145515",null,null],["2026-09-30","2026-10-01","BOLIVAR","CARTAGENA","ZSCC","Entrega taller","7040804035","10-2025-01829961",null,0.418,2.0,"C1 - BOLIVAR","2000",null,"84145516",null,null],["2026-09-30","2026-10-01","BOLIVAR","CARTAGENA","ZSCC","Entrega taller","7040804036","67-2025-01833597",null,0.973,1.0,"C1 - BOLIVAR","2000",null,"84145517",null,null],["2026-09-30","2026-10-01","BOLIVAR","CARTAGENA","ZSCC","Entrega taller","7040804038","10-2025-01771963",null,1.545,2.0,"C1 - BOLIVAR","2000",null,"84145519",null,null],["2026-09-30","2026-10-01","BOLIVAR","CARTAGENA","ZSRT","Recogida taller","7040804950","67-2026-01856382",null,0.623,1.0,"C1 - BOLIVAR","2000",null,"84149444",null,null],["2026-09-30","2026-10-01","BOLIVAR","CARTAGENA","ZSRT","Recogida taller","7040804986","84-2026-01856636",null,0.798,1.0,"C1 - BOLIVAR","2000",null,"84149489",null,null],["2026-09-30","2026-10-01","BOLIVAR","CARTAGENA","ZSRT","Recogida taller","7040804999","67-2025-01851263",null,1.441,1.0,"C1 - BOLIVAR","2000",null,"84149520",null,null],["2026-09-30","2026-10-01","BOLIVAR","CARTAGENA","ZSRT","Recogida taller","7040805034","10-2026-01838123",null,1.37,48.0,"C1 - BOLIVAR","2000",null,"84149574",null,null],["2026-09-30","2026-10-01","CUNDINAMARCA","BOGOTA","ZSCC","Entrega taller","7040804028","F7-2026-01800764",null,0.11,9.5,"RE - CUNDINAMARCA","2006",null,"84145509",null,null],["2026-09-30","2026-10-01","CUNDINAMARCA","BOGOTA","ZSCC","Entrega taller","7040804029","F7-2026-01832009",null,0.11,9.5,"RE - CUNDINAMARCA","2006",null,"84145510",null,null],["2026-09-30","2026-10-01","CUNDINAMARCA","BOGOTA","ZSCC","Entrega taller","7040804572","F7-2026-01845865",null,0.139,20.0,"RE - CUNDINAMARCA","2006",null,"84148464",null,null],["2026-09-30","2026-10-01","CUNDINAMARCA","BOGOTA","ZSRT","Recogida taller","7040804807","F7-2026-01855455",null,1.393,67.4,"RE - CUNDINAMARCA","2006",null,"84148764",null,null],["2026-09-30","2026-10-01","CUNDINAMARCA","BOGOTA","ZSN1","Devolucion nota de cambio","7040805019","H4-2026-01856887",null,0.019,1.0,"RE - CUNDINAMARCA","2506",null,"84149550",null,null],["2026-09-30","2026-10-01","CUNDINAMARCA","BOGOTA","ZSN1","Devolucion nota de cambio","7040805021","H4-2026-01856899",null,0.019,1.0,"RE - CUNDINAMARCA","2506",null,"84149553",null,null],["2026-09-30","2026-10-02","SANTANDER","BUCARAMANGA","ZSCC","Entrega taller","7040803569","18-2026-01835041",null,1.647,1.0,"RE - SANTANDER","2000",null,"84144190",null,null],["2026-09-30","2026-10-02","SANTANDER","BUCARAMANGA","ZSCC","Entrega taller","7040803570","18-2026-01835340",null,1.296,1.0,"RE - SANTANDER","2000",null,"84144191",null,null],["2026-09-30","2026-10-02","SANTANDER","BUCARAMANGA","ZSCC","Entrega taller","7040803708","18-2026-01790195",null,1.413,2.0,"RE - SANTANDER","2000",null,"84144545",null,null],["2026-09-30","2026-10-02","SANTANDER","GIRON","ZSCC","Entrega taller","7040801655","18-2025-01777214",null,0.971,1.0,"RE - SANTANDER","2000","836161","84137667","836161",null],["2026-10-01","2026-10-02","ANTIOQUIA","BELLO","ZSCC","Entrega taller","7040803707","F8-2025-01834365",null,1.49,2.0,"RE - ANTIOQUIA","2008",null,"84144544",null,null],["2026-10-01","2026-10-02","ANTIOQUIA","BELLO","ZSCC","Entrega taller","7040804235","F8-2022-01787660",null,1.067,78.0,"RE - ANTIOQUIA","2008",null,"84147408",null,null],["2026-10-01","2026-10-02","ANTIOQUIA","BELLO","ZSCC","Entrega taller","7040804237","F8-2023-01836409",null,1.073,83.0,"RE - ANTIOQUIA","2008",null,"84147410",null,null],["2026-10-01","2026-10-02","ANTIOQUIA","BELLO","ZSCC","Entrega taller","7040804238","F8-2025-01842760",null,1.914,6.0,"RE - ANTIOQUIA","2008",null,"84147411",null,null],["2026-10-01","2026-10-02","ANTIOQUIA","ENVIGADO","ZSCC","Entrega taller","7040804244","A3-2023-01848735",null,0.95,2.0,"RE - ANTIOQUIA","2008",null,"84147429",null,null],["2026-10-01","2026-10-02","ANTIOQUIA","ITAGUI","ZSCC","Entrega taller","7040804236","A3-2026-01846597",null,1.228,2.0,"RE - ANTIOQUIA","2008",null,"84147409",null,null],["2026-10-01","2026-10-02","ANTIOQUIA","LA ESTRELLA","ZSCC","Entrega taller","7040803751","A3-2024-01845064",null,0.11,9.5,"RE - ANTIOQUIA","2008",null,"84145018",null,null],["2026-10-01","2026-10-02","ANTIOQUIA","MEDELLIN","ZSCC","Entrega taller","7040802698","A8-2022-01801905",null,2.406,104.0,"RE - ANTIOQUIA","2008","837091","84141276","837091",null],["2026-10-01","2026-10-02","ANTIOQUIA","MEDELLIN","ZSCC","Entrega taller","7040803750","A3-2025-01845063",null,1.064,1.0,"RE - ANTIOQUIA","2008",null,"84145017",null,null],["2026-10-01","2026-10-02","ANTIOQUIA","MEDELLIN","ZSCC","Entrega taller","7040803752","A3-2026-01845551",null,0.514,27.5,"RE - ANTIOQUIA","2008",null,"84145019",null,null],["2026-10-01","2026-10-02","ANTIOQUIA","MEDELLIN","ZSCC","Entrega taller","7040804240","B4-2026-01846683",null,1.08,2.0,"RE - ANTIOQUIA","2008",null,"84147426",null,null],["2026-10-01","2026-10-02","ANTIOQUIA","MEDELLIN","ZSCC","Entrega taller","7040804243","A8-2026-01829323",null,1.313,43.6,"RE - ANTIOQUIA","2008",null,"84147428",null,null],["2026-10-01","2026-10-02","ANTIOQUIA","SABANETA","ZSCC","Entrega taller","7040804242","A8-2026-01827573",null,0.09,1.0,"RE - ANTIOQUIA","2008",null,"84147427",null,null],["2026-10-01","2026-10-02","ATLANTICO","BARRANQUILLA","ZSRT","Recogida taller","7040803216","95-2025-01752702",null,0.57,6.0,"C1 - ATLANTICO","2000",null,"84143205",null,null],["2026-10-01","2026-10-02","ATLANTICO","BARRANQUILLA","ZSCC","Entrega taller","7040804519","01-2025-01839200",null,1.094,2.0,"C1 - ATLANTICO","2000",null,"84147889",null,null],["2026-10-01","2026-10-02","ATLANTICO","BARRANQUILLA","ZSCC","Entrega taller","7040804769","95-2025-01560339",null,2.207,9.0,"C1 - ATLANTICO","2000",null,"84148722",null,null],["2026-10-01","2026-10-02","ATLANTICO","PUERTO COLOMBIA","ZSRT","Recogida taller","7040804482","B5-2026-01854282",null,1.228,2.0,"C1 - ATLANTICO","2000",null,"84147758",null,null],["2026-10-01","2026-10-02","ATLANTICO","SABANALARGA","ZSRT","Recogida taller","7040804692","01-2024-01840751",null,0.518,102.0,"C1 - ATLANTICO","2000",null,"84148584",null,null],["2026-10-01","2026-10-02","BOLIVAR","ARJONA","ZSCC","Entrega taller","7040804071","67-2026-01842989",null,1.331,1.0,"C1 - BOLIVAR","2000",null,"84145602",null,null],["2026-10-01","2026-10-02","BOLIVAR","ARJONA","ZSRT","Recogida taller","7040805017","10-2024-01823454",null,0.745,2.0,"C1 - BOLIVAR","2000",null,"84149545",null,null],["2026-10-01","2026-10-02","BOLIVAR","CARTAGENA","ZSCC","Entrega taller","7040804066","10-2026-01839667",null,0.745,1.0,"C1 - BOLIVAR","2000",null,"84145594",null,null],["2026-10-01","2026-10-02","BOLIVAR","CARTAGENA","ZSCC","Entrega taller","7040804196","67-2026-01826556",null,0.586,1.0,"C1 - BOLIVAR","2000",null,"84146416",null,null],["2026-10-01","2026-10-02","BOLIVAR","CARTAGENA","ZSCC","Entrega taller","7040804654","10-2024-01732785",null,1.011,1.0,"C1 - BOLIVAR","2000",null,"84148554",null,null],["2026-10-01","2026-10-02","BOLIVAR","TURBACO","ZSCC","Entrega taller","7040804195","10-2024-01826514",null,0.798,2.0,"C1 - BOLIVAR","2000",null,"84146415",null,null],["2026-10-01","2026-10-02","BOLIVAR","TURBACO","ZSCC","Entrega taller","7040804957","10-2025-01849415",null,0.798,2.0,"C1 - BOLIVAR","2000",null,"84149452",null,null],["2026-10-01","2026-10-02","CUNDINAMARCA","BOGOTA","ZSCC","Entrega taller","7040804222","H4-2026-01838171",null,1.499,1.0,"RE - CUNDINAMARCA","2006",null,"84147380",null,null],["2026-10-01","2026-10-02","CUNDINAMARCA","BOGOTA","ZSCC","Entrega taller","7040804223","B9-2026-01793952",null,0.601,31.0,"RE - CUNDINAMARCA","2006",null,"84147381",null,null],["2026-10-01","2026-10-03","GUAJIRA","MAICAO","ZSCC","Entrega taller","7040802599","39-2026-01827741",null,0.068,13.0,"C2 - GUAJIRA","2000",null,"84141159",null,null],["2026-10-01","2026-10-03","GUAJIRA","RIOHACHA","ZSCC","Entrega taller","7040802755","39-2025-01787846",null,1.526,55.3,"C2 - GUAJIRA","2000",null,"84141406",null,null],["2026-10-01","2026-10-03","GUAJIRA","RIOHACHA","ZSRT","Recogida taller","7040804966","39-2026-01840344",null,0.068,13.0,"C2 - GUAJIRA","2000",null,"84149466",null,null],["2026-10-01","2026-10-02","MAGDALENA","SANTA MARTA","ZSRT","Recogida taller","7040797628","85-2023-01808463",null,0.95,2.0,"C1 - MAGDALENA","2000",null,"84124509",null,null],["2026-10-01","2026-10-02","MAGDALENA","SANTA MARTA","ZSCC","Entrega taller","7040802370","85-2026-01820808",null,1.011,1.0,"C1 - MAGDALENA","2000",null,"84139277",null,null],["2026-10-01","2026-10-02","MAGDALENA","SANTA MARTA","ZSCC","Entrega taller","7040803706","85-2026-01830271",null,1.384,50.5,"C1 - MAGDALENA","2000",null,"84145657",null,null],["2026-10-02","2026-10-03","ATLANTICO","BARRANQUILLA","ZSCC","Entrega taller","7040804033","95-2025-01846483",null,2.229,3.0,"C1 - ATLANTICO","2000",null,"84145514",null,null],["2026-10-02","2026-10-03","ATLANTICO","BARRANQUILLA","ZSCC","Entrega taller","7040804396","95-2026-01822654",null,0.139,20.0,"C1 - ATLANTICO","2000",null,"84147643",null,null],["2026-10-02","2026-10-03","ATLANTICO","BARRANQUILLA","ZSCC","Entrega taller","7040804397","95-2026-01843134",null,1.37,48.0,"C1 - ATLANTICO","2000",null,"84147644",null,null],["2026-10-02","2026-10-03","ATLANTICO","SOLEDAD","ZSCC","Entrega taller","7040804394","B5-2026-01848486",null,0.623,1.0,"C1 - ATLANTICO","2000",null,"84147638",null,null],["2026-10-02","2026-10-03","ATLANTICO","SOLEDAD","ZSCC","Entrega taller","7040804520","B5-2026-01838699",null,0.798,1.0,"C1 - ATLANTICO","2000",null,"84147890",null,null],["2026-10-04","2026-10-05","ANTIOQUIA","BELLO","ZSCC","Entrega taller","7040804524","F8-2025-01818069",null,1.545,2.0,"RE - ANTIOQUIA","2008",null,"84147894",null,null],["2026-10-04","2026-10-05","ANTIOQUIA","BELLO","ZSCC","Entrega taller","7040804525","F8-2025-01818054",null,0.798,1.0,"RE - ANTIOQUIA","2008",null,"84147895",null,null],["2026-10-04","2026-10-05","ANTIOQUIA","BELLO","ZSCC","Entrega taller","7040804526","F8-2025-01818063",null,1.145,5.0,"RE - ANTIOQUIA","2008",null,"84147896",null,null],["2026-10-04","2026-10-05","ANTIOQUIA","BELLO","ZSCC","Entrega taller","7040804574","F8-2026-01844477",null,0.931,1.0,"RE - ANTIOQUIA","2008",null,"84148467",null,null],["2026-10-04","2026-10-05","ANTIOQUIA","BELLO","ZSCC","Entrega taller","7040804860","F8-2025-01840037",null,1.386,6.0,"RE - ANTIOQUIA","2008",null,"84148862",null,null],["2026-10-04","2026-10-05","ANTIOQUIA","MEDELLIN","ZSCC","Entrega taller","7040804040","A8-2026-01775815",null,1.495,36.0,"RE - ANTIOQUIA","2008",null,"84145521",null,null],["2026-10-04","2026-10-05","ANTIOQUIA","MEDELLIN","ZSCC","Entrega taller","7040804577","A3-2021-01849562",null,0.81,38.5,"RE - ANTIOQUIA","2008",null,"84148471",null,null],["2026-10-04","2026-10-05","ANTIOQUIA","MEDELLIN","ZSCC","Entrega taller","7040804861","B4-2023-01842388",null,0.851,34.0,"RE - ANTIOQUIA","2008",null,"84148863",null,null],["2026-10-04","2026-10-05","ANTIOQUIA","SABANETA","ZSCC","Entrega taller","7040803753","A3-2026-01776148",null,0.038,1.0,"RE - ANTIOQUIA","2008",null,"84145020",null,null],["2026-10-04","2026-10-06","CESAR","VALLEDUPAR","ZSCC","Entrega taller","7040801598","F6-2026-01732028",null,0.45,1.0,"C2 - CESAR","2000",null,"84137222",null,null],["2026-10-04","2026-10-06","CESAR","VALLEDUPAR","ZSCC","Entrega taller","7040803319","F6-2026-01833143",null,1.064,1.0,"C2 - CESAR","2000",null,"84144480",null,null],["2026-10-04","2026-10-05","CUNDINAMARCA","BOGOTA","ZSCC","Entrega taller","7040803746","F7-2026-01842506",null,0.116,13.5,"RE - CUNDINAMARCA","2006",null,"84145011",null,null],["2026-10-04","2026-10-05","CUNDINAMARCA","BOGOTA","ZSCC","Entrega taller","7040804565","F7-2026-01849587",null,0.11,9.5,"RE - CUNDINAMARCA","2006",null,"84148457",null,null],["2026-10-04","2026-10-05","CUNDINAMARCA","BOGOTA","ZSCC","Entrega taller","7040804566","F7-2026-01849593",null,0.11,9.5,"RE - CUNDINAMARCA","2006",null,"84148458",null,null],["2026-10-04","2026-10-05","CUNDINAMARCA","CAJICA","ZSCC","Entrega taller","7040804563","H1-2026-01829495",null,1.155,1.0,"RE - CUNDINAMARCA","2006",null,"84148455",null,null],["2026-10-04","2026-10-05","CUNDINAMARCA","CHIA","ZSCC","Entrega taller","7040804562","C1-2026-01848328",null,0.648,2.0,"RE - CUNDINAMARCA","2006",null,"84148454",null,null],["2026-10-04","2026-10-05","CUNDINAMARCA","TOCANCIPA","ZSCC","Entrega taller","7040804564","F7-2025-01851126",null,1.405,3.0,"RE - CUNDINAMARCA","2006",null,"84148456",null,null],["2026-10-04","2026-10-05","CUNDINAMARCA","TOCANCIPA","ZSCC","Entrega taller","7040804862","F7-2026-01849150",null,1.9,50.0,"RE - CUNDINAMARCA","2006",null,"84148864",null,null],["2026-10-04","2026-10-05","CUNDINAMARCA","ZIPAQUIRA","ZSCC","Entrega taller","7040804561","F7-2026-01840365",null,0.158,8.0,"RE - CUNDINAMARCA","2006",null,"84148453",null,null],["2026-10-04","2026-10-06","SANTANDER","BUCARAMANGA","ZSCC","Entrega taller","7040803567","18-2026-01833215",null,1.113,1.0,"RE - SANTANDER","2000",null,"84144188",null,null],["2026-10-04","2026-10-06","SANTANDER","BUCARAMANGA","ZSCC","Entrega taller","7040803568","18-2026-01806635",null,0.11,1.0,"RE - SANTANDER","2000",null,"84144189",null,null],["2026-10-04","2026-10-06","SANTANDER","BUCARAMANGA","ZSCC","Entrega taller","7040804383","18-2025-01840233",null,0.441,2.0,"RE - SANTANDER","2000",null,"84147628",null,null],["2026-10-04","2026-10-06","SANTANDER","BUCARAMANGA","ZSCC","Entrega taller","7040804384","18-2026-01842978",null,1.072,42.5,"RE - SANTANDER","2000",null,"84147629",null,null],["2026-10-04","2026-10-06","SANTANDER","BUCARAMANGA","ZSCC","Entrega taller","7040804388","18-2025-01789347",null,1.441,1.0,"RE - SANTANDER","2000",null,"84147633",null,null],["2026-10-04","2026-10-06","SANTANDER","FLORIDABLANCA","ZSCC","Entrega taller","7040804385","18-2026-01842928",null,0.484,1.0,"RE - SANTANDER","2000",null,"84147630",null,null],["2026-10-04","2026-10-06","SANTANDER","FLORIDABLANCA","ZSCC","Entrega taller","7040804389","18-2026-01844026",null,0.987,1.0,"RE - SANTANDER","2000",null,"84147634",null,null],["2026-10-04","2026-10-06","SANTANDER","GIRON","ZSCC","Entrega taller","7040804387","18-2026-01793260",null,0.102,1.0,"RE - SANTANDER","2000",null,"84147632",null,null],["2026-10-05","2026-10-06","ANTIOQUIA","BELLO","ZSCC","Entrega taller","7040804900","F4-2021-01840162",null,1.332,2.0,"RE - ANTIOQUIA","2008",null,"84149380",null,null],["2026-10-05","2026-10-06","ANTIOQUIA","SABANETA","ZSCC","Entrega taller","7040804895","A3-2025-01840765",null,2.591,2.0,"RE - ANTIOQUIA","2008",null,"84149376",null,null],["2026-10-05","2026-10-06","ATLANTICO","BARRANQUILLA","ZSCC","Entrega taller","7040801474","01-2025-01831210",null,0.104,1.0,"C1 - ATLANTICO","2000","837265","84142410","837265",null],["2026-10-05","2026-10-06","ATLANTICO","BARRANQUILLA","ZSCC","Entrega taller","7040804521","B5-2025-01835191",null,0.79,1.0,"C1 - ATLANTICO","2000",null,"84147891",null,null],["2026-10-05","2026-10-06","ATLANTICO","BARRANQUILLA","ZSCC","Entrega taller","7040804522","B5-2025-01835175",null,0.987,1.0,"C1 - ATLANTICO","2000",null,"84147892",null,null],["2026-10-05","2026-10-06","ATLANTICO","BARRANQUILLA","ZSCC","Entrega taller","7040804965","01-2026-01845617",null,1.496,2.0,"C1 - ATLANTICO","2000",null,"84149464",null,null],["2026-10-05","2026-10-06","BOLIVAR","CARTAGENA","ZSCC","Entrega taller","7040803406","67-2023-01796102",null,1.482,2.0,"C1 - BOLIVAR","2000",null,"84143597",null,null],["2026-10-05","2026-10-06","BOLIVAR","CARTAGENA","ZSCC","Entrega taller","7040804037","67-2026-01829674",null,0.448,24.0,"C1 - BOLIVAR","2000",null,"84145518",null,null],["2026-10-05","2026-10-06","CUNDINAMARCA","BOGOTA","ZSCC","Entrega taller","7040804225","H1-2026-5227366",null,1.026,1.0,"RE - CUNDINAMARCA","2006",null,"84147383",null,null],["2026-10-05","2026-10-06","CUNDINAMARCA","BOGOTA","ZSCC","Entrega taller","7040804226","H1-2026-5227374",null,0.979,1.0,"RE - CUNDINAMARCA","2006",null,"84147384",null,null],["2026-10-06","2026-10-07","ANTIOQUIA","BELLO","ZSCC","Entrega taller","7040804239","F8-2026-01833811",null,1.113,1.0,"RE - ANTIOQUIA","2008",null,"84147412",null,null],["2026-10-06","2026-10-07","ANTIOQUIA","SABANETA","ZSCC","Entrega taller","7040804575","A3-2026-01849097",null,0.116,1.0,"RE - ANTIOQUIA","2008",null,"84148469",null,null],["2026-10-06","2026-10-07","ANTIOQUIA","SABANETA","ZSCC","Entrega taller","7040804576","A3-2026-01849060",null,0.116,1.0,"RE - ANTIOQUIA","2008",null,"84148470",null,null],["2026-10-06","2026-10-08","CAUCASIA","CAUCASIA","ZSN1","Devolucion nota de cambio","7040804722","55-2026-01832681",null,0.085,23.98,"C2 - CAUCASIA","2500",null,"84148644",null,null],["2026-10-06","2026-10-08","CAUCASIA","CAUCASIA","ZSRT","Recogida taller","7040804788","55-2026-01829091",null,0.481,50.8,"C2 - CAUCASIA","2000",null,"84148744",null,null],["2026-10-06","2026-10-08","CAUCASIA","CAUCASIA","ZSRT","Recogida taller","7040804971","55-2026-01805353",null,1.485,2.0,"C2 - CAUCASIA","2000",null,"84149471",null,null],["2026-10-06","2026-10-07","CUNDINAMARCA","SOACHA","ZSCC","Entrega taller","7040803455","F7-2026-01837711",null,0.431,21.0,"RE - CUNDINAMARCA","2006","837052","84144036","837052",null],["2026-10-06","2026-10-08","SUCRE","SINCELEJO","ZSCC","Entrega taller","7040803874","65-2025-01839824",null,0.068,13.0,"C2 - SUCRE","2000",null,"84145233",null,null],["2026-10-07","2026-10-08","ANTIOQUIA","MEDELLIN","ZSCC","Entrega taller","7040804901","A3-2026-01843206",null,1.266,32.0,"RE - ANTIOQUIA","2008",null,"84149381",null,null],["2026-10-07","2026-10-08","CUNDINAMARCA","BOGOTA","ZSCC","Entrega taller","7040803914","F7-2025-01830747",null,0.56,27.5,"RE - CUNDINAMARCA","2006","837261","84145289","837261",null],["2026-10-07","2026-10-08","CUNDINAMARCA","BOGOTA","ZSCC","Entrega taller","7040804573","F7-2026-01830162",null,0.162,18.0,"RE - CUNDINAMARCA","2006",null,"84148465",null,null],["2026-10-08","2026-10-09","ANTIOQUIA","ENVIGADO","ZSCC","Entrega taller","7040804420","95-2024-01801702",null,1.216,2.0,"RE - ANTIOQUIA","2008","837091","84147673","837091",null],["2026-10-08","2026-10-09","ANTIOQUIA","MEDELLIN","ZSCC","Entrega taller","7040804120","B4-2023-01799671",null,0.418,2.0,"RE - ANTIOQUIA","2008","837091","84145683","837091",null],["2026-10-08","2026-10-10","GUAJIRA","RIOHACHA","ZSCC","Entrega taller","7040804404","39-2025-01835581",null,1.064,1.0,"C2 - GUAJIRA","2000",null,"84147651",null,null],["2026-10-11","2026-10-13","CESAR","VALLEDUPAR","ZSCC","Entrega taller","7040804962","F6-2026-01843289",null,2.242,9.0,"C2 - CESAR","2000",null,"84149460",null,null],["2026-10-11","2026-10-13","CESAR","VALLEDUPAR","ZSCC","Entrega taller","7040804968","F6-2025-01800852",null,0.175,35.1,"C2 - CESAR","2000",null,"84149469",null,null],["2026-10-13","2026-10-14","ATLANTICO","BARRANQUILLA","ZSCC","Entrega taller","7040802369","95-2024-01821732",null,0.523,22.3,"C1 - ATLANTICO","2000","836114","84139276","836114",null],["2026-10-13","2026-10-14","ATLANTICO","BARRANQUILLA","ZSCC","Entrega taller","7040803407","01-2026-01790914",null,1.267,48.0,"C1 - ATLANTICO","2000",null,"84143598",null,null],["2026-10-13","2026-10-15","CORDOBA","PLANETA RICA","ZSCC","Entrega taller","7040803859","55-2024-01840083",null,1.963,2.0,"C2 - CAUCASIA","2000",null,"84145195",null,null],["2026-10-13","2026-10-15","SANTANDER","BARRANCABERMEJA","ZSCC","Entrega taller","7040802553","18-2022-5230220",null,2.018,2.0,"RE - BARRANCABERMEJA","2000",null,"84141064",null,null],["2026-10-15","2026-10-16","ANTIOQUIA","MEDELLIN","ZSCC","Entrega taller","7040805031","A8-2026-01802695",null,1.316,1.0,"RE - ANTIOQUIA","2008",null,"84149571",null,null],["2026-10-15","2026-10-16","ATLANTICO","BARRANQUILLA","ZSCC","Entrega taller","7040803292","XX-2026-01833243",null,0.603,25.0,"C1 - ATLANTICO","2000",null,"84143345",null,null],["2026-10-19","2026-10-20","ATLANTICO","BARRANQUILLA","ZSCC","Entrega taller","7040803408","95-2025-01752702",null,0.57,6.0,"C1 - ATLANTICO","2000","836161","84143599","836161",null],["2026-10-20","2026-10-22","BOLIVAR","MAGANGUE","ZSRT","Recogida taller","7040804246","10-2026-01848154",null,2.617,9.0,"C2 - SUCRE","2000",null,"84147431",null,null],["2026-11-02","2026-11-03","CUNDINAMARCA","BOGOTA","ZSCC","Entrega taller","7040804224","H1-2026-01847449",null,0.376,15.0,"RE - CUNDINAMARCA","2006",null,"84147382",null,null],["2026-11-02","2026-11-03","CUNDINAMARCA","BOGOTA","ZSCC","Entrega taller","7040804230","H1-2026-01831945",null,1.491,32.0,"RE - CUNDINAMARCA","2006",null,"84147393",null,null],["2026-11-02","2026-11-03","CUNDINAMARCA","BOGOTA","ZSCC","Entrega taller","7040804527","H4-2026-01809437",null,1.331,1.0,"RE - CUNDINAMARCA","2006",null,"84147897",null,null],["2026-11-02","2026-11-03","CUNDINAMARCA","BOGOTA","ZSCC","Entrega taller","7040804528","H1-2026-01840094",null,1.021,1.0,"RE - CUNDINAMARCA","2006",null,"84147898",null,null],["2026-11-02","2026-11-03","CUNDINAMARCA","BOGOTA","ZSCC","Entrega taller","7040804893","H1-2026-01850658",null,0.019,1.0,"RE - CUNDINAMARCA","2006",null,"84149303",null,null],["2026-11-02","2026-11-03","CUNDINAMARCA","BOGOTA","ZSCC","Entrega taller","7040804894","B9-2025-01851061",null,0.684,2.0,"RE - CUNDINAMARCA","2006",null,"84149304",null,null]]};
+// DATA = resumen/detalle recalculados con el filtro de clase de pedido (ver aplicarFiltroClase)
+let DATA = {resumen: RAW.resumen, detalle: RAW.detalle};
+const $ = (sel) => document.querySelector(sel);
+const fmtNum = (n) => n.toLocaleString('es-CO', {maximumFractionDigits: 0});
+const fmtCu = (n) => n.toLocaleString('es-CO', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+
+const CAP_POR_VEHICULO = 18; // servicios y m³ por vehículo por día
+const VEHICULOS_POR_DESTINO = {ANTIOQUIA: 2}; // el resto: 1 vehículo
+function vehiculos(dep){ return VEHICULOS_POR_DESTINO[dep] || 1; }
+function capServ(dep){ return vehiculos(dep) * CAP_POR_VEHICULO; }
+function capCu(dep){ return vehiculos(dep) * CAP_POR_VEHICULO; }
+
+function pct(ocupado, total){ return total > 0 ? (100 * ocupado / total) : 0; }
+function fillClass(p){ if(p >= 100) return 'fill-over'; if(p >= 80) return 'fill-normal'; if(p >= 40) return 'fill-alert'; return 'fill-low'; }
+
+function fmtFechaLabel(iso){
+  const [y,m,d] = iso.split('-').map(Number);
+  const dt = new Date(y, m-1, d);
+  const dias = ['dom','lun','mar','mié','jué','vie','sáb'];
+  const meses = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+  return `${dias[dt.getDay()]} ${d} ${meses[m-1]}`;
+}
+
+const fechasDisponibles = [...new Set(RAW.resumen.map(r => r.fecha))].sort();
+
+function addDaysISO(iso, n){
+  const [y,m,d] = iso.split('-').map(Number);
+  const dt = new Date(y, m-1, d);
+  dt.setDate(dt.getDate() + n);
+  return `${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,'0')}-${String(dt.getDate()).padStart(2,'0')}`;
+}
+function buildFechasVentana(startIso, dias){
+  const out = [];
+  for(let i = 0; i < dias; i++) out.push(addDaysISO(startIso, i));
+  return out;
+}
+const fechasHeatmap = buildFechasVentana(fechasDisponibles[0], 30);
+
+function fechaCounts(){
+  const map = {};
+  DATA.resumen.forEach(r => {
+    if(!map[r.fecha]) map[r.fecha] = {deptos:0, pedidos:0};
+    map[r.fecha].deptos += 1;
+    map[r.fecha].pedidos += r.total_ordenes;
+  });
+  return map;
+}
+let counts = fechaCounts();
+
+function populateFechas(){
+  const sel = $('#f-fecha');
+  const actual = sel.value;
+  sel.innerHTML = fechasDisponibles.map(f => {
+    const c = counts[f] || {deptos:0, pedidos:0};
+    return `<option value="${f}">${fmtFechaLabel(f)} &middot; ${c.deptos} deptos &middot; ${c.pedidos} pedidos</option>`;
+  }).join('');
+  if(actual) sel.value = actual;
+}
+populateFechas();
+
+let defaultFecha = fechasDisponibles.reduce((best, f) => counts[f].pedidos > counts[best].pedidos ? f : best, fechasDisponibles[0]);
+$('#f-fecha').value = defaultFecha;
+
+const titleCase = (s) => s.charAt(0) + s.slice(1).toLowerCase();
+const titleCaseWords = (s) => s.toLowerCase().split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+const departamentosTodos = (RAW.destinos && RAW.destinos.length)
+  ? [...RAW.destinos].sort()
+  : [...new Set(RAW.resumen.map(r => r.departamento))].sort();
+
+// Agrupación de destinos por plataforma (confirmada con el usuario 23/09/2026)
+const PLATAFORMAS = {
+  'Galapa':   ['ATLANTICO','BOLIVAR','MAGDALENA','CESAR','CORDOBA','GUAJIRA','SUCRE','CAUCASIA','SANTANDER'],
+  'Bogotá':   ['CUNDINAMARCA','META','BOYACA'],
+  'Medellín': ['ANTIOQUIA'],
+};
+function deptosVisibles(){
+  const p = $('#f-plataforma').value;
+  return p && PLATAFORMAS[p] ? departamentosTodos.filter(d => PLATAFORMAS[p].includes(d)) : departamentosTodos;
+}
+$('#f-plataforma').innerHTML = '<option value="">Todas las plataformas</option>' +
+  Object.keys(PLATAFORMAS).map(p => `<option value="${p}">Plataforma ${p}</option>`).join('');
+
+let selectedDeptos = new Set(departamentosTodos);
+
+function updateDeptoLabel(){
+  const n = selectedDeptos.size;
+  const label = $('#f-depto-label');
+  if(n === 0) label.textContent = 'Ningún departamento';
+  else if(n === deptosVisibles().length) label.textContent = $('#f-plataforma').value ? `Todos (Plataforma ${$('#f-plataforma').value})` : 'Todos los departamentos';
+  else if(n === 1) label.textContent = titleCase([...selectedDeptos][0]);
+  else label.textContent = `${n} departamentos seleccionados`;
+}
+
+function populateDeptoOptions(){
+  const box = $('#depto-options');
+  box.innerHTML = deptosVisibles().map(dep => {
+    const total = DATA.resumen.filter(r => r.departamento === dep).reduce((s,r) => s + r.total_ordenes, 0);
+    const checked = selectedDeptos.has(dep);
+    return `<div class="option-row" role="checkbox" aria-checked="${checked}" tabindex="0" data-dep="${dep}">
+      <span class="material-symbols-outlined opt-check">${checked?'check_box':'check_box_outline_blank'}</span>
+      <span class="opt-name">${titleCase(dep)}</span>
+      <span class="opt-count">${total}</span>
+    </div>`;
+  }).join('');
+  function toggleRow(row){
+    const dep = row.getAttribute('data-dep');
+    const nowChecked = !selectedDeptos.has(dep);
+    if(nowChecked) selectedDeptos.add(dep); else selectedDeptos.delete(dep);
+    row.setAttribute('aria-checked', String(nowChecked));
+    row.querySelector('.opt-check').textContent = nowChecked ? 'check_box' : 'check_box_outline_blank';
+    updateDeptoLabel();
+    render();
+  }
+  box.querySelectorAll('.option-row').forEach(row => {
+    row.addEventListener('click', () => toggleRow(row));
+    row.addEventListener('keydown', (e) => {
+      if(e.key === ' ' || e.key === 'Enter'){ e.preventDefault(); toggleRow(row); }
+    });
+  });
+}
+populateDeptoOptions();
+updateDeptoLabel();
+
+function setDeptoPanel(open){
+  $('#f-depto-panel').hidden = !open;
+  $('#f-depto-btn').setAttribute('aria-expanded', String(open));
+}
+$('#f-depto-btn').addEventListener('click', (e) => {
+  e.stopPropagation();
+  setDeptoPanel($('#f-depto-panel').hidden);
+});
+document.addEventListener('click', (e) => {
+  if(!$('#depto-multiselect').contains(e.target)) setDeptoPanel(false);
+});
+document.addEventListener('keydown', (e) => { if(e.key === 'Escape') setDeptoPanel(false); });
+$('#depto-select-all').addEventListener('click', () => {
+  selectedDeptos = new Set(deptosVisibles());
+  populateDeptoOptions(); updateDeptoLabel(); render();
+});
+$('#f-plataforma').addEventListener('change', () => {
+  selectedDeptos = new Set(deptosVisibles());
+  populateDeptoOptions(); updateDeptoLabel(); render();
+});
+$('#depto-clear').addEventListener('click', () => {
+  selectedDeptos = new Set();
+  populateDeptoOptions(); updateDeptoLabel(); render();
+});
+
+// ---- Filtro por clase de pedido ----
+const DESC_CLASE = {};
+const conteoClase = {};
+(RAW.pedidos || []).forEach(p => { DESC_CLASE[p[4]] = p[5]; conteoClase[p[4]] = (conteoClase[p[4]] || 0) + 1; });
+const clasesTodas = Object.keys(DESC_CLASE).sort();
+let selectedClases = new Set(clasesTodas);
+
+function aplicarFiltroClase(){
+  if(selectedClases.size === clasesTodas.length){
+    DATA = {resumen: RAW.resumen, detalle: RAW.detalle};
+  } else {
+    const res = {}, det = {};
+    (RAW.pedidos || []).forEach(p => {
+      const [fecha, , dep, muni, clase, desc] = p;
+      if(!selectedClases.has(clase)) return;
+      const key = `${fecha}|${dep}`;
+      const r = res[key] || (res[key] = {fecha, departamento: dep, total_ordenes: 0, ordenes_ocupadas: 0, cubicaje_total: 0, cubicaje_ocupado: 0});
+      r.total_ordenes += 1;
+      r.cubicaje_total += p[9] || 0;
+      const dk = `${key}|${muni}|${clase}`;
+      const d = det[dk] || (det[dk] = {key, municipio: muni, clase, desc, grupo: 'POSVENTA', total: 0, ocupado: 0});
+      d.total += 1;
+    });
+    const detalle = {};
+    Object.values(det)
+      .sort((a,b) => a.municipio.localeCompare(b.municipio) || b.total - a.total)
+      .forEach(({key, ...d}) => { (detalle[key] = detalle[key] || []).push(d); });
+    DATA = {resumen: Object.values(res), detalle};
+  }
+  counts = fechaCounts();
+  populateFechas();
+  populateDeptoOptions();
+}
+
+function updateClaseLabel(){
+  const n = selectedClases.size;
+  const label = $('#f-clase-label');
+  if(n === 0) label.textContent = 'Ninguna clase';
+  else if(n === clasesTodas.length) label.textContent = 'Todas las clases';
+  else if(n === 1){ const c = [...selectedClases][0]; label.textContent = `${c} · ${DESC_CLASE[c]}`; }
+  else label.textContent = `${n} clases seleccionadas`;
+}
+function onClaseChange(){ aplicarFiltroClase(); updateClaseLabel(); render(); }
+
+function populateClaseOptions(){
+  const box = $('#clase-options');
+  box.innerHTML = clasesTodas.map(c => {
+    const checked = selectedClases.has(c);
+    return `<div class="option-row" role="checkbox" aria-checked="${checked}" tabindex="0" data-clase="${c}">
+      <span class="material-symbols-outlined opt-check">${checked?'check_box':'check_box_outline_blank'}</span>
+      <span class="opt-name"><b>${c}</b> &middot; ${DESC_CLASE[c]}</span>
+      <span class="opt-count">${conteoClase[c]}</span>
+    </div>`;
+  }).join('');
+  function toggleRow(row){
+    const c = row.getAttribute('data-clase');
+    const nowChecked = !selectedClases.has(c);
+    if(nowChecked) selectedClases.add(c); else selectedClases.delete(c);
+    row.setAttribute('aria-checked', String(nowChecked));
+    row.querySelector('.opt-check').textContent = nowChecked ? 'check_box' : 'check_box_outline_blank';
+    onClaseChange();
+  }
+  box.querySelectorAll('.option-row').forEach(row => {
+    row.addEventListener('click', () => toggleRow(row));
+    row.addEventListener('keydown', (e) => {
+      if(e.key === ' ' || e.key === 'Enter'){ e.preventDefault(); toggleRow(row); }
+    });
+  });
+}
+populateClaseOptions();
+updateClaseLabel();
+
+function setClasePanel(open){
+  $('#f-clase-panel').hidden = !open;
+  $('#f-clase-btn').setAttribute('aria-expanded', String(open));
+}
+$('#f-clase-btn').addEventListener('click', (e) => {
+  e.stopPropagation();
+  setClasePanel($('#f-clase-panel').hidden);
+});
+document.addEventListener('click', (e) => {
+  if(!$('#clase-multiselect').contains(e.target)) setClasePanel(false);
+});
+document.addEventListener('keydown', (e) => { if(e.key === 'Escape') setClasePanel(false); });
+$('#clase-select-all').addEventListener('click', () => {
+  selectedClases = new Set(clasesTodas);
+  populateClaseOptions(); onClaseChange();
+});
+$('#clase-clear').addEventListener('click', () => {
+  selectedClases = new Set();
+  populateClaseOptions(); onClaseChange();
+});
+
+function rowPctServ(r){ return pct(r.total_ordenes, capServ(r.departamento)); }
+function rowPctCu(r){ return pct(r.cubicaje_total, capCu(r.departamento)); }
+function rowMaxPct(r){ return Math.max(rowPctServ(r), rowPctCu(r)); }
+function rowEnAlerta(r){ return rowMaxPct(r) >= 100; }
+
+function renderStats(rows){
+  const totalDeptos = rows.length;
+  const totalPedidos = rows.reduce((s,r) => s + r.total_ordenes, 0);
+  const totalCubTotal = rows.reduce((s,r) => s + r.cubicaje_total, 0);
+  const capServTot = rows.reduce((s,r) => s + capServ(r.departamento), 0);
+  const capCuTot = rows.reduce((s,r) => s + capCu(r.departamento), 0);
+  const alertas = rows.filter(rowEnAlerta).length;
+  const avgPct = totalDeptos ? Math.round(rows.reduce((s,r) => s + rowMaxPct(r), 0) / totalDeptos) : 0;
+
+  const tiles = [
+    {label:'Departamentos con agenda', value: fmtNum(totalDeptos), sub: `${alertas} en alerta (100%+)`},
+    {label:'Pedidos agendados', value: fmtNum(totalPedidos), sub: `capacidad ${fmtNum(capServTot)} servicios`},
+    {label:'Cubicaje agendado', value: `${fmtCu(totalCubTotal)} m³`, sub: `capacidad ${fmtNum(capCuTot)} m³`},
+    {label:'Ocupación promedio', value: `${avgPct}%`, sub: 'mayor entre cubicaje y servicios'},
+  ];
+  $('#stats').innerHTML = tiles.map(t => `
+    <div class="stat-tile">
+      <span class="stat-label">${t.label}</span>
+      <span class="stat-value">${t.value}</span>
+      <span class="stat-sub">${t.sub}</span>
+    </div>
+  `).join('');
+}
+
+function breakdownRowsHtml(breakdown, totalOrdenes){
+  const rows = [];
+  let i = 0;
+  while(i < breakdown.length){
+    const muni = breakdown[i].municipio;
+    let j = i;
+    while(j < breakdown.length && breakdown[j].municipio === muni) j++;
+    const span = j - i;
+    for(let k = i; k < j; k++){
+      const b = breakdown[k];
+      const share = pct(b.total, totalOrdenes);
+      rows.push(`<tr>
+        ${k === i ? `<td rowspan="${span}">${titleCaseWords(muni)}</td>` : ''}
+        <td><b>${b.clase}</b><br><span style="color:var(--text-muted)">${b.desc}</span></td>
+        <td style="font-variant-numeric:tabular-nums;">${b.total}</td>
+        <td style="min-width:70px;">
+          <div class="mini-bar"><div class="mini-fill" style="width:${Math.max(share,3)}%; background:var(--accent);"></div></div>
+        </td>
+      </tr>`);
+    }
+    i = j;
+  }
+  return rows.join('');
+}
+
+function renderCard(row){
+  const fecha = row.fecha, dep = row.departamento;
+  const pO = rowPctServ(row);
+  const pC = rowPctCu(row);
+  const alerta = rowEnAlerta(row);
+  const key = `${fecha}|${dep}`;
+  const breakdown = (DATA.detalle[key] || []);
+
+  const depoTitle = dep.charAt(0) + dep.slice(1).toLowerCase();
+
+  const rowsHtml = breakdownRowsHtml(breakdown, row.total_ordenes);
+
+  return `
+  <div class="card" data-dep="${dep}">
+    <div class="card-top">
+      <div class="card-badges">
+        <span class="badge abierto">
+          <span class="material-symbols-outlined" style="font-size:14px;">lock_open</span>
+          Abierto
+        </span>
+        ${alerta ? `<span class="badge alerta">
+          <span class="material-symbols-outlined" style="font-size:14px;">warning</span>
+          Capacidad llena
+        </span>` : ''}
+      </div>
+    </div>
+    <div>
+      <div class="poly-title">${depoTitle}</div>
+      <div class="poly-sub">${row.total_ordenes} pedidos agendados &middot; ${fecha.split('-').reverse().join('/')}</div>
+    </div>
+    <div class="metrics-row">
+      <span class="metric-raw">Cubicaje: <b>${fmtCu(row.cubicaje_total)} / ${capCu(row.departamento)} m³</b></span>
+      <span class="metric-raw">Servicios: <b>${row.total_ordenes} / ${capServ(row.departamento)}</b></span>
+    </div>
+    <div class="bar-block">
+      <div class="bar-label-row">
+        <span class="left"><span class="material-symbols-outlined" style="font-size:16px;">inventory_2</span> Cubicaje</span>
+        <span class="pct">${pC.toFixed(0)}%</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill ${fillClass(pC)}" style="width:${Math.min(Math.max(pC,3),100)}%;"></div></div>
+    </div>
+    <div class="bar-block">
+      <div class="bar-label-row">
+        <span class="left"><span class="material-symbols-outlined" style="font-size:16px;">receipt_long</span> Servicios</span>
+        <span class="pct">${pO.toFixed(0)}%</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill ${fillClass(pO)}" style="width:${Math.min(Math.max(pO,3),100)}%;"></div></div>
+    </div>
+    <div class="card-actions">
+      <button class="detail-btn" data-toggle="${key}">
+        <span class="material-symbols-outlined">visibility</span> Ver detalle
+      </button>
+    </div>
+    <div class="detail-panel" id="panel-${key.replace(/[^a-zA-Z0-9]/g,'_')}">
+      <table>
+        <thead><tr><th>Municipio</th><th>Clase</th><th>Pedidos</th><th>% del día</th></tr></thead>
+        <tbody>${rowsHtml}</tbody>
+      </table>
+    </div>
+  </div>`;
+}
+
+function currentRows(){
+  const fecha = $('#f-fecha').value;
+  let rows = DATA.resumen.filter(r => r.fecha === fecha && selectedDeptos.has(r.departamento));
+  const orden = $('#f-orden').value;
+  if(orden === 'pedidos') rows = rows.sort((a,b) => b.total_ordenes - a.total_ordenes);
+  else if(orden === 'avance') rows = rows.sort((a,b) => rowMaxPct(a) - rowMaxPct(b));
+  else rows = rows.sort((a,b) => a.departamento.localeCompare(b.departamento));
+  return rows;
+}
+
+function trendSeries(dep){
+  const byFecha = {};
+  DATA.resumen.filter(r => r.departamento === dep).forEach(r => { byFecha[r.fecha] = r; });
+  return fechasHeatmap.map(f => byFecha[f] || {fecha: f, departamento: dep, total_ordenes: 0, cubicaje_total: 0});
+}
+
+function rangeAgg(dep){
+  const series = trendSeries(dep);
+  return {
+    departamento: dep,
+    total_ordenes: series.reduce((s,r) => s + r.total_ordenes, 0),
+    cubicaje_total: series.reduce((s,r) => s + r.cubicaje_total, 0),
+    dias_con_agenda: series.filter(r => r.total_ordenes > 0).length,
+  };
+}
+
+function currentTrendDeptos(){
+  let deps = departamentosTodos.filter(d => selectedDeptos.has(d));
+  const orden = $('#f-orden').value;
+  const totalPedidos = (d) => rangeAgg(d).total_ordenes;
+  const avgPct = (d) => {
+    const series = trendSeries(d);
+    return series.reduce((s,r) => s + rowMaxPct(r), 0) / (series.length || 1);
+  };
+  if(orden === 'pedidos') deps = deps.sort((a,b) => totalPedidos(b) - totalPedidos(a));
+  else if(orden === 'avance') deps = deps.sort((a,b) => avgPct(a) - avgPct(b));
+  else deps = deps.sort((a,b) => a.localeCompare(b));
+  return deps;
+}
+
+function render30Stats(deps){
+  const totalPedidos = deps.reduce((s,d) => s + rangeAgg(d).total_ordenes, 0);
+  const totalCu = deps.reduce((s,d) => s + rangeAgg(d).cubicaje_total, 0);
+  const alertasCeldas = deps.reduce((s,d) => s + trendSeries(d).filter(rowEnAlerta).length, 0);
+  const capServTotal = deps.reduce((s,d) => s + fechasHeatmap.length * capServ(d), 0);
+  const capCuTotal = deps.reduce((s,d) => s + fechasHeatmap.length * capCu(d), 0);
+
+  const tiles = [
+    {label:'Rango de fechas', value: `${fechasHeatmap.length} días`, sub: `${fmtFechaLabel(fechasHeatmap[0])} – ${fmtFechaLabel(fechasHeatmap[fechasHeatmap.length-1])}`},
+    {label:'Destinos', value: fmtNum(deps.length), sub: `${alertasCeldas} día-destino en alerta`},
+    {label:'Pedidos / Cubicaje del rango', value: `${fmtNum(totalPedidos)} / ${fmtCu(totalCu)} m³`, sub: `capacidad ${fmtNum(capServTotal)} serv · ${fmtNum(capCuTotal)} m³`},
+    {label:'Ocupación promedio', value: `${capServTotal ? Math.round(100*totalPedidos/capServTotal) : 0}%`, sub: 'servicios sobre capacidad del rango'},
+  ];
+  $('#stats').innerHTML = tiles.map(t => `
+    <div class="stat-tile">
+      <span class="stat-label">${t.label}</span>
+      <span class="stat-value">${t.value}</span>
+      <span class="stat-sub">${t.sub}</span>
+    </div>
+  `).join('');
+}
+
+function heatRowId(dep){ return `heat-detail-${dep.replace(/[^a-zA-Z0-9]/g,'_')}`; }
+
+function heatDetailHtml(dep, fecha){
+  const row = DATA.resumen.find(r => r.departamento === dep && r.fecha === fecha)
+    || {departamento: dep, fecha, total_ordenes: 0, cubicaje_total: 0};
+  const pO = rowPctServ(row);
+  const pC = rowPctCu(row);
+  const alerta = Math.max(pO, pC) >= 100;
+  const breakdown = DATA.detalle[`${fecha}|${dep}`] || [];
+  const depoTitle = titleCase(dep);
+
+  const rowsHtml = breakdownRowsHtml(breakdown, row.total_ordenes);
+
+  return `
+    <div class="heat-detail-head">
+      <div>
+        <div class="poly-title" style="font-size:15px;">${depoTitle} &middot; ${fmtFechaLabel(fecha)}</div>
+        <div class="poly-sub">${row.total_ordenes} pedidos agendados</div>
+      </div>
+      <div class="card-badges">
+        <span class="badge abierto"><span class="material-symbols-outlined" style="font-size:14px;">lock_open</span> Abierto</span>
+        ${alerta ? `<span class="badge alerta"><span class="material-symbols-outlined" style="font-size:14px;">warning</span> Capacidad llena</span>` : ''}
+      </div>
+    </div>
+    <div class="metrics-row">
+      <span class="metric-raw">Cubicaje: <b>${fmtCu(row.cubicaje_total)} / ${capCu(row.departamento)} m³</b></span>
+      <span class="metric-raw">Servicios: <b>${row.total_ordenes} / ${capServ(row.departamento)}</b></span>
+    </div>
+    <div class="bar-block">
+      <div class="bar-label-row">
+        <span class="left"><span class="material-symbols-outlined" style="font-size:16px;">inventory_2</span> Cubicaje</span>
+        <span class="pct">${pC.toFixed(0)}%</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill ${fillClass(pC)}" style="width:${Math.min(Math.max(pC,3),100)}%;"></div></div>
+    </div>
+    <div class="bar-block">
+      <div class="bar-label-row">
+        <span class="left"><span class="material-symbols-outlined" style="font-size:16px;">receipt_long</span> Servicios</span>
+        <span class="pct">${pO.toFixed(0)}%</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill ${fillClass(pO)}" style="width:${Math.min(Math.max(pO,3),100)}%;"></div></div>
+    </div>
+    ${breakdown.length ? `
+    <table class="clase-table">
+      <thead><tr><th>Municipio</th><th>Clase</th><th>Pedidos</th><th>% del día</th></tr></thead>
+      <tbody>${rowsHtml}</tbody>
+    </table>` : ''}
+  `;
+}
+
+function renderHeatmap(deps){
+  let prevMonth = null;
+  const headCells = fechasHeatmap.map(f => {
+    const [y,m,d] = f.split('-').map(Number);
+    const monthStart = m !== prevMonth;
+    prevMonth = m;
+    return `<th class="heat-col-label${monthStart ? ' month-start' : ''}" title="${fmtFechaLabel(f)}">${d}</th>`;
+  }).join('');
+
+  const bodyRows = deps.map(dep => {
+    const series = trendSeries(dep);
+    const agg = rangeAgg(dep);
+    const depoTitle = titleCase(dep);
+    prevMonth = null;
+    const cells = series.map(r => {
+      const [y,m] = r.fecha.split('-').map(Number);
+      const monthStart = m !== prevMonth;
+      prevMonth = m;
+      const cls = monthStart ? ' month-start' : '';
+      if(r.total_ordenes === 0 && r.cubicaje_total === 0){
+        return `<td class="heat-cell${cls}"><div class="heat-box heat-empty" title="${fmtFechaLabel(r.fecha)}: sin agenda"></div></td>`;
+      }
+      const p = rowMaxPct(r);
+      const label = `${fmtFechaLabel(r.fecha)}: ${r.total_ordenes} serv, ${fmtCu(r.cubicaje_total)} m³ (${Math.round(p)}%)`;
+      return `<td class="heat-cell${cls}"><div class="heat-box ${fillClass(p)}" data-dep="${dep}" data-fecha="${r.fecha}" title="${label} — clic para ver detalle">${Math.round(p)}</div></td>`;
+    }).join('');
+    return `<tr>
+      <td class="heat-row-label">
+        <div class="name">${depoTitle}</div>
+        <div class="sub">${fmtNum(agg.total_ordenes)} serv &middot; ${fmtCu(agg.cubicaje_total)} m³ &middot; ${agg.dias_con_agenda}/${fechasHeatmap.length} días</div>
+      </td>
+      ${cells}
+    </tr>
+    <tr class="heat-detail-row" id="${heatRowId(dep)}" hidden>
+      <td colspan="${fechasHeatmap.length + 1}"><div class="heat-detail"></div></td>
+    </tr>`;
+  }).join('');
+
+  return `
+  <div class="heatmap-wrap">
+    <table class="heatmap">
+      <thead><tr><th class="heat-row-label">Destino</th>${headCells}</tr></thead>
+      <tbody>${bodyRows}</tbody>
+    </table>
+  </div>`;
+}
+
+function wireHeatmapClicks(grid){
+  let activeBox = null;
+  let activeRowId = null;
+  grid.querySelectorAll('.heat-box[data-fecha]').forEach(box => {
+    box.addEventListener('click', () => {
+      const dep = box.getAttribute('data-dep');
+      const fecha = box.getAttribute('data-fecha');
+      const rowId = heatRowId(dep);
+      const detailRow = document.getElementById(rowId);
+      const sameCell = activeBox === box;
+
+      if(activeBox) activeBox.classList.remove('heat-box-active');
+      if(activeRowId && activeRowId !== rowId){
+        const prevRow = document.getElementById(activeRowId);
+        if(prevRow) prevRow.hidden = true;
+      }
+
+      if(sameCell){
+        detailRow.hidden = true;
+        activeBox = null;
+        activeRowId = null;
+        return;
+      }
+
+      detailRow.querySelector('.heat-detail').innerHTML = heatDetailHtml(dep, fecha);
+      detailRow.hidden = false;
+      box.classList.add('heat-box-active');
+      activeBox = box;
+      activeRowId = rowId;
+    });
+  });
+}
+
+function render30View(){
+  const deps = currentTrendDeptos();
+  render30Stats(deps);
+  const grid = $('#grid');
+  if(deps.length === 0){
+    grid.innerHTML = `<div class="empty-state">
+      <span class="material-symbols-outlined">search_off</span>
+      Selecciona al menos un departamento.
+    </div>`;
+  } else {
+    grid.innerHTML = renderHeatmap(deps);
+    wireHeatmapClicks(grid);
+  }
+  $('#chip-hint').textContent = `${deps.length} destino${deps.length===1?'':'s'} &middot; ${fechasHeatmap.length} días`;
+}
+
+function renderDayView(){
+  const rows = currentRows();
+  renderStats(rows);
+  const grid = $('#grid');
+  if(rows.length === 0){
+    grid.innerHTML = `<div class="empty-state">
+      <span class="material-symbols-outlined">search_off</span>
+      Sin pedidos agendados para este filtro.
+    </div>`;
+  } else {
+    grid.innerHTML = rows.map(renderCard).join('');
+  }
+  $('#chip-hint').textContent = `${rows.length} departamento${rows.length===1?'':'s'} con agenda`;
+
+  grid.querySelectorAll('[data-toggle]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const key = btn.getAttribute('data-toggle');
+      const panel = document.getElementById(`panel-${key.replace(/[^a-zA-Z0-9]/g,'_')}`);
+      const open = panel.classList.toggle('open');
+      btn.innerHTML = `<span class="material-symbols-outlined">${open?'visibility_off':'visibility'}</span> ${open?'Ocultar detalle':'Ver detalle'}`;
+    });
+  });
+}
+
+function isTrendMode(){ return $('#f-vista').checked; }
+
+// ---- Descarga a Excel del detalle pedido a pedido (respeta vista y filtros) ----
+const PEDIDOS_COLS = ['Fecha picking','Fecha cita','Plataforma','Destino','Municipio','Clase pedido','Descripción clase',
+  'N° pedido SAP','N° pedido SEUS','Estado SEUS','Cubicaje (m³)','Peso bruto',
+  'Departamento ruta','Puesto expedición','N° viaje tramo 1','N° entrega tramo 1','N° viaje tramo 2','N° entrega tramo 2'];
+function plataformaDe(dep){
+  return Object.keys(PLATAFORMAS).find(p => PLATAFORMAS[p].includes(dep)) || '';
+}
+function isoToDate(iso){
+  if(!iso) return null;
+  const [y,m,d] = iso.split('-').map(Number);
+  return new Date(y, m-1, d, 12); // mediodía local: evita que la zona horaria corra la fecha un día
+}
+function pedidosFiltrados(){
+  const fechas = isTrendMode() ? new Set(fechasHeatmap) : new Set([$('#f-fecha').value]);
+  return (RAW.pedidos || []).filter(p => fechas.has(p[0]) && selectedDeptos.has(p[2]) && selectedClases.has(p[4]));
+}
+function cargarSheetJS(){
+  if(window.XLSX) return Promise.resolve();
+  return new Promise((ok, fail) => {
+    const sc = document.createElement('script');
+    sc.src = 'https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js';
+    sc.onload = ok; sc.onerror = () => fail(new Error('No se pudo cargar la librería de Excel'));
+    document.head.appendChild(sc);
+  });
+}
+async function descargarExcel(){
+  const btn = $('#btn-descargar');
+  const filas = pedidosFiltrados();
+  if(!filas.length){ btn.title = 'No hay pedidos con los filtros actuales'; return; }
+  btn.disabled = true;
+  try{
+    await cargarSheetJS();
+    const data = filas.map(p => [isoToDate(p[0]), isoToDate(p[1]), plataformaDe(p[2]), titleCaseWords(p[2]), titleCaseWords(p[3]), ...p.slice(4)]);
+    const ws = XLSX.utils.aoa_to_sheet([PEDIDOS_COLS, ...data], {cellDates:true, dateNF:'dd/mm/yyyy'});
+    ws['!cols'] = PEDIDOS_COLS.map((c,i) => ({wch: i === 8 ? 18 : Math.max(11, c.length + 2)}));
+    ws['!autofilter'] = {ref: ws['!ref']};
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Pedidos');
+    const plat = $('#f-plataforma').value;
+    const sufijo = isTrendMode()
+      ? `${fechasHeatmap[0]}_a_${fechasHeatmap[fechasHeatmap.length-1]}`
+      : $('#f-fecha').value;
+    XLSX.writeFile(wb, `CUBICA_plataforma_${plat ? plat.normalize('NFD').replace(/[̀-ͯ]/g,'') + '_' : ''}${sufijo}.xlsx`);
+  } catch(err){
+    console.error(err);
+    btn.title = err.message;
+  } finally {
+    btn.disabled = false;
+  }
+}
+$('#btn-descargar').addEventListener('click', descargarExcel);
+
+function updateVistaLabel(){
+  const trend = isTrendMode();
+  $('#f-vista-label').textContent = trend ? 'Mapa de calor' : 'Foto del día';
+  $('#f-fecha').disabled = trend;
+  $('#btn-prev').disabled = trend;
+  $('#btn-next').disabled = trend;
+}
+
+function render(){
+  if(isTrendMode()) render30View();
+  else renderDayView();
+}
+
+$('#f-fecha').addEventListener('change', render);
+$('#f-orden').addEventListener('change', render);
+$('#f-vista').addEventListener('change', () => { updateVistaLabel(); render(); });
+$('#btn-prev').addEventListener('click', () => {
+  const idx = fechasDisponibles.indexOf($('#f-fecha').value);
+  if(idx > 0){ $('#f-fecha').value = fechasDisponibles[idx-1]; render(); }
+});
+$('#btn-next').addEventListener('click', () => {
+  const idx = fechasDisponibles.indexOf($('#f-fecha').value);
+  if(idx < fechasDisponibles.length-1){ $('#f-fecha').value = fechasDisponibles[idx+1]; render(); }
+});
+
+updateVistaLabel();
+render();
+</script>
+
+</body></html>
