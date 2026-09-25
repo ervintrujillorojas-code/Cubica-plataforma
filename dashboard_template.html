@@ -415,6 +415,22 @@
         </div>
       </div>
     </div>
+    <div class="field grow">
+      <label for="f-clase-btn">Clase de pedido</label>
+      <div class="multiselect" id="clase-multiselect">
+        <button type="button" class="multiselect-btn" id="f-clase-btn" aria-haspopup="listbox" aria-expanded="false">
+          <span id="f-clase-label">Todas las clases</span>
+          <span class="material-symbols-outlined">expand_more</span>
+        </button>
+        <div class="multiselect-panel" id="f-clase-panel" hidden>
+          <div class="multiselect-actions">
+            <button type="button" class="link-btn" id="clase-select-all">Seleccionar todas</button>
+            <button type="button" class="link-btn" id="clase-clear">Limpiar</button>
+          </div>
+          <div class="multiselect-options" id="clase-options"></div>
+        </div>
+      </div>
+    </div>
     <div class="field">
       <label for="f-orden">Ordenar por</label>
       <select id="f-orden">
@@ -450,12 +466,14 @@
 
 <!-- Versión del tablero: subirla con cada cambio (ver historial en README.md) -->
 <div class="version-bar">
-  <span>Versión del tablero <b>1.6</b></span>
+  <span>Versión del tablero <b>1.7</b></span>
   <span>Datos actualizados: <b>__GENERADO__</b> (hora Colombia)</span>
 </div>
 
 <script>
 const RAW = __RAW_JSON__;
+// DATA = resumen/detalle recalculados con el filtro de clase de pedido (ver aplicarFiltroClase)
+let DATA = {resumen: RAW.resumen, detalle: RAW.detalle};
 const $ = (sel) => document.querySelector(sel);
 const fmtNum = (n) => n.toLocaleString('es-CO', {maximumFractionDigits: 0});
 const fmtCu = (n) => n.toLocaleString('es-CO', {minimumFractionDigits: 2, maximumFractionDigits: 2});
@@ -494,21 +512,23 @@ const fechasHeatmap = buildFechasVentana(fechasDisponibles[0], 30);
 
 function fechaCounts(){
   const map = {};
-  RAW.resumen.forEach(r => {
+  DATA.resumen.forEach(r => {
     if(!map[r.fecha]) map[r.fecha] = {deptos:0, pedidos:0};
     map[r.fecha].deptos += 1;
     map[r.fecha].pedidos += r.total_ordenes;
   });
   return map;
 }
-const counts = fechaCounts();
+let counts = fechaCounts();
 
 function populateFechas(){
   const sel = $('#f-fecha');
+  const actual = sel.value;
   sel.innerHTML = fechasDisponibles.map(f => {
-    const c = counts[f];
+    const c = counts[f] || {deptos:0, pedidos:0};
     return `<option value="${f}">${fmtFechaLabel(f)} &middot; ${c.deptos} deptos &middot; ${c.pedidos} pedidos</option>`;
   }).join('');
+  if(actual) sel.value = actual;
 }
 populateFechas();
 
@@ -548,7 +568,7 @@ function updateDeptoLabel(){
 function populateDeptoOptions(){
   const box = $('#depto-options');
   box.innerHTML = deptosVisibles().map(dep => {
-    const total = RAW.resumen.filter(r => r.departamento === dep).reduce((s,r) => s + r.total_ordenes, 0);
+    const total = DATA.resumen.filter(r => r.departamento === dep).reduce((s,r) => s + r.total_ordenes, 0);
     const checked = selectedDeptos.has(dep);
     return `<div class="option-row" role="checkbox" aria-checked="${checked}" tabindex="0" data-dep="${dep}">
       <span class="material-symbols-outlined opt-check">${checked?'check_box':'check_box_outline_blank'}</span>
@@ -598,6 +618,99 @@ $('#f-plataforma').addEventListener('change', () => {
 $('#depto-clear').addEventListener('click', () => {
   selectedDeptos = new Set();
   populateDeptoOptions(); updateDeptoLabel(); render();
+});
+
+// ---- Filtro por clase de pedido ----
+const DESC_CLASE = {};
+const conteoClase = {};
+(RAW.pedidos || []).forEach(p => { DESC_CLASE[p[4]] = p[5]; conteoClase[p[4]] = (conteoClase[p[4]] || 0) + 1; });
+const clasesTodas = Object.keys(DESC_CLASE).sort();
+let selectedClases = new Set(clasesTodas);
+
+function aplicarFiltroClase(){
+  if(selectedClases.size === clasesTodas.length){
+    DATA = {resumen: RAW.resumen, detalle: RAW.detalle};
+  } else {
+    const res = {}, det = {};
+    (RAW.pedidos || []).forEach(p => {
+      const [fecha, , dep, muni, clase, desc] = p;
+      if(!selectedClases.has(clase)) return;
+      const key = `${fecha}|${dep}`;
+      const r = res[key] || (res[key] = {fecha, departamento: dep, total_ordenes: 0, ordenes_ocupadas: 0, cubicaje_total: 0, cubicaje_ocupado: 0});
+      r.total_ordenes += 1;
+      r.cubicaje_total += p[9] || 0;
+      const dk = `${key}|${muni}|${clase}`;
+      const d = det[dk] || (det[dk] = {key, municipio: muni, clase, desc, grupo: 'POSVENTA', total: 0, ocupado: 0});
+      d.total += 1;
+    });
+    const detalle = {};
+    Object.values(det)
+      .sort((a,b) => a.municipio.localeCompare(b.municipio) || b.total - a.total)
+      .forEach(({key, ...d}) => { (detalle[key] = detalle[key] || []).push(d); });
+    DATA = {resumen: Object.values(res), detalle};
+  }
+  counts = fechaCounts();
+  populateFechas();
+  populateDeptoOptions();
+}
+
+function updateClaseLabel(){
+  const n = selectedClases.size;
+  const label = $('#f-clase-label');
+  if(n === 0) label.textContent = 'Ninguna clase';
+  else if(n === clasesTodas.length) label.textContent = 'Todas las clases';
+  else if(n === 1){ const c = [...selectedClases][0]; label.textContent = `${c} · ${DESC_CLASE[c]}`; }
+  else label.textContent = `${n} clases seleccionadas`;
+}
+function onClaseChange(){ aplicarFiltroClase(); updateClaseLabel(); render(); }
+
+function populateClaseOptions(){
+  const box = $('#clase-options');
+  box.innerHTML = clasesTodas.map(c => {
+    const checked = selectedClases.has(c);
+    return `<div class="option-row" role="checkbox" aria-checked="${checked}" tabindex="0" data-clase="${c}">
+      <span class="material-symbols-outlined opt-check">${checked?'check_box':'check_box_outline_blank'}</span>
+      <span class="opt-name"><b>${c}</b> &middot; ${DESC_CLASE[c]}</span>
+      <span class="opt-count">${conteoClase[c]}</span>
+    </div>`;
+  }).join('');
+  function toggleRow(row){
+    const c = row.getAttribute('data-clase');
+    const nowChecked = !selectedClases.has(c);
+    if(nowChecked) selectedClases.add(c); else selectedClases.delete(c);
+    row.setAttribute('aria-checked', String(nowChecked));
+    row.querySelector('.opt-check').textContent = nowChecked ? 'check_box' : 'check_box_outline_blank';
+    onClaseChange();
+  }
+  box.querySelectorAll('.option-row').forEach(row => {
+    row.addEventListener('click', () => toggleRow(row));
+    row.addEventListener('keydown', (e) => {
+      if(e.key === ' ' || e.key === 'Enter'){ e.preventDefault(); toggleRow(row); }
+    });
+  });
+}
+populateClaseOptions();
+updateClaseLabel();
+
+function setClasePanel(open){
+  $('#f-clase-panel').hidden = !open;
+  $('#f-clase-btn').setAttribute('aria-expanded', String(open));
+}
+$('#f-clase-btn').addEventListener('click', (e) => {
+  e.stopPropagation();
+  setClasePanel($('#f-clase-panel').hidden);
+});
+document.addEventListener('click', (e) => {
+  if(!$('#clase-multiselect').contains(e.target)) setClasePanel(false);
+});
+document.addEventListener('keydown', (e) => { if(e.key === 'Escape') setClasePanel(false); });
+$('#clase-select-all').addEventListener('click', () => {
+  selectedClases = new Set(clasesTodas);
+  populateClaseOptions(); onClaseChange();
+});
+$('#clase-clear').addEventListener('click', () => {
+  selectedClases = new Set();
+  populateClaseOptions(); onClaseChange();
 });
 
 function rowPctServ(r){ return pct(r.total_ordenes, capServ(r.departamento)); }
@@ -660,7 +773,7 @@ function renderCard(row){
   const pC = rowPctCu(row);
   const alerta = rowEnAlerta(row);
   const key = `${fecha}|${dep}`;
-  const breakdown = (RAW.detalle[key] || []);
+  const breakdown = (DATA.detalle[key] || []);
 
   const depoTitle = dep.charAt(0) + dep.slice(1).toLowerCase();
 
@@ -718,7 +831,7 @@ function renderCard(row){
 
 function currentRows(){
   const fecha = $('#f-fecha').value;
-  let rows = RAW.resumen.filter(r => r.fecha === fecha && selectedDeptos.has(r.departamento));
+  let rows = DATA.resumen.filter(r => r.fecha === fecha && selectedDeptos.has(r.departamento));
   const orden = $('#f-orden').value;
   if(orden === 'pedidos') rows = rows.sort((a,b) => b.total_ordenes - a.total_ordenes);
   else if(orden === 'avance') rows = rows.sort((a,b) => rowMaxPct(a) - rowMaxPct(b));
@@ -728,7 +841,7 @@ function currentRows(){
 
 function trendSeries(dep){
   const byFecha = {};
-  RAW.resumen.filter(r => r.departamento === dep).forEach(r => { byFecha[r.fecha] = r; });
+  DATA.resumen.filter(r => r.departamento === dep).forEach(r => { byFecha[r.fecha] = r; });
   return fechasHeatmap.map(f => byFecha[f] || {fecha: f, departamento: dep, total_ordenes: 0, cubicaje_total: 0});
 }
 
@@ -781,12 +894,12 @@ function render30Stats(deps){
 function heatRowId(dep){ return `heat-detail-${dep.replace(/[^a-zA-Z0-9]/g,'_')}`; }
 
 function heatDetailHtml(dep, fecha){
-  const row = RAW.resumen.find(r => r.departamento === dep && r.fecha === fecha)
+  const row = DATA.resumen.find(r => r.departamento === dep && r.fecha === fecha)
     || {departamento: dep, fecha, total_ordenes: 0, cubicaje_total: 0};
   const pO = rowPctServ(row);
   const pC = rowPctCu(row);
   const alerta = Math.max(pO, pC) >= 100;
-  const breakdown = RAW.detalle[`${fecha}|${dep}`] || [];
+  const breakdown = DATA.detalle[`${fecha}|${dep}`] || [];
   const depoTitle = titleCase(dep);
 
   const rowsHtml = breakdownRowsHtml(breakdown, row.total_ordenes);
@@ -964,7 +1077,7 @@ function isoToDate(iso){
 }
 function pedidosFiltrados(){
   const fechas = isTrendMode() ? new Set(fechasHeatmap) : new Set([$('#f-fecha').value]);
-  return (RAW.pedidos || []).filter(p => fechas.has(p[0]) && selectedDeptos.has(p[2]));
+  return (RAW.pedidos || []).filter(p => fechas.has(p[0]) && selectedDeptos.has(p[2]) && selectedClases.has(p[4]));
 }
 function cargarSheetJS(){
   if(window.XLSX) return Promise.resolve();
